@@ -4,6 +4,14 @@ English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – De
 
 > **Status: PROPOSED working plan, not a district-approved calendar.** The dashboard is a coordination tool, not a record of implemented instruction.
 
+## Live site
+
+**https://bookfairshit.github.io/Unit-2.2-Informational-Text/** opens the dashboard. Add a view name to link straight to one tab, for example `…/#week` or `…/#stations`.
+
+- Published with GitHub Pages from the `gh-pages` branch. To update the live site, push the new commit to `gh-pages` as well (`git push origin HEAD:gh-pages`). Pages rebuilds in a minute or two.
+- The site is public, like the repository. Anyone with the link can view it.
+- Each teammate's edits on the live site stay in their own browser. Share changes by exporting JSON and having the maintainer import it and push an updated file.
+
 ## Files
 
 | File | What it is |
