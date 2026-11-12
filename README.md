@@ -18,6 +18,7 @@ English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – De
 |---|---|
 | `unit-2-2-dashboard.html` | The calendar and planning dashboard. One self-contained file: no internet connection, build step or outside libraries. |
 | `unit-2-2-lesson-pack-nov-12-13.html` | Pass 2: lesson plans for Thu Nov 12 (Rhetoric Remix) and Fri Nov 13 (Museum of Persuasion), with board text, scenario and audience cards, group sheet, vote slips, exit tickets, FDR excerpt card templates, museum placards, gallery role cards and MLK teaser half sheets. Prints to 16 letter pages. |
+| `lumio/rhetoric-remix-nov-12.pptx` | Paper-free Nov 12 deck for Lumio (23 slides): bellwork, FDR retrieval, mini-model, success criteria, one slide per table (8 tables, each a scenario + two audiences with space to write), Audience Switch, listener vote, spiral transfer and exit ticket. Teacher bank at the end: 12 scenarios, 16 audiences, a blank table card to duplicate, and a short-bell plan. Live download: `https://bookfairshit.github.io/Unit-2.2-Informational-Text/lumio/rhetoric-remix-nov-12.pptx` |
 | `tests/dashboard.test.js` | Automated checks for the quality tests in brief §10. |
 
 Keep both HTML files in the same folder so the dashboard's links to the lesson pack work.
