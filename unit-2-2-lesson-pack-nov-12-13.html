@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rhetoric Remix + Museum of Persuasion · Lesson Pack</title>
+<meta name="description" content="Teacher-facing plans and printables for Unit 2.2, Thu Nov 12 and Fri Nov 13, 2026. Proposed plans; adapt to the actual bell.">
+<style>
+:root{
+  /* Layout: a stack of letter-size sheets. On screen they sit on parchment like pages on a desk; in print each sheet is one page. */
+  --parchment:#F4EEDF;
+  --paper:#FFFFFF;
+  --ink:#1F1C17;
+  --ink-2:#4F483C;
+  --rule:#CDBF9F;
+  --forest:#23533E;
+  --forest-deep:#1C4232;
+  --forest-tint:#E1ECE3;
+  --burgundy:#7A2233;
+  --gold-tint:#F4E7C4;
+  --gold-ink:#6B4C0E;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","URW Palladio L",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--ink);font:15px/1.5 var(--sans)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding-left:1.2em}
+a{color:var(--forest)}
+:focus-visible{outline:3px solid var(--forest);outline-offset:2px}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--forest-deep);color:#F6F0E1;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.topbar .in{max-width:8.5in;margin:0 auto;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:space-between}
+.topbar a{color:#F6F0E1}
+.topbar nav{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px}
+.topbar button{appearance:none;border:1px solid rgba(246,240,225,.5);background:transparent;color:#F6F0E1;border-radius:4px;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}
+.stack{display:flex;flex-direction:column;align-items:center;gap:24px;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheet{background:var(--paper);width:100%;max-width:8.5in;padding:.5in;box-shadow:0 1px 2px rgba(38,34,27,.1),0 10px 30px rgba(38,34,27,.08);display:flex;flex-direction:column;gap:14px;min-width:0}
+.sheet-label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--ink-2);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--forest)}
+h1{font-size:34px}
+h2{font-size:26px}
+h3{font-size:18px}
+.flag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px dashed var(--ink-2);padding:2px 8px;border-radius:3px;color:var(--ink-2)}
+.flag.hold{border:1px solid #D9BD73;background:var(--gold-tint);color:var(--gold-ink)}
+.lead{font-family:var(--serif);font-size:18px;line-height:1.45}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.box{border:1px solid var(--rule);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box h3{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.std b{font-family:var(--mono);font-size:13px}
+.note{background:var(--gold-tint);color:var(--gold-ink);border-radius:4px;padding:8px 10px;font-size:13.5px}
+table.run{width:100%;border-collapse:collapse;font-size:14px}
+table.run th,table.run td{border-top:1px solid var(--rule);padding:8px 8px;text-align:left;vertical-align:top}
+table.run th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+table.run td:first-child{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:var(--ink-2);width:64px}
+table.run td b{display:block}
+table.run tr{break-inside:avoid}
+.check{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 16px;font-size:14px}
+.check li::before{content:"\2610  ";font-size:15px}
+.quote{font-family:var(--serif);font-style:italic}
+.toc{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px}
+.toc ol{display:flex;flex-direction:column;gap:3px}
+/* Board text */
+.board{display:flex;flex-direction:column;gap:22px}
+.board .bt{border:2px solid var(--ink);border-radius:6px;padding:16px 18px}
+.board .bt .eyebrow{font-size:13px}
+.board .bt p{font-family:var(--serif);font-size:24px;line-height:1.35;margin-top:6px}
+/* Cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(4.35in,auto)}
+.cards.short{grid-auto-rows:minmax(2.15in,auto)}
+.cards.tiny{grid-auto-rows:minmax(1.7in,auto)}
+.card{border:1.5px dashed #8E846F;margin:-.75px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card .tag{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.card h3{font-size:24px}
+.card .big{font-family:var(--serif);font-size:19px;line-height:1.4}
+.card .small{font-size:13px;color:var(--ink-2)}
+.card.teacher{background:#F7F3E8}
+.lines{display:flex;flex-direction:column;gap:0;flex:1 1 auto}
+.line{border-bottom:1px solid #9C917A;height:30px}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.half{min-height:4.6in;border:1.5px dashed #8E846F;padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+.half + .half{margin-top:-1.5px}
+.field{display:flex;flex-direction:column;gap:2px}
+.field .line{height:28px}
+.tick{display:flex;gap:18px;flex-wrap:wrap;font-size:14px}
+.tick span::before{content:"\2610 ";font-size:16px}
+.swatch{display:inline-block;width:14px;height:14px;border:1px solid #000;vertical-align:-2px;margin-right:4px}
+.sw-g{background:#5FA36F}.sw-y{background:#EBC94A}.sw-r{background:#D4574F}
+table.bridge{width:100%;border-collapse:collapse;font-size:15px}
+table.bridge th,table.bridge td{border:1.5px solid var(--ink);padding:10px;vertical-align:top;text-align:left}
+table.bridge thead th{font-family:var(--serif);font-size:19px}
+table.bridge td{height:1.1in}
+table.bridge th[scope=row]{width:26%;font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.footer{margin-top:auto;font-size:10.5px;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:6px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+@media screen and (max-width:640px){
+  .sheet{padding:20px 16px}
+  .grid2,.toc{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr;grid-auto-rows:auto}
+  .card{min-height:0}
+  .half{min-height:0}
+  h1{font-size:28px}
+  .board .bt p{font-size:20px}
+  table.run td:first-child{width:auto}
+}
+@media print{
+  @page{size:letter;margin:.5in}
+  body{background:#fff;font-size:11pt}
+  .topbar{display:none}
+  .stack{padding:0;gap:0;display:block}
+  .sheet{box-shadow:none;max-width:none;width:auto;padding:0;break-after:page}
+  .sheet:last-child{break-after:auto}
+  a{color:#000;text-decoration:none}
+  .note{border:1px solid #D9BD73}
+  .sheet{gap:9px}
+  #cover h1{font-size:28pt}
+  #cover .lead{font-size:13pt}
+  #cover .box{padding:7px 10px;gap:4px}
+  #cover .box li,#cover .toc{font-size:10pt}
+  #cover .check{grid-template-columns:repeat(3,1fr);font-size:10pt}
+  .half{min-height:4.25in;padding:12px 16px;gap:7px}
+  #p-exit12 .half{min-height:3.3in}
+  .cards.short{grid-auto-rows:minmax(2in,auto)}
+  .cards.short .line{height:24px}
+  .field .line{height:26px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="in">
+    <strong>Unit 2.2 lesson pack · Nov 12–13</strong>
+    <nav aria-label="Jump to"><a href="#cover">Contents</a><a href="#nov12">Thu Nov 12</a><a href="#nov13">Fri Nov 13</a><a href="unit-2-2-dashboard.html">Dashboard</a></nav>
+    <button type="button" id="printBtn">Print pack</button>
+  </div>
+</div>
+
+<main class="stack">
+
+<!-- ============ COVER ============ -->
+<section class="sheet" id="cover" aria-labelledby="coverTitle">
+  <div class="sheet-label"><span>English I CLT · Unit 2.2 · Words That Move History</span><span>Lesson pack</span></div>
+  <p class="eyebrow">Thu Nov 12 &amp; Fri Nov 13, 2026</p>
+  <h1 id="coverTitle">Rhetoric Remix + Museum of Persuasion</h1>
+  <p><span class="flag">Proposed plan</span> <span class="flag">Adapt to the actual bell</span> <span class="flag">Not a record of implemented instruction</span></p>
+  <p class="lead">Two days that turn the FDR Lumio annotations into transfer: students rewrite a message for different audiences, then build a gallery that explains how FDR’s choices answered the 1933 moment and set up the MLK sequence.</p>
+  <div class="note"><b>Before printing.</b> Thursday’s Darter Huddle may shorten class; the Nov 12 plan is a 45-minute model and Nov 13 a 50-minute model. The FDR excerpt cards are left blank on purpose: copy in the team’s selected Lumio excerpts so students analyze the same text they annotated. Source an MLK clip or licensed excerpt with captions or a transcript before Friday.</div>
+  <div class="grid2">
+    <div class="box"><h3>Shared Core (common)</h3><ul><li>Standards: ELA.9.R.2.3 and R.3.4</li><li>Nov 12 deliverable: two versions + audience-effect comparison</li><li>Nov 13 deliverable: evidence-based gallery label and exit</li><li>Annotation key: green = ethos, yellow = logos, red = pathos</li></ul></div>
+    <div class="box"><h3>Individual Craft (your call)</h3><ul><li>Grouping and roles</li><li>Which scenarios and audiences each group gets</li><li>Timing inside your bell</li><li>Whether students present aloud or in writing</li></ul></div>
+  </div>
+  <div class="toc">
+    <div><p class="eyebrow">Thursday · Rhetoric Remix</p><ol>
+      <li><a href="#nov12">Lesson plan</a></li>
+      <li><a href="#b12">Board text to project</a></li>
+      <li><a href="#p-scen">Scenario cards (1 set per 3 groups + teacher card)</a></li>
+      <li><a href="#p-aud">Audience cards (2 per group)</a></li>
+      <li><a href="#p-group">Group remix sheet (1 per group)</a></li>
+      <li><a href="#p-vote">Listener vote slips</a></li>
+      <li><a href="#p-exit12">Spiral frame + exit tickets</a></li>
+    </ol></div>
+    <div><p class="eyebrow">Friday · Museum of Persuasion</p><ol>
+      <li><a href="#nov13">Lesson plan</a></li>
+      <li><a href="#b13">Board text + context bridge</a></li>
+      <li><a href="#p-excerpt">FDR excerpt cards (fill from Lumio)</a></li>
+      <li><a href="#p-placard">Museum placards (half sheets)</a></li>
+      <li><a href="#p-roles">Gallery roles + sticky-note starters</a></li>
+      <li><a href="#p-exit13">MLK teaser + exit half sheets</a></li>
+    </ol></div>
+  </div>
+  <div class="box"><h3>Prep checklist</h3>
+    <ul class="check">
+      <li>Scenario cards cut (one per group)</li><li>Audience cards cut (two per group)</li><li>Group remix sheets</li><li>Listener vote slips</li><li>Exit tickets (or Lumio exit open)</li><li>Green, yellow, red pencils/highlighters</li><li>FDR excerpt cards filled from Lumio</li><li>Museum placards (half sheets)</li><li>Tape and sticky notes</li><li>MLK clip with transcript, tested</li><li>Timer visible</li><li>Projector</li>
+    </ul>
+  </div>
+  <p class="footer"><span>Built from the Unit 2.2 production brief (Nov 11, 2026), §6–7.</span><span>Pairs with unit-2-2-dashboard.html</span></p>
+</section>
+
+<!-- ============ NOV 12 PLAN ============ -->
+<section class="sheet" id="nov12" aria-labelledby="t12">
+  <div class="sheet-label"><span>Thu Nov 12 · Lesson plan</span><span>45-minute model · Darter Huddle may alter class time</span></div>
+  <p class="eyebrow">FDR launch · school day 3 of 24 · <span class="flag">Proposed</span></p>
+  <h2 id="t12">Rhetoric Remix — Same Crisis, Different Audience</h2>
+  <p class="lead">Objective: Explain how audience and purpose change the rhetorical choices a speaker makes; support the explanation with exact language from a student-created text.</p>
+  <div class="grid2">
+    <div class="box std"><h3>Standards</h3><p><b>ELA.9.R.2.3</b> primary: how appeals establish and achieve a specific, stated purpose; whether ethos, logos and pathos fit.</p><p><b>ELA.9.R.3.4</b> supporting: the rhetoric’s contribution, not device spotting.</p></div>
+    <div class="box"><h3>Success criterion</h3><p>1 cited choice + 1 plausible audience effect + 1 “why” explanation.</p><h3 style="margin-top:4px">Deliverable</h3><p>Two versions + audience-effect comparison.</p></div>
+  </div>
+  <table class="run">
+    <thead><tr><th scope="col">Min</th><th scope="col">What happens</th></tr></thead>
+    <tbody>
+      <tr><td>0–5</td><td><b>Bellwork (composition notebook)</b>“Would you rather hear a leader say ‘Everything is fine’ or ‘Things are difficult, but here is our plan’? Why?” Two sentences; one quick share.</td></tr>
+      <tr><td>5–11</td><td><b>Retrieval / completion</b>Project one short FDR selection from Lumio. Call for green ethos, yellow logos, red pathos. Ask: <i>What does this language attempt to make listeners believe or feel?</i> If the Lumio task is unfinished, use this time for completion.</td></tr>
+      <tr><td>11–15</td><td><b>Mini-model</b>Teacher-written neutral scenario (teacher card on the scenario page): “A school event is postponed because of severe weather. A new date will be announced tomorrow.” Model how an announcement to anxious students versus families might differ. Do not pretend every appeal is present.</td></tr>
+      <tr><td>15–28</td><td><b>Creative task (groups of 3–4)</b>Each group gets one scenario card and two audience cards. Write two 2–3 sentence announcements on the group remix sheet. Mark one purposeful appeal in each with green, yellow or red and label its effect. Rotate a speaker to deliver each version in a contrasting tone.</td></tr>
+      <tr><td>28–36</td><td><b>Kinesthetic “Audience Switch”</b>On cue, groups swap one audience card with a neighboring group, revise one sentence in 90 seconds, then stand and read the revision. Listeners vote on a slip which version better fits the new audience and must justify with a word or phrase.</td></tr>
+      <tr><td>36–42</td><td><b>Individual transfer (spiral notebook)</b>Entry title <b style="display:inline">11/12 — Rhetoric Remix: Audience Matters</b>. Copy one original line and the revised line, name one rhetorical choice, and write: “Changing ___ to ___ makes the audience more likely to ___ because ___.”</td></tr>
+      <tr><td>42–45</td><td><b>Exit ticket (slip or Lumio)</b>Independently explain which FDR rhetorical choice was best suited to the audience in 1933 and why; cite one brief phrase. Collect and sort to group students for the next teacher table.</td></tr>
+    </tbody>
+  </table>
+  <div class="grid2">
+    <div class="box"><h3>Sample teacher model (edit freely)</h3>
+      <p><b>To anxious students:</b> <span class="quote">“We know you were looking forward to this, and so were we. Your safety matters more than any event, so we are postponing it. Watch for the new date tomorrow.”</span><br><span class="swatch sw-r"></span>Red (pathos): “so were we” shares the disappointment, so students feel understood instead of brushed off.</p>
+      <p><b>To families:</b> <span class="quote">“Because severe weather is expected, the event is postponed so no one has to travel in unsafe conditions. We will announce the new date tomorrow.”</span><br><span class="swatch sw-y"></span>Yellow (logos): “Because severe weather is expected” gives a reason, so families see the decision as sensible.</p>
+      <p style="font-size:13px;color:var(--ink-2)">Each version carries one clear appeal. Say so out loud: not every message uses all three.</p>
+    </div>
+    <div class="box"><h3>Differentiation</h3><ul><li>Sentence frames (on the spiral frame half sheet)</li><li>Preprinted neutral scenario</li><li>Optional oral rehearsal before writing</li><li>Extension: When might an emotional appeal be manipulative, or not enough without evidence?</li></ul>
+      <h3 style="margin-top:6px">Teacher talk</h3><p class="quote">“A rhetorical device is not a scavenger-hunt prize. The question is what the choice does to a particular audience.”</p>
+      <h3 style="margin-top:6px">Materials</h3><p>Scenario cards, two audience cards per group, colored pencils or highlighters, FDR excerpts, timer, notebooks.</p></div>
+  </div>
+  <p class="footer"><span>Source: production brief §6. Exit slips feed the next teacher table: sort by observed need.</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ NOV 12 BOARD TEXT ============ -->
+<section class="sheet" id="b12" aria-labelledby="tb12">
+  <div class="sheet-label"><span>Thu Nov 12 · Board text</span><span>Project or copy onto the board</span></div>
+  <h2 id="tb12" class="sr-only" style="position:absolute;left:-9999px">Nov 12 board text</h2>
+  <div class="board">
+    <div class="bt"><p class="eyebrow">Bellwork · composition notebook · 2 sentences</p><p>Would you rather hear a leader say “Everything is fine” or “Things are difficult, but here is our plan”? Why?</p></div>
+    <div class="bt"><p class="eyebrow">Ask while reviewing the FDR selection</p><p>What does this language attempt to make listeners believe or feel?</p></div>
+    <div class="bt"><p class="eyebrow">Spiral notebook · 11/12 — Rhetoric Remix: Audience Matters</p><p>Changing ___ to ___ makes the audience more likely to ___ because ___.</p></div>
+    <div class="bt"><p class="eyebrow">Exit ticket · on your own</p><p>Which FDR rhetorical choice was best suited to the audience in 1933, and why? Cite one brief phrase.</p></div>
+  </div>
+  <p class="footer"><span>Annotation key: green = ethos · yellow = logos · red = pathos</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ SCENARIO CARDS ============ -->
+<section class="sheet" id="p-scen" aria-labelledby="tsc">
+  <div class="sheet-label"><span>Thu Nov 12 · Scenario cards</span><span>Cut on dashed lines · one card per group</span></div>
+  <h2 id="tsc" style="position:absolute;left:-9999px">Scenario cards</h2>
+  <div class="cards">
+    <div class="card teacher"><span class="tag">Teacher model · mini-model</span><h3>Severe weather postponement</h3><p class="big">A school event is postponed because of severe weather. A new date will be announced tomorrow.</p><p class="small">Model two audiences: anxious students and families. Mark one appeal in each. Do not pretend every appeal is present.</p></div>
+    <div class="card"><span class="tag">Scenario A</span><h3>The event is moving</h3><p class="big">A school event has been moved to a different day. Everyone who planned to attend needs to know about the change.</p><p class="small">Your facts are only what is on this card. Do not invent numbers or quotes.</p></div>
+    <div class="card"><span class="tag">Scenario B</span><h3>The bus is running late</h3><p class="big">A school bus route is delayed this afternoon. Riders will be picked up later than usual.</p><p class="small">Your facts are only what is on this card. Do not invent numbers or quotes.</p></div>
+    <div class="card"><span class="tag">Scenario C</span><h3>The library is closing for now</h3><p class="big">The school library is closing temporarily. Students will not be able to use it until it reopens.</p><p class="small">Your facts are only what is on this card. Do not invent numbers or quotes.</p></div>
+  </div>
+  <p class="footer"><span>Neutral scenarios from brief §6. Groups write two 2–3 sentence announcements for their two audiences.</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ AUDIENCE CARDS ============ -->
+<section class="sheet" id="p-aud" aria-labelledby="tau">
+  <div class="sheet-label"><span>Thu Nov 12 · Audience cards</span><span>Cut on dashed lines · two per group (students + families, or athletes + teachers)</span></div>
+  <h2 id="tau" style="position:absolute;left:-9999px">Audience cards</h2>
+  <div class="cards">
+    <div class="card"><span class="tag">Audience</span><h3>Students</h3><p class="big">What do they care about here? What might they be worried about or annoyed by?</p><p class="small">Pick the one appeal most likely to move this audience, and be ready to say why.</p></div>
+    <div class="card"><span class="tag">Audience</span><h3>Families</h3><p class="big">What do they care about here? What might they be worried about or annoyed by?</p><p class="small">Pick the one appeal most likely to move this audience, and be ready to say why.</p></div>
+    <div class="card"><span class="tag">Audience</span><h3>Athletes</h3><p class="big">What do they care about here? What might they be worried about or annoyed by?</p><p class="small">Pick the one appeal most likely to move this audience, and be ready to say why.</p></div>
+    <div class="card"><span class="tag">Audience</span><h3>Teachers</h3><p class="big">What do they care about here? What might they be worried about or annoyed by?</p><p class="small">Pick the one appeal most likely to move this audience, and be ready to say why.</p></div>
+  </div>
+  <p class="footer"><span>Audience Switch (28–36 min): swap one card with a neighboring group, revise one sentence in 90 seconds.</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ GROUP SHEET ============ -->
+<section class="sheet" id="p-group" aria-labelledby="tgr">
+  <div class="sheet-label"><span>Thu Nov 12 · Group remix sheet</span><span>One per group</span></div>
+  <h2 id="tgr">Rhetoric Remix</h2>
+  <div class="grid2" style="grid-template-columns:2fr 1fr"><div class="field"><span class="lbl">Group members</span><div class="line"></div></div><div class="field"><span class="lbl">Scenario (A / B / C)</span><div class="line"></div></div></div>
+  <p style="font-size:13.5px">Mark one purposeful appeal in each version: <span class="swatch sw-g"></span>green ethos · <span class="swatch sw-y"></span>yellow logos · <span class="swatch sw-r"></span>red pathos. Then label what it does to that audience.</p>
+  <div class="box"><div class="field"><span class="lbl">Version 1 · Audience:</span></div><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+    <div class="tick"><span>Green</span><span>Yellow</span><span>Red</span></div><div class="field"><span class="lbl">Effect on this audience</span><div class="line"></div></div></div>
+  <div class="box"><div class="field"><span class="lbl">Version 2 · Audience:</span></div><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+    <div class="tick"><span>Green</span><span>Yellow</span><span>Red</span></div><div class="field"><span class="lbl">Effect on this audience</span><div class="line"></div></div></div>
+  <div class="box"><span class="lbl">Audience Switch · new audience: ______________ · 90 seconds</span>
+    <div class="field"><span class="lbl">Original sentence</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Revised sentence</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Comparison: Version 1 works for its audience because ___, while Version 2 works because ___.</span><div class="line"></div><div class="line"></div></div></div>
+  <p class="footer"><span>Deliverable: two versions + audience-effect comparison.</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ VOTE SLIPS ============ -->
+<section class="sheet" id="p-vote" aria-labelledby="tvo">
+  <div class="sheet-label"><span>Thu Nov 12 · Listener vote slips</span><span>Cut on dashed lines · one per listener per round</span></div>
+  <h2 id="tvo" style="position:absolute;left:-9999px">Listener vote slips</h2>
+  <div class="cards tiny">
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+    <div class="card"><span class="tag">Audience Switch vote</span><div class="tick"><span>Original fits better</span><span>Revision fits better</span></div><span class="lbl">The word or phrase that proves it</span><div class="line"></div><div class="line"></div></div>
+  </div>
+  <p class="footer"><span>A vote without a word or phrase does not count.</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ SPIRAL FRAME + EXIT ============ -->
+<section class="sheet" id="p-exit12" aria-labelledby="tex12">
+  <div class="sheet-label"><span>Thu Nov 12 · Spiral frame (support) + exit tickets</span><span>Top: half sheet for students who need frames · Bottom: cut into exit tickets</span></div>
+  <h2 id="tex12" style="position:absolute;left:-9999px">Spiral frame and exit tickets</h2>
+  <div class="half">
+    <span class="tag lbl">Spiral notebook · copy this title into your table of contents</span>
+    <h3>11/12 — Rhetoric Remix: Audience Matters</h3>
+    <div class="field"><span class="lbl">Original line</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Revised line</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">One rhetorical choice I made</span><div class="line"></div></div>
+    <p class="quote" style="font-size:16px">Changing ________ to ________ makes the audience more likely to ________ because ________.</p>
+    <div class="lines"><div class="line"></div><div class="line"></div></div>
+  </div>
+  <div class="cards short" style="margin-top:10px">
+    <div class="card"><span class="tag">Exit ticket · 11/12 · Name: ____________</span><p style="font-size:14px"><b>Which FDR rhetorical choice was best suited to the audience in 1933, and why? Cite one brief phrase.</b></p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div><div class="tick" style="font-size:12px"><span>Cited choice</span><span>Audience effect</span><span>Why</span></div></div>
+    <div class="card"><span class="tag">Exit ticket · 11/12 · Name: ____________</span><p style="font-size:14px"><b>Which FDR rhetorical choice was best suited to the audience in 1933, and why? Cite one brief phrase.</b></p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div><div class="tick" style="font-size:12px"><span>Cited choice</span><span>Audience effect</span><span>Why</span></div></div>
+    <div class="card"><span class="tag">Exit ticket · 11/12 · Name: ____________</span><p style="font-size:14px"><b>Which FDR rhetorical choice was best suited to the audience in 1933, and why? Cite one brief phrase.</b></p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div><div class="tick" style="font-size:12px"><span>Cited choice</span><span>Audience effect</span><span>Why</span></div></div>
+    <div class="card"><span class="tag">Exit ticket · 11/12 · Name: ____________</span><p style="font-size:14px"><b>Which FDR rhetorical choice was best suited to the audience in 1933, and why? Cite one brief phrase.</b></p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div><div class="tick" style="font-size:12px"><span>Cited choice</span><span>Audience effect</span><span>Why</span></div></div>
+  </div>
+  <p class="footer"><span>Success criterion: 1 cited choice + 1 plausible audience effect + 1 “why” explanation.</span><span>Thu Nov 12</span></p>
+</section>
+
+<!-- ============ NOV 13 PLAN ============ -->
+<section class="sheet" id="nov13" aria-labelledby="t13">
+  <div class="sheet-label"><span>Fri Nov 13 · Lesson plan</span><span>50-minute model · adapt to the actual bell</span></div>
+  <p class="eyebrow">FDR launch → MLK bridge · school day 4 of 24 · <span class="flag">Proposed</span></p>
+  <h2 id="t13">Museum of Persuasion — From Fear to Dream</h2>
+  <p class="lead">Objective: Analyze how rhetorical choices respond to a specific historical need and predict how a later speaker might use rhetoric for a different purpose.</p>
+  <div class="grid2">
+    <div class="box std"><h3>Standards</h3><p><b>ELA.9.R.3.4</b> primary: explain the author’s use of rhetoric and its contribution to the text.</p><p><b>ELA.9.R.2.3</b> supporting: appeals and a specific, stated purpose.</p></div>
+    <div class="box"><h3>Success criterion</h3><p>The placard identifies a choice, cites a phrase, and convincingly explains its effect; the individual exit compares purposes.</p><h3 style="margin-top:4px">Deliverable</h3><p>Evidence-based gallery label and exit.</p></div>
+  </div>
+  <table class="run">
+    <thead><tr><th scope="col">Min</th><th scope="col">What happens</th></tr></thead>
+    <tbody>
+      <tr><td>0–5</td><td><b>Bellwork (composition notebook)</b>“What makes a speech worthy of being remembered?” Write one quality and a specific example.</td></tr>
+      <tr><td>5–10</td><td><b>Context bridge</b>Project the two-column bridge (board text page). Economic crisis in 1933; civil rights struggle in 1963. Fill the rows with the class in a few words each. No long history lecture: the point is that circumstances and audiences differ.</td></tr>
+      <tr><td>10–14</td><td><b>Model</b>Make a 3-line museum label: excerpt / rhetorical choice / effect on the intended audience. Say the causal link out loud (“so listeners…”), not just the label.</td></tr>
+      <tr><td>14–30</td><td><b>Gallery construction</b>Groups receive one of three FDR excerpt cards and a half-sheet placard. Required: artifact title; 8–15 word excerpt; 1933 context in one sentence; device and evidence; effect on listeners; one question to visitors. Students mount and display the placard.</td></tr>
+      <tr><td>30–39</td><td><b>Museum walk</b>Groups circulate. At each display visitors leave a sticky note that answers the question or makes a specific challenge to the analysis. An optional docent explains the label; rotate roles so no one only watches.</td></tr>
+      <tr><td>39–45</td><td><b>MLK teaser</b>Play a short, appropriately sourced MLK audio/video selection or read a brief licensed excerpt (captions or transcript on screen). Students complete the frame: “FDR needed Americans to ___. MLK needed Americans to ___. A rhetorical choice both might use is ___, but its effect differs because ___.”</td></tr>
+      <tr><td>45–50</td><td><b>Individual exit (spiral notebook)</b>Entry title <b style="display:inline">11/13 — Museum of Persuasion</b>. Choose one FDR line and one MLK teaser line or idea; explain a similarity or difference in purpose using audience and context.</td></tr>
+    </tbody>
+  </table>
+  <div class="grid2">
+    <div class="box"><h3>Model label (edit freely)</h3>
+      <p>Model with Thursday’s teacher-written announcement so you do not use up a group’s FDR excerpt:</p>
+      <p><b>Excerpt:</b> <span class="quote">“We know you were looking forward to this, and so were we.”</span></p>
+      <p><b>Choice:</b> Pathos: shared disappointment (“so were we”).</p>
+      <p><b>Effect:</b> Anxious students hear that the adults feel it too, <u>so</u> they are more likely to accept the postponement instead of blaming the school.</p>
+      <p style="font-size:13px;color:var(--ink-2)">Or model with an FDR line that is not on any group’s card.</p></div>
+    <div class="box"><h3>Access</h3><p>Display captions or transcripts, avoid requiring public speaking from every student, and provide printed evidence.</p>
+      <h3 style="margin-top:6px">Fallback</h3><p>If Thursday runs long, cut the gallery to two displays and use Friday to finish FDR annotations before the MLK teaser.</p>
+      <h3 style="margin-top:6px">Materials</h3><p>3 FDR excerpt cards, placard template, tape, sticky notes, timer, MLK clip with transcript, projector.</p></div>
+  </div>
+  <div class="note"><b>Needs before class:</b> the team’s selected FDR excerpts (copy onto the excerpt cards) and an MLK clip or licensed excerpt with captions or a transcript. Neither is reproduced in this pack.</div>
+  <p class="footer"><span>Source: production brief §7.</span><span>Fri Nov 13</span></p>
+</section>
+
+<!-- ============ NOV 13 BOARD TEXT ============ -->
+<section class="sheet" id="b13" aria-labelledby="tb13">
+  <div class="sheet-label"><span>Fri Nov 13 · Board text + context bridge</span><span>Project or copy onto the board</span></div>
+  <h2 id="tb13" style="position:absolute;left:-9999px">Nov 13 board text</h2>
+  <div class="board">
+    <div class="bt"><p class="eyebrow">Bellwork · composition notebook</p><p>What makes a speech worthy of being remembered? Write one quality and a specific example.</p></div>
+  </div>
+  <table class="bridge">
+    <caption style="text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-2);padding-bottom:6px">Context bridge · fill the rows together in a few words each</caption>
+    <thead><tr><th scope="col"></th><th scope="col">1933<br><span style="font-family:var(--sans);font-size:13px;font-weight:400">Franklin D. Roosevelt, First Inaugural Address · March 4, 1933 · the Great Depression</span></th><th scope="col">1963<br><span style="font-family:var(--sans);font-size:13px;font-weight:400">Martin Luther King Jr., “I Have a Dream” · August 28, 1963 · March on Washington for Jobs and Freedom</span></th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Who was listening?</th><td></td><td></td></tr>
+      <tr><th scope="row">What were they facing?</th><td></td><td></td></tr>
+      <tr><th scope="row">What did the speaker need them to do?</th><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="board">
+    <div class="bt"><p class="eyebrow">MLK teaser frame</p><p>FDR needed Americans to ___. MLK needed Americans to ___. A rhetorical choice both might use is ___, but its effect differs because ___.</p></div>
+  </div>
+  <p class="footer"><span>Keep the bridge to five minutes: it is a runway into the analysis, not the destination.</span><span>Fri Nov 13</span></p>
+</section>
+
+<!-- ============ EXCERPT CARDS ============ -->
+<section class="sheet" id="p-excerpt" aria-labelledby="tex">
+  <div class="sheet-label"><span>Fri Nov 13 · FDR excerpt cards</span><span>Copy in the team’s Lumio excerpts before printing or by hand</span></div>
+  <h2 id="tex" style="position:absolute;left:-9999px">FDR excerpt cards</h2>
+  <div class="cards">
+    <div class="card"><span class="tag">Excerpt card A</span><p class="small">Franklin D. Roosevelt, First Inaugural Address, March 4, 1933</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div><p class="small">Placard: choose 8–15 words from this card.</p></div>
+    <div class="card"><span class="tag">Excerpt card B</span><p class="small">Franklin D. Roosevelt, First Inaugural Address, March 4, 1933</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div><p class="small">Placard: choose 8–15 words from this card.</p></div>
+    <div class="card"><span class="tag">Excerpt card C</span><p class="small">Franklin D. Roosevelt, First Inaugural Address, March 4, 1933</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div><p class="small">Placard: choose 8–15 words from this card.</p></div>
+    <div class="card teacher"><span class="tag">Teacher note</span><h3>Why these are blank</h3><p>The team selected the FDR excerpts in the Lumio resource. Copy those same passages here so the gallery analyzes the text students already annotated.</p><p>Use excerpts, not the complete speech. Pick three that lean on different appeals so the gallery shows contrast.</p><p class="small">If the Lumio link is in the dashboard’s Resources tab, open it there.</p></div>
+  </div>
+  <p class="footer"><span>One card per group; with more than three groups, duplicate cards so two groups can compare readings of the same lines.</span><span>Fri Nov 13</span></p>
+</section>
+
+<!-- ============ PLACARDS ============ -->
+<section class="sheet" id="p-placard" aria-labelledby="tpl">
+  <div class="sheet-label"><span>Fri Nov 13 · Museum placard</span><span>Half sheets · cut on the dashed line · one per group</span></div>
+  <h2 id="tpl" style="position:absolute;left:-9999px">Museum placards</h2>
+  <div class="half">
+    <span class="lbl">Museum of Persuasion · Artifact title</span><div class="line" style="height:34px"></div>
+    <div class="field"><span class="lbl">Excerpt (8–15 words, exact)</span><div class="line"></div><div class="line"></div></div>
+    <div class="field"><span class="lbl">1933 context in one sentence</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Rhetorical choice + evidence (the exact phrase that shows it)</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Effect on listeners: this makes the 1933 audience ___ because ___</span><div class="line"></div><div class="line"></div></div>
+    <div class="field"><span class="lbl">Question for visitors</span><div class="line"></div></div>
+  </div>
+  <div class="half">
+    <span class="lbl">Museum of Persuasion · Artifact title</span><div class="line" style="height:34px"></div>
+    <div class="field"><span class="lbl">Excerpt (8–15 words, exact)</span><div class="line"></div><div class="line"></div></div>
+    <div class="field"><span class="lbl">1933 context in one sentence</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Rhetorical choice + evidence (the exact phrase that shows it)</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Effect on listeners: this makes the 1933 audience ___ because ___</span><div class="line"></div><div class="line"></div></div>
+    <div class="field"><span class="lbl">Question for visitors</span><div class="line"></div></div>
+  </div>
+  <p class="footer"><span>Success: identifies a choice, cites a phrase, convincingly explains its effect.</span><span>Fri Nov 13</span></p>
+</section>
+
+<!-- ============ ROLES + STICKY STARTERS ============ -->
+<section class="sheet" id="p-roles" aria-labelledby="tro">
+  <div class="sheet-label"><span>Fri Nov 13 · Gallery roles + sticky-note starters</span><span>Cut on dashed lines · rotate roles at each stop</span></div>
+  <h2 id="tro" style="position:absolute;left:-9999px">Gallery roles</h2>
+  <div class="cards short">
+    <div class="card"><span class="tag">Role · optional</span><h3>Docent</h3><p>Stay with your placard for one rotation. In 30 seconds, explain the excerpt, the choice and its effect. Then hand the role to a teammate.</p></div>
+    <div class="card"><span class="tag">Role</span><h3>Visitor: answer</h3><p>Answer the placard’s question on a sticky note. Use a word or phrase from the excerpt.</p></div>
+    <div class="card"><span class="tag">Role</span><h3>Visitor: challenge</h3><p>Leave a sticky note that pushes on the analysis: a different effect, a missing phrase, or a better-fitting appeal.</p></div>
+    <div class="card"><span class="tag">Role</span><h3>Recorder</h3><p>After the walk, read your group’s sticky notes and pick one to answer or use in a revision.</p></div>
+  </div>
+  <div class="cards short" style="margin-top:12px">
+    <div class="card"><span class="tag">Sticky-note starter · answer</span><p class="big">The phrase “____” suggests ____ because ____.</p></div>
+    <div class="card"><span class="tag">Sticky-note starter · challenge</span><p class="big">The label says ____, but “____” could also make listeners ____.</p></div>
+    <div class="card"><span class="tag">Sticky-note starter · challenge</span><p class="big">I would add the phrase “____” as evidence because ____.</p></div>
+    <div class="card"><span class="tag">Sticky-note starter · question</span><p class="big">Would a 1933 listener who ____ react the same way? Why?</p></div>
+  </div>
+  <p class="footer"><span>A specific challenge beats “nice job.” Every sticky note quotes or points to the excerpt.</span><span>Fri Nov 13</span></p>
+</section>
+
+<!-- ============ MLK TEASER + EXIT ============ -->
+<section class="sheet" id="p-exit13" aria-labelledby="tex13">
+  <div class="sheet-label"><span>Fri Nov 13 · MLK teaser + exit</span><span>Half sheets · cut on the dashed line</span></div>
+  <h2 id="tex13" style="position:absolute;left:-9999px">MLK teaser and exit</h2>
+  <div class="half">
+    <span class="lbl">Spiral notebook · copy this title into your table of contents</span>
+    <h3>11/13 — Museum of Persuasion</h3>
+    <p style="font-size:15px">FDR needed Americans to ______________________. MLK needed Americans to ______________________. A rhetorical choice both might use is ______________________, but its effect differs because ______________________.</p>
+    <div class="lines"><div class="line"></div></div>
+    <div class="field"><span class="lbl">Exit: one FDR line</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">One MLK teaser line or idea</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Similarity or difference in purpose, using audience and context</span><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div>
+  <div class="half">
+    <span class="lbl">Spiral notebook · copy this title into your table of contents</span>
+    <h3>11/13 — Museum of Persuasion</h3>
+    <p style="font-size:15px">FDR needed Americans to ______________________. MLK needed Americans to ______________________. A rhetorical choice both might use is ______________________, but its effect differs because ______________________.</p>
+    <div class="lines"><div class="line"></div></div>
+    <div class="field"><span class="lbl">Exit: one FDR line</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">One MLK teaser line or idea</span><div class="line"></div></div>
+    <div class="field"><span class="lbl">Similarity or difference in purpose, using audience and context</span><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div>
+  <p class="footer"><span>The exit compares purposes; naming a device alone is not enough.</span><span>Fri Nov 13</span></p>
+</section>
+
+</main>
+<script>
+document.getElementById('printBtn').addEventListener('click', function(){ try { window.print(); } catch (e) {} });
+</script>
+</body>
+</html>

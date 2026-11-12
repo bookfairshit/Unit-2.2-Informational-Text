@@ -1,0 +1,1939 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Words That Move History · Unit 2.2 Calendar</title>
+<meta name="description" content="English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – Dec 18, 2026). Proposed working plan, not a district-approved calendar.">
+<style>
+:root{
+  /* Layout: a planner ledger. Forest masthead, parchment working surface, one view at a time under a tab strip; lesson detail opens in a dialog. */
+  --parchment:#F4EEDF;
+  --paper:#FFFCF5;
+  --paper-2:#FAF5E8;
+  --ink:#26221B;
+  --ink-2:#554E41;
+  --rule:#D8CCB1;
+  --rule-2:#E9E0CB;
+  --forest:#23533E;
+  --forest-deep:#1C4232;
+  --forest-tint:#E1ECE3;
+  --burgundy:#7A2233;
+  --burgundy-tint:#F5E2E4;
+  --gold:#B8892A;
+  --gold-ink:#6B4C0E;
+  --gold-tint:#F4E7C4;
+  --on-dark:#F6F0E1;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","URW Palladio L",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --radius:4px;
+  --shadow:0 1px 2px rgba(38,34,27,.08),0 8px 24px rgba(38,34,27,.07);
+  color-scheme:light;
+}
+.ph-fdr{--ph:#23533E;--ph-t:#E2ECE3}
+.ph-mlk{--ph:#7A2233;--ph-t:#F4E3E5}
+.ph-rfk{--ph:#2F4E69;--ph-t:#E1E9F0}
+.ph-contemp{--ph:#6B4C0E;--ph-t:#F3E8CC}
+.ph-practice{--ph:#45591F;--ph-t:#E8EDD8}
+.ph-pbl{--ph:#613A6B;--ph-t:#EEE4F0}
+.ph-sbua{--ph:#5B2843;--ph-t:#F0E2EA}
+.ph-closure{--ph:#4B463B;--ph-t:#EAE5D9}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--parchment);color:var(--ink);font:15px/1.55 var(--sans)}
+[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0;text-wrap:balance;color:var(--ink)}
+p{margin:0}
+a{color:var(--forest);text-underline-offset:2px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--forest);outline-offset:2px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.skip{position:absolute;left:-999px;top:8px;background:var(--paper);padding:8px 12px;z-index:50;border:2px solid var(--forest)}
+.skip:focus{left:12px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.muted{color:var(--ink-2)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* Masthead */
+.masthead{background:var(--forest-deep);color:var(--on-dark);padding-block:22px 18px}
+.masthead :focus-visible{outline-color:var(--gold-tint)}
+.masthead .eyebrow{color:var(--gold-tint)}
+.titlerow{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-top:6px}
+.masthead h1{color:var(--on-dark);font-size:clamp(28px,4vw,40px);letter-spacing:-.01em}
+.plan-flag{font-size:13px;border:1px solid rgba(246,240,225,.45);padding:2px 10px;border-radius:999px}
+.eq{margin-top:12px;max-width:76ch;font-family:var(--serif);font-size:17px;line-height:1.45}
+.eq span{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-tint);margin-bottom:2px;font-weight:600}
+.facts{margin-top:12px;font-size:13.5px;display:flex;flex-wrap:wrap;gap:4px 18px;color:rgba(246,240,225,.9)}
+.facts b{color:var(--on-dark);font-weight:600}
+.philo{margin-top:8px;font-size:13.5px;color:rgba(246,240,225,.9)}
+.philo b{color:var(--on-dark)}
+
+/* Notice */
+.notice{background:var(--gold-tint);color:var(--gold-ink);border-bottom:1px solid #E2CF98;padding-block:9px;font-size:14px}
+.notice .wrap{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.notice strong{color:#4D360A}
+
+/* Summary */
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding-block:16px 6px}
+.tile{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .eyebrow{color:var(--ink-2);font-size:11px}
+.tile .big{font-family:var(--serif);font-size:18px;line-height:1.25}
+.tile .small{font-size:13px;color:var(--ink-2)}
+.tile button.linkish{font-family:var(--serif);font-size:18px;text-align:left}
+.bar{height:8px;background:var(--rule-2);border-radius:999px;overflow:hidden;display:flex}
+.bar span{display:block;height:100%}
+.bar .b-ready{background:var(--forest)}
+.bar .b-prog{background:var(--gold)}
+.bar .b-block{background:var(--burgundy)}
+
+/* Tabs + toolbar */
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--parchment);border-bottom:1px solid var(--rule);margin-top:10px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin}
+.tab{appearance:none;background:none;border:0;border-bottom:3px solid transparent;padding:12px 12px 9px;font-weight:600;font-size:14px;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--forest-deep);border-bottom-color:var(--forest)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;padding-block:14px}
+.filters{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-end;flex:1 1 640px;min-width:0}
+.field{display:flex;flex-direction:column;gap:3px;min-width:0}
+.field>span,.field>label{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--ink-2)}
+input[type=search],input[type=text],input[type=url],input[type=date],input[type=number],select,textarea{background:var(--paper);border:1px solid #BFB295;border-radius:var(--radius);padding:7px 9px;min-height:36px;max-width:100%}
+textarea{min-height:84px;resize:vertical;width:100%;line-height:1.45}
+.f-search{flex:1 1 200px}
+.f-search input{width:100%}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{appearance:none;display:inline-flex;align-items:center;gap:6px;border:1px solid #BFB295;background:var(--paper);color:var(--ink);padding:7px 12px;border-radius:var(--radius);font-weight:600;font-size:14px;cursor:pointer;min-height:36px;text-decoration:none;line-height:1.2}
+.btn:hover{background:var(--paper-2);border-color:var(--ink-2)}
+.btn.primary{background:var(--forest);border-color:var(--forest);color:#fff}
+.btn.primary:hover{background:var(--forest-deep)}
+.btn.danger{color:var(--burgundy);border-color:#C9A0A7}
+.btn.danger:hover{background:var(--burgundy-tint)}
+.btn.small{padding:4px 9px;min-height:30px;font-size:13px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.linkish{appearance:none;background:none;border:0;padding:0;color:var(--forest-deep);cursor:pointer;text-decoration:underline;text-decoration-color:rgba(35,83,62,.35);text-underline-offset:3px;font:inherit;text-align:left}
+.linkish:hover{text-decoration-color:currentColor}
+.showing{font-size:13px;color:var(--ink-2);padding-bottom:8px}
+
+/* Chips */
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid transparent;line-height:1.35;white-space:nowrap}
+.s-BUILT{background:var(--forest-tint);color:var(--forest-deep);border-color:#9DBBA6}
+.s-PROPOSED{background:var(--paper);color:var(--ink-2);border:1px dashed #9C917A}
+.s-IMPLEMENTED{background:var(--forest);color:#fff;border-color:var(--forest)}
+.s-DEFERRED{background:var(--rule-2);color:var(--ink-2);text-decoration:line-through}
+.s-UNCONFIRMED{background:var(--burgundy-tint);color:var(--burgundy);border:1px dotted var(--burgundy)}
+.d-CONFIRMED{background:var(--paper);color:var(--forest-deep);border-color:var(--forest)}
+.d-PROPOSED{background:var(--paper);color:var(--ink-2);border-color:var(--rule)}
+.d-HOLD{background:var(--gold-tint);color:var(--gold-ink);border-color:#D9BD73}
+.p-UNKNOWN,.p-NOT_STARTED{background:var(--paper);color:var(--ink-2);border-color:var(--rule)}
+.p-IN_PROGRESS{background:var(--gold-tint);color:var(--gold-ink);border-color:#D9BD73}
+.p-BLOCKED{background:var(--burgundy-tint);color:var(--burgundy);border-color:#D9A9B1}
+.p-READY{background:var(--forest-tint);color:var(--forest-deep);border-color:#9DBBA6}
+.needs{background:var(--paper);color:var(--burgundy);border:1px solid var(--burgundy)}
+.ok{background:var(--forest-tint);color:var(--forest-deep);border-color:#9DBBA6}
+.flag{background:var(--ink);color:var(--paper)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+
+/* Month */
+.vhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:12px}
+.vhead h2{font-size:26px;flex:1 1 auto}
+.navbtns{display:flex;gap:6px;flex-wrap:wrap}
+.mtable-wrap{overflow-x:auto}
+table.month{width:100%;border-collapse:collapse;table-layout:fixed;background:var(--paper);border:1px solid var(--rule)}
+table.month th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);padding:8px 6px;border-bottom:1px solid var(--rule);text-align:left;font-weight:700}
+table.month td{vertical-align:top;border:1px solid var(--rule-2);padding:6px;height:118px}
+table.month col.wk{width:7%}
+td.out{background:var(--paper-2);color:#9A907C}
+td.out .dnum{color:#8E846F}
+td.wknd{background:var(--paper-2)}
+td.today{box-shadow:inset 0 0 0 2px var(--forest)}
+td.after .dnum::after{content:" · after unit";font-size:10.5px;font-weight:600;color:var(--ink-2);letter-spacing:.03em}
+.hatch{background-color:var(--paper-2);background-image:repeating-linear-gradient(135deg,var(--rule-2) 0 7px,transparent 7px 14px)}
+.dhead{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.dnum{font-family:var(--serif);font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.dnote{font-size:10.5px;color:var(--ink-2);letter-spacing:.02em}
+.today-tag{font-size:10.5px;font-weight:700;color:#fff;background:var(--forest);padding:0 5px;border-radius:2px;letter-spacing:.05em;text-transform:uppercase}
+.mentries{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.mentry{appearance:none;display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;background:var(--ph-t);border:1px solid color-mix(in srgb,var(--ph) 28%,transparent);border-radius:3px;padding:5px 6px;cursor:pointer;color:var(--ink)}
+.mentry:hover{border-color:var(--ph)}
+.me-top{display:flex;justify-content:space-between;gap:4px;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--ph);text-transform:uppercase}
+.me-title{font-size:13px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.mentry .chip{font-size:9.5px;padding:1px 5px}
+.fact{font-size:11.5px;line-height:1.3;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:4px 6px;margin-top:4px}
+.fact b{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+td.breakspan{text-align:center;vertical-align:middle}
+.breaklabel{display:inline-block;background:var(--paper);border:1px solid var(--rule);padding:8px 14px;border-radius:3px;font-family:var(--serif);font-size:16px}
+.breaklabel small{display:block;font-family:var(--sans);font-size:12px;color:var(--ink-2)}
+.filtered-note{font-size:11px;color:var(--ink-2);font-style:italic;margin-top:3px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-size:12.5px;color:var(--ink-2);align-items:center}
+.legend .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.swatch{display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--ph-t);border:1px solid var(--ph);vertical-align:-2px;margin-right:4px}
+.hatch-swatch{display:inline-block;width:18px;height:12px;border:1px solid var(--rule);vertical-align:-2px;margin-right:4px}
+.magenda{display:none}
+
+/* Agenda + week */
+.agenda{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.aweek{font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-2);margin-top:10px}
+.wday{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;padding:14px 0;border-top:1px solid var(--rule)}
+.wday:first-child{border-top:0}
+.wd-date{display:flex;flex-direction:column;gap:2px}
+.wd-dow{font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.wd-md{font-family:var(--serif);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.wd-sch{font-size:12px;color:var(--ink-2);line-height:1.35}
+.wd-items{display:flex;flex-direction:column;gap:10px;min-width:0}
+.wcard{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.wcard.dim{opacity:.45}
+.wc-top{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.wc-phase{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ph);background:var(--ph-t);padding:2px 7px;border-radius:3px}
+.wcard h3{font-size:19px}
+.wc-focus{color:var(--ink-2);font-size:14px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 18px;margin:0}
+.meta div{min-width:0}
+.meta dt{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.meta dd{margin:0;font-size:14px;overflow-wrap:anywhere}
+.nobox{padding:12px 14px;border:1px dashed var(--rule);border-radius:var(--radius);color:var(--ink-2);font-size:14px;background:var(--paper-2)}
+.breakbox{padding:14px;border:1px solid var(--rule);border-radius:var(--radius)}
+.breakbox b{font-family:var(--serif);font-size:18px;display:block}
+
+/* Timeline */
+.settings{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:flex-end;background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;margin-bottom:14px}
+.settings .kv{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.settings .kv span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.settings form{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.tl-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper)}
+.tl{display:grid;min-width:980px;padding:10px 10px 12px;row-gap:6px}
+.tl-band{display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 4px;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ph);background:var(--ph-t);border:1px solid color-mix(in srgb,var(--ph) 35%,transparent);border-radius:3px;min-width:0;overflow:hidden;line-height:1.15;cursor:pointer}
+.tl-band.brk{color:var(--ink-2);border-color:var(--rule);cursor:default;background-color:var(--paper-2);background-image:repeating-linear-gradient(135deg,var(--rule-2) 0 7px,transparent 7px 14px)}
+.tl-band.gap{background:var(--paper-2);border:1px dashed var(--rule);color:var(--ink-2);cursor:default}
+.tl-day{appearance:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border:1px solid var(--rule-2);background:var(--paper);border-radius:3px;cursor:pointer;font-size:11px;min-width:0;color:var(--ink)}
+.tl-day:hover{border-color:var(--ink-2)}
+.tl-day.dim{opacity:.35}
+.tl-day.today{box-shadow:inset 0 0 0 2px var(--forest)}
+.tl-day .dl{font-weight:700;color:var(--ink-2);letter-spacing:.04em}
+.tl-day .dn{font-family:var(--serif);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.tl-day .ds{font-family:var(--mono);font-size:10px}
+.tl-day .st{font-size:12px;line-height:1}
+.tl-brk{display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink-2);text-align:center;border-radius:3px;border:1px solid var(--rule);padding:4px}
+.tl-weeks{font-size:11px;color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase;font-weight:700}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px}
+.phase{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.phase h3{font-size:18px;color:var(--ph)}
+.phase .rng{font-size:13px;color:var(--ink-2)}
+.phase .crm{font-size:13.5px}
+.phase ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.phase li{display:flex;gap:8px;align-items:baseline;font-size:14px;flex-wrap:wrap}
+.phase li .dt{font-variant-numeric:tabular-nums;color:var(--ink-2);min-width:84px;font-size:13px}
+
+/* Prep board */
+.board{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:12px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.col h3{font-family:var(--sans);font-size:13px;letter-spacing:.07em;text-transform:uppercase;display:flex;justify-content:space-between;gap:6px}
+.pcard{background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:9px 10px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;min-width:0}
+.pcard .pd{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.pcard ul{margin:0;padding-left:18px}
+.pcard select{width:100%}
+.empty{font-size:13px;color:var(--ink-2);font-style:italic}
+
+/* Standards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.scard{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.scard h3{font-size:18px}
+.scard .code{font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+.scard .guard{font-size:13px;background:var(--paper-2);border-left:3px solid var(--gold);padding:6px 8px}
+.scard .counts{font-size:13px;color:var(--ink-2)}
+.section-h{font-size:20px;margin:22px 0 10px}
+.section-h:first-child{margin-top:0}
+.prose{max-width:72ch;display:flex;flex-direction:column;gap:10px}
+.prose ul,.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.mx-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper);margin-top:8px}
+table.mx{border-collapse:separate;border-spacing:0;font-size:12px}
+table.mx th,table.mx td{border-bottom:1px solid var(--rule-2);border-right:1px solid var(--rule-2);padding:0;text-align:center}
+table.mx thead th{padding:6px 4px;font-weight:700;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums;background:var(--paper)}
+table.mx th[scope=row]{position:sticky;left:0;background:var(--paper);text-align:left;padding:6px 10px;white-space:nowrap;z-index:1;font-weight:600}
+table.mx th[scope=row] small{display:block;font-weight:400;color:var(--ink-2);font-size:11px}
+table.mx td button{appearance:none;border:0;background:none;width:34px;height:30px;cursor:pointer;font-weight:700;font-size:12px}
+table.mx td button.P{background:var(--forest);color:#fff}
+table.mx td button.S{background:var(--forest-tint);color:var(--forest-deep)}
+table.mx td.brkcol{background-color:var(--paper-2);background-image:repeating-linear-gradient(135deg,var(--rule-2) 0 5px,transparent 5px 10px);width:16px}
+table.mx td.dimcol button{opacity:.3}
+table.mx tr.ess th[scope=row]{color:var(--ink)}
+
+/* Stations + resources */
+.stcard{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.stcard h3{font-size:19px}
+.stcard .who{font-size:13.5px;color:var(--ink-2)}
+.stcard form{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--rule);padding-top:10px;margin-top:2px}
+.stcard form .row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.stcard form .row .field{flex:1 1 160px}
+.stcard input[type=url]{width:100%}
+.key{display:flex;flex-wrap:wrap;gap:10px}
+.key span{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);font-weight:600}
+.key i{display:inline-block;width:28px;height:14px;border-radius:2px}
+.k-ethos{background:#5FA36F}
+.k-logos{background:#EBC94A}
+.k-pathos{background:#D4574F}
+.rlist{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper)}
+.ritem{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:8px 18px;padding:12px 14px;border-top:1px solid var(--rule-2)}
+.ritem:first-child{border-top:0}
+.ritem h3{font-family:var(--sans);font-size:15px;font-weight:700}
+.ritem p{font-size:13.5px;color:var(--ink-2)}
+.ritem form{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end}
+.ritem form input{flex:1 1 180px;min-width:0}
+table.plain{border-collapse:collapse;width:100%;font-size:14px;background:var(--paper);border:1px solid var(--rule)}
+table.plain th,table.plain td{border-bottom:1px solid var(--rule-2);padding:8px 10px;text-align:left;vertical-align:top}
+table.plain th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.tbl-wrap{overflow-x:auto}
+
+/* Dialogs */
+dialog{border:0;padding:0;background:var(--paper);color:var(--ink);border-radius:6px;box-shadow:0 20px 60px rgba(20,24,18,.35);width:min(1020px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:hidden}
+dialog::backdrop{background:rgba(22,28,22,.55)}
+.dlg{display:flex;flex-direction:column;max-height:calc(100vh - 24px)}
+.dlg-head{padding:16px 20px 12px;border-bottom:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start;background:var(--ph-t,var(--paper-2))}
+.dlg-head .ttl{flex:1 1 auto;display:flex;flex-direction:column;gap:6px;min-width:0}
+.dlg-head .eyebrow{color:var(--ph,var(--ink-2))}
+.dlg-head h2{font-size:clamp(20px,3vw,26px)}
+.dlg-head h2:focus{outline:none}
+.xbtn{appearance:none;border:1px solid var(--rule);background:var(--paper);border-radius:var(--radius);width:38px;height:38px;font-size:22px;line-height:1;cursor:pointer;flex:0 0 auto}
+.dlg-body{overflow-y:auto;padding:16px 20px 20px;display:flex;flex-direction:column;gap:18px}
+.dlg-foot{border-top:1px solid var(--rule);padding:10px 20px;display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;background:var(--paper-2)}
+.lgrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:22px}
+.plan{display:flex;flex-direction:column;gap:14px;min-width:0}
+.plan h3,.side h3,.editbox h3{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.plan .lead{font-family:var(--serif);font-size:17px;line-height:1.45}
+.acts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:var(--radius)}
+.acts li{display:grid;grid-template-columns:88px minmax(0,1fr);gap:12px;padding:9px 12px;border-top:1px solid var(--rule-2)}
+.acts li:first-child{border-top:0}
+.act-time{font-family:var(--mono);font-size:12px;color:var(--ink-2);padding-top:2px}
+.acts strong{display:block;font-size:14.5px}
+.acts p{font-size:14px}
+.notdrafted{font-size:14px;color:var(--ink-2);font-style:italic}
+.side{display:flex;flex-direction:column;gap:14px;min-width:0}
+.stdbox{border:1px solid var(--rule);border-radius:var(--radius);padding:9px 11px;background:var(--paper-2);display:flex;flex-direction:column;gap:4px}
+.stdbox .lbl{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.stdbox b{font-size:14.5px}
+.stdbox p{font-size:13px}
+.stdbox .guard{color:var(--gold-ink)}
+.guidance{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:4px}
+.linkrows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;font-size:14px}
+.linkrows li{display:flex;flex-wrap:wrap;gap:6px;align-items:center;overflow-wrap:anywhere}
+.editbox{border:1px solid var(--rule);border-radius:var(--radius);padding:14px;background:var(--paper-2);display:flex;flex-direction:column;gap:12px}
+.egrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px 14px}
+.egrid .field select,.egrid .field input{width:100%}
+.seedhint{font-size:11.5px;color:var(--ink-2);text-transform:none;letter-spacing:0;font-weight:400}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:6px;align-items:center}
+.lrow input{width:100%}
+.errors{background:var(--burgundy-tint);color:var(--burgundy);border:1px solid #D9A9B1;border-radius:var(--radius);padding:8px 10px;font-size:14px}
+.errors ul{margin:4px 0 0;padding-left:18px}
+.ebtns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.discard{background:var(--gold-tint);color:var(--gold-ink);padding:10px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px}
+#confirmDlg,#exportDlg{width:min(640px,calc(100vw - 24px))}
+#confirmDlg .dlg-head,#exportDlg .dlg-head{background:var(--paper-2)}
+.cbody{font-size:15px;display:flex;flex-direction:column;gap:8px}
+.cbody ul{margin:0;padding-left:18px}
+.fmt{display:flex;gap:6px;flex-wrap:wrap}
+.fmt button[aria-pressed="true"]{background:var(--forest);color:#fff;border-color:var(--forest)}
+#exportText{font-family:var(--mono);font-size:12px;min-height:220px;white-space:pre;overflow:auto}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:var(--radius);font-size:14px;box-shadow:var(--shadow);z-index:100;max-width:calc(100vw - 32px)}
+
+main{padding-bottom:40px}
+.tabs,.mtable-wrap,.tl-scroll,.board,.mx-wrap,.tbl-wrap,.dlg-body{position:relative}
+.navbtns{min-width:0}
+#weekPick{max-width:100%;min-width:0;flex:1 1 220px}
+.view{min-width:0}
+.callout{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;font-size:14px}
+.callout.warn{border-color:#D9BD73;background:var(--gold-tint);color:var(--gold-ink)}
+.help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.help-grid article{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.help-grid h3{font-size:18px}
+.help-grid p,.help-grid li{font-size:14px}
+.help-grid ul,.help-grid ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+code{font-family:var(--mono);font-size:.9em;background:var(--paper-2);padding:1px 4px;border-radius:3px;overflow-wrap:anywhere}
+
+#printArea{display:none}
+
+@media (max-width:900px){
+  .lgrid{grid-template-columns:1fr}
+  .board{grid-template-columns:repeat(5,minmax(230px,1fr))}
+}
+@media (max-width:760px){
+  .mtable-wrap{display:none}
+  .magenda{display:block}
+  .wday{grid-template-columns:1fr;gap:8px}
+  .wd-date{flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .ritem{grid-template-columns:1fr}
+  dialog{width:100vw;max-width:100vw;max-height:100%;height:100%;border-radius:0}
+  .dlg{max-height:100%;height:100%}
+  .dlg-head{padding:12px 16px 10px}
+  .dlg-body{padding:14px 16px 18px}
+  .dlg-foot{padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+  .acts li{grid-template-columns:1fr;gap:2px}
+  .lrow{grid-template-columns:1fr}
+  .vhead h2{font-size:22px}
+  .toolbar{gap:10px}
+  .filters .field{flex:1 1 140px}
+  .filters .field select{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+@media print{
+  @page{size:letter;margin:.5in}
+  body{background:#fff;font-size:11pt;color:#000}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important}
+  #printArea *{overflow:visible!important;max-height:none!important}
+  .pday{break-inside:auto;border-top:1.5pt solid #000;padding-top:8pt;margin-top:12pt}
+  .pday:first-of-type{margin-top:0}
+  .pentry{break-inside:auto;margin:6pt 0 10pt}
+  .pentry h3{font-size:14pt;margin:2pt 0 4pt}
+  .acts li,.stdbox,.pmeta div{break-inside:avoid}
+  .acts{border-color:#999}
+  .acts li{border-color:#ccc}
+  .chip{border:1px solid #000!important;background:#fff!important;color:#000!important;text-decoration:none}
+  a{color:#000}
+  .phead{border-bottom:2pt solid #000;padding-bottom:6pt;margin-bottom:8pt}
+  .phead h1{font-size:18pt}
+  .pnote{font-size:9pt}
+}
+.pmeta{display:grid;grid-template-columns:1fr 1fr;gap:4pt 16pt;margin:4pt 0}
+.pmeta dt{font-size:8.5pt;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.pmeta dd{margin:0}
+.ptxt{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the calendar</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">English I CLT · Apopka High School · Unit 2.2</p>
+    <div class="titlerow">
+      <h1>Words That Move History</h1>
+      <p class="plan-flag"><strong>PROPOSED</strong> working plan · not a district-approved calendar</p>
+    </div>
+    <p class="eq"><span>Essential question</span>How do words change what people believe, feel, and do—and how can we tell when persuasion is responsible and effective?</p>
+    <p class="facts" id="unitFacts"></p>
+    <p class="philo"><b>Shared Core · Individual Craft.</b> The team agrees on text sequence, learning targets, checkpoints, common deliverables and shared resources. Teaching methods vary by classroom.</p>
+  </div>
+</header>
+
+<div class="notice" role="note">
+  <div class="wrap">
+    <span><strong>Local edits are not shared.</strong> Export JSON for handoff; publish a centrally maintained version for the team.</span>
+    <span id="editCount"></span>
+    <span id="storageWarn" hidden></span>
+  </div>
+</div>
+
+<section class="summary wrap" id="summary" aria-label="Unit summary"></section>
+
+<div class="tabbar">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Dashboard views">
+      <button class="tab" role="tab" id="tab-month" aria-controls="view-month" data-view="month">Month</button>
+      <button class="tab" role="tab" id="tab-week" aria-controls="view-week" data-view="week">Week agenda</button>
+      <button class="tab" role="tab" id="tab-timeline" aria-controls="view-timeline" data-view="timeline">Unit timeline</button>
+      <button class="tab" role="tab" id="tab-prep" aria-controls="view-prep" data-view="prep">Material prep</button>
+      <button class="tab" role="tab" id="tab-standards" aria-controls="view-standards" data-view="standards">Standards map</button>
+      <button class="tab" role="tab" id="tab-stations" aria-controls="view-stations" data-view="stations">Stations</button>
+      <button class="tab" role="tab" id="tab-resources" aria-controls="view-resources" data-view="resources">Resources</button>
+      <button class="tab" role="tab" id="tab-help" aria-controls="view-help" data-view="help">Help</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="toolbar" id="toolbar">
+    <form class="filters" id="filters" role="search" aria-label="Filter lessons">
+      <div class="field f-search"><label for="fSearch">Search lessons and materials</label><input type="search" id="fSearch" placeholder="e.g. placard, Lumio, R.2.2, eulogy" autocomplete="off"></div>
+      <div class="field"><label for="fPhase">Phase</label><select id="fPhase"></select></div>
+      <div class="field"><label for="fStatus">Status</label><select id="fStatus"></select></div>
+      <div class="field"><label for="fOwner">Owner</label><select id="fOwner"></select></div>
+      <div class="field"><label for="fStd">Standard</label><select id="fStd"></select></div>
+      <button class="btn small" type="button" id="fClear">Clear filters</button>
+    </form>
+    <div class="actions" aria-label="Data actions">
+      <button class="btn" type="button" id="btnPrint">Print week</button>
+      <button class="btn" type="button" id="btnExport">Export…</button>
+      <button class="btn" type="button" id="btnImport">Import JSON</button>
+      <button class="btn danger" type="button" id="btnReset">Reset</button>
+    </div>
+  </div>
+  <p class="showing" id="showing" aria-live="polite"></p>
+</div>
+
+<main id="main" class="wrap" tabindex="-1">
+  <section class="view" id="view-month" role="tabpanel" aria-labelledby="tab-month"></section>
+  <section class="view" id="view-week" role="tabpanel" aria-labelledby="tab-week" hidden></section>
+  <section class="view" id="view-timeline" role="tabpanel" aria-labelledby="tab-timeline" hidden></section>
+  <section class="view" id="view-prep" role="tabpanel" aria-labelledby="tab-prep" hidden></section>
+  <section class="view" id="view-standards" role="tabpanel" aria-labelledby="tab-standards" hidden></section>
+  <section class="view" id="view-stations" role="tabpanel" aria-labelledby="tab-stations" hidden></section>
+  <section class="view" id="view-resources" role="tabpanel" aria-labelledby="tab-resources" hidden></section>
+  <section class="view" id="view-help" role="tabpanel" aria-labelledby="tab-help" hidden></section>
+</main>
+
+<div id="printArea"></div>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+
+<dialog id="lessonDlg" aria-labelledby="lessonTitle">
+  <div class="dlg" id="lessonInner"></div>
+</dialog>
+
+<dialog id="confirmDlg" aria-labelledby="confirmTitle">
+  <div class="dlg">
+    <div class="dlg-head"><div class="ttl"><h2 id="confirmTitle" tabindex="-1"></h2></div></div>
+    <div class="dlg-body"><div class="cbody" id="confirmBody"></div></div>
+    <div class="dlg-foot"><button class="btn" type="button" id="confirmNo">Cancel</button><button class="btn primary" type="button" id="confirmYes">Confirm</button></div>
+  </div>
+</dialog>
+
+<dialog id="exportDlg" aria-labelledby="exportTitle">
+  <div class="dlg">
+    <div class="dlg-head"><div class="ttl"><h2 id="exportTitle" tabindex="-1">Export</h2><p class="muted" style="font-size:14px">Exports reflect the edits saved in this browser.</p></div><button class="xbtn" type="button" data-close aria-label="Close export">×</button></div>
+    <div class="dlg-body">
+      <div class="fmt" role="group" aria-label="Export format">
+        <button class="btn small" type="button" data-fmt="json" aria-pressed="true">JSON (handoff + import)</button>
+        <button class="btn small" type="button" data-fmt="csv" aria-pressed="false">CSV (spreadsheet)</button>
+        <button class="btn small" type="button" data-fmt="ics" aria-pressed="false">Calendar (.ics)</button>
+      </div>
+      <div id="exportInfo" class="cbody" style="font-size:14px"></div>
+      <label class="sr" for="exportText">Export preview</label>
+      <textarea id="exportText" readonly spellcheck="false"></textarea>
+    </div>
+    <div class="dlg-foot"><span class="muted" style="font-size:13px;align-self:center" id="exportName"></span><span class="ebtns"><button class="btn" type="button" id="exportCopy">Copy text</button><button class="btn primary" type="button" id="exportDownload">Download file</button></span></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ================================================================
+   1. CONSTANTS AND SEED DATA (source: Unit 2.2 production brief, Nov 11, 2026)
+   ================================================================ */
+const SCHEMA = 'unit22-dashboard';
+const SCHEMA_VERSION = 1;
+const SEED_VERSION = '2026-11-11';
+const STORE_KEY = 'unit22.dashboard.overrides.v1';
+const UI_KEY = 'unit22.dashboard.ui.v1';
+const VIEWS = ['month','week','timeline','prep','standards','stations','resources','help'];
+
+const STANDARDS = {
+  'R.2.2':{code:'ELA.9.R.2.2', name:'Support for central ideas', tier:'essential', focus:'Evaluate how the quality, relevance and sufficiency of support develop central idea(s), not merely identify a main idea.', guard:'R.2.2 is about support for ideas.'},
+  'R.2.3':{code:'ELA.9.R.2.3', name:'Appeals and author purpose', tier:'essential', focus:'Analyze how rhetorical appeals and/or figurative language establish and achieve a specific, stated author purpose; evaluate the appropriateness of ethos, logos and pathos.', guard:'Assessment items may not use the technical names of appeals. Students must still explain the function of the appeal.'},
+  'R.3.1':{code:'ELA.9.R.3.1', name:'Figurative language and mood', tier:'essential', focus:'Explain how figurative language creates mood, not merely identify the device or the mood.', guard:'R.3.1 is about the mood created.'},
+  'R.3.4':{code:'ELA.9.R.3.4', name:'Rhetoric and its contribution', tier:'essential', focus:'Explain an author\u2019s use of rhetoric and its contribution to the text, not device spotting.', guard:'R.3.4 is about rhetorical craft.'},
+  'V.1.2':{code:'ELA.9.V.1.2', name:'Etymology and derivation', tier:'essential', focus:'Apply etymology and derivation, including Greek/Latin roots and affixes, to infer meanings.', guard:''},
+  'V.1.3':{code:'ELA.9.V.1.3', name:'Denotation and connotation', tier:'essential', focus:'Infer denotation and connotation from meaningful context and word relationships.', guard:''},
+  'R.2.1':{code:'ELA.9.R.2.1', name:'Structures and features', tier:'supporting', focus:'Text structures and features.', guard:''},
+  'R.3.2':{code:'ELA.9.R.3.2', name:'Paraphrase', tier:'supporting', focus:'Paraphrase.', guard:''},
+  'V.1.1':{code:'ELA.9.V.1.1', name:'Academic vocabulary', tier:'supporting', focus:'Academic vocabulary.', guard:''},
+  'C.1.4':{code:'ELA.9.C.1.4', name:'Multisource expository writing', tier:'supporting', focus:'Multisource expository writing.', guard:''},
+  'C.1.5':{code:'ELA.9.C.1.5', name:'Revision', tier:'supporting', focus:'Revision.', guard:''},
+  'C.3.1':{code:'ELA.9.C.3.1', name:'Conventions', tier:'supporting', focus:'Conventions.', guard:''}
+};
+const STD_ORDER = ['R.2.2','R.2.3','R.3.1','R.3.4','V.1.2','V.1.3','R.2.1','R.3.2','V.1.1','C.1.4','C.1.5','C.3.1'];
+
+const PHASES = [
+  {id:'fdr', name:'FDR launch', abbr:'FDR', crm:'CRM Lessons 1\u20134 (8 days, originally MLK): model rhetoric and purpose, read and annotate. The FDR launch and the MLK sequence together serve these purposes.'},
+  {id:'mlk', name:'MLK sequence', abbr:'MLK', crm:'CRM Lessons 1\u20134, continued: guided-to-independent analysis.'},
+  {id:'rfk', name:'RFK sequence', abbr:'RFK', crm:'CRM Lessons 5\u20137 (overview lists four days; lesson-row durations total five; originally Tilbury): contextualize another speech, collaborative reading, independent rhetorical analysis.'},
+  {id:'contemp', name:'Contemporary transfer', abbr:'2026', crm:'CRM Lesson 8 (3 days, originally a flex speech): independent transfer, vocabulary and evidence analysis, using a vetted 2026 article plus original data-rich companion practice.'},
+  {id:'practice', name:'Stations + checkpoint', abbr:'Stations', crm:'Team-designed block before the SBUA: stations, independent transfer, benchmark checkpoint and targeted reteach.'},
+  {id:'pbl', name:'Change One Mind', abbr:'PBL', crm:'Team-designed mini-PBL: enrichment and transfer, not a replacement for required assessment preparation.'},
+  {id:'sbua', name:'SBUA + revision', abbr:'SBUA', crm:'CRM SBUA and revision (2 + 2 days). Dates are planning placeholders until AP/IFC confirm the testing window.'},
+  {id:'closure', name:'Closure', abbr:'End', crm:'Makeup, recovery and reflection on the last instructional day.'}
+];
+const PHASE_BY_ID = Object.fromEntries(PHASES.map(p => [p.id, p]));
+
+const STATUS = {
+  BUILT:{label:'Built', icon:'\u25C6', desc:'Resource exists. Delivery not verified.'},
+  PROPOSED:{label:'Proposed', icon:'\u25CB', desc:'On the CLT map. Not yet built or taught.'},
+  IMPLEMENTED:{label:'Implemented', icon:'\u2713', desc:'Taught, and a teacher confirmed it.'},
+  DEFERRED:{label:'Deferred', icon:'\u21B7', desc:'Postponed or dropped from the plan.'},
+  UNCONFIRMED:{label:'Unconfirmed', icon:'?', desc:'Needs verification: delivery, window or deployment.'}
+};
+const STATUS_IDS = Object.keys(STATUS);
+const DATE_STATUS = {
+  CONFIRMED:{label:'Date confirmed', chip:'Date confirmed', desc:'Verified (district calendar, CRM, or team agreement). Included in the .ics export.'},
+  PROPOSED:{label:'Date proposed', chip:'Date proposed', desc:'On the proposed CLT daily map. Excluded from the .ics export.'},
+  HOLD:{label:'Date on hold', chip:'Hold', desc:'Planning placeholder awaiting confirmation. Excluded from the .ics export.'}
+};
+const DATE_STATUS_IDS = Object.keys(DATE_STATUS);
+const PREP = {
+  UNKNOWN:{label:'Unknown'},
+  NOT_STARTED:{label:'Not started'},
+  IN_PROGRESS:{label:'In progress'},
+  BLOCKED:{label:'Blocked'},
+  READY:{label:'Ready'}
+};
+const PREP_IDS = Object.keys(PREP);
+const ASSESS = {CHECKPOINT:'Benchmark checkpoint', SBUA:'SBUA (tentative)', REVISION:'Revision of Knowledge'};
+const STATION_READY = {NOT_CONFIRMED:'Not confirmed', IN_DEVELOPMENT:'In development', READY:'Ready', NOT_USING:'Not using'};
+const RES_STATE = {VERIFIED:'Verified', BUILT:'Built', SELECTED:'Selected', TBD:'To be selected', PENDING:'Pending confirmation', TO_WRITE:'To be written', INCLUDED:'Included'};
+const OWNERS = ['Danny Duong','Carissa Motilalsingh','Carina Seagrave','Josh Moody'];
+const ALL4 = OWNERS.slice();
+
+const SEED_SETTINGS = {unitStart:'2026-11-10', lastInstructionalDay:'2026-12-18', crmPrintedEnd:'2026-12-19', crmStatedDays:24};
+
+const FACTS = [
+  {id:'fact-crm-start', type:'milestone', start:'2026-11-10', end:'2026-11-10', title:'CRM 2.2 span begins', detail:'Official CRM span: Nov 10 \u2013 Dec 19, 2026 (24 days stated in the CRM).', source:'CRM 2.2.pdf', dateStatus:'CONFIRMED'},
+  {id:'fact-thanksgiving', type:'break', start:'2026-11-23', end:'2026-11-27', title:'Thanksgiving Break \u2014 no instruction', detail:'OCPS Thanksgiving Break, Mon Nov 23 \u2013 Fri Nov 27, 2026. No lessons and no required work. If weather makeup changes the break, revise only after district confirmation.', source:'2026-2027_school_calendar.pdf, p. 1', dateStatus:'CONFIRMED'},
+  {id:'fact-mp2-end', type:'milestone', start:'2026-12-18', end:'2026-12-18', title:'Second marking period ends', detail:'Last regular student day in the CRM span. Treated as the unit\u2019s instructional finish.', source:'Production brief \u00A74 (verified calendar rules)', dateStatus:'CONFIRMED'},
+  {id:'fact-crm-end', type:'milestone', start:'2026-12-19', end:'2026-12-19', title:'CRM printed unit end \u2014 not a class day', detail:'Dec 19, 2026 is a Saturday. Kept as the CRM\u2019s printed end date in metadata; Dec 18 is the instructional finish.', source:'CRM 2.2.pdf', dateStatus:'CONFIRMED', nonClass:true}
+];
+
+function E(o){
+  return Object.assign({
+    id:'', date:'', title:'', short:'', phase:'fdr', owners:[], primarySkill:'', secondarySkill:'',
+    durationMinutes:null, durationNote:'', status:'PROPOSED', seedStatus:'PROPOSED', dateStatus:'PROPOSED',
+    prepStatus:'NOT_STARTED', focus:'', objective:'', hook:'', activities:[], deliverable:'', sections:[],
+    materials:[], links:[], notes:'', guidance:[], assessmentFlag:null, teamSharedFlag:true, pack:false,
+    notebook:'', lastUpdated:SEED_VERSION
+  }, o);
+}
+const A = (time, label, detail) => ({time, label, detail});
+const L = (label) => ({label, url:''});
+
+const SEED_ENTRIES = [
+  E({id:'d1110', date:'2026-11-10', title:'Unit launch: rhetoric foundations', short:'Unit launch', phase:'fdr',
+    primarySkill:'R.3.4', secondarySkill:'R.2.3', status:'UNCONFIRMED', seedStatus:'VERIFY', prepStatus:'UNKNOWN',
+    focus:'Unit launch and rhetoric foundation; verify actual delivery.', deliverable:'Rhetorical-effect baseline',
+    guidance:['Seed status: VERIFY. This calendar does not assume the launch was taught.', 'At the Nov 10 CLT the team set the working sequence: FDR First Inaugural (1933) \u2192 MLK, \u201CI Have a Dream\u201D (1963) \u2192 RFK remarks on MLK\u2019s assassination (1968) \u2192 contemporary 2026 political/informational rhetoric.']}),
+  E({id:'d1111', date:'2026-11-11', title:'FDR First Inaugural (1933): selected excerpts in Lumio', short:'FDR Lumio', phase:'fdr',
+    primarySkill:'R.3.4', secondarySkill:'R.2.3', status:'BUILT', seedStatus:'RESOURCE BUILT; DELIVERY VERIFY', prepStatus:'READY',
+    focus:'FDR selected excerpts in Lumio: ethos green, logos yellow, pathos red.', deliverable:'Markup + cited audience-effect explanation',
+    activities:[A('','Brief historical framing','A short runway into 1933. Context supports the analysis; it is not the destination.'), A('','Gradual release','I Do / We Do / You Do inside the Lumio resource.'), A('','Annotation','Green = ethos, yellow = logos, red = pathos. Kairos can come up in discussion; no fourth highlight color without a team decision.'), A('','Exit ticket','A cited example plus an explanation of the intended audience effect, not just color labels.')],
+    materials:['FDR Lumio resource (selected excerpts, not the complete speech)'], links:[L('FDR Lumio resource')],
+    guidance:['The Lumio resource was built. Actual completion in each class is unverified.']}),
+  E({id:'d1112', date:'2026-11-12', title:'Rhetoric Remix \u2014 Same Crisis, Different Audience', short:'Rhetoric Remix', phase:'fdr',
+    primarySkill:'R.2.3', secondarySkill:'R.3.4', durationMinutes:45, durationNote:'45-minute model; adapt to the actual bell.', prepStatus:'IN_PROGRESS', pack:true,
+    focus:'Rhetoric Remix: change an announcement for two audiences.',
+    objective:'Explain how audience and purpose change the rhetorical choices a speaker makes; support the explanation with exact language from a student-created text.',
+    hook:'\u201CWould you rather hear a leader say \u2018Everything is fine\u2019 or \u2018Things are difficult, but here is our plan\u2019? Why?\u201D 2 sentences; 1 quick share.',
+    activities:[
+      A('0\u20135','Bellwork (composition notebook)','\u201CWould you rather hear a leader say \u2018Everything is fine\u2019 or \u2018Things are difficult, but here is our plan\u2019? Why?\u201D 2 sentences; 1 quick share.'),
+      A('5\u201311','Retrieval / completion','Project one short FDR selection from Lumio; call for green ethos, yellow logos, red pathos. Ask: What does this language attempt to make listeners believe or feel? If the Lumio task is unfinished, use this time for completion.'),
+      A('11\u201315','Mini-model','Teacher-written neutral scenario: \u201CA school event is postponed because of severe weather. A new date will be announced tomorrow.\u201D Model how an announcement to anxious students versus families might differ. Do not pretend every appeal is present.'),
+      A('15\u201328','Creative task (groups of 3\u20134)','Each group gets one neutral scenario (school event moved, bus delay, library closing temporarily) and two audiences (students / families, or athletes / teachers). Write two 2\u20133 sentence announcements. Mark one purposeful appeal in each with green, yellow or red and label the effect. Rotate a speaker to deliver each version in a contrasting tone.'),
+      A('28\u201336','Kinesthetic \u201CAudience Switch\u201D','On cue, groups swap audience cards, revise one sentence in 90 seconds, then stand and read the revision. Listeners vote which version better fits the new audience and must justify the vote with a word or phrase.'),
+      A('36\u201342','Individual transfer (spiral notebook)','Entry title \u201C11/12 \u2014 Rhetoric Remix: Audience Matters\u201D. Copy one original line and the revised line, name one rhetorical choice, and write: \u201CChanging ___ to ___ makes the audience more likely to ___ because ___.\u201D'),
+      A('42\u201345','Exit ticket (scrap paper or Lumio)','Independently explain which FDR rhetorical choice was best suited to the audience in 1933 and why; cite one brief phrase. Collect to group students for the next teacher table.')],
+    deliverable:'Two versions + audience-effect comparison',
+    sections:[
+      {heading:'Success criterion', text:'1 cited choice + 1 plausible audience effect + 1 \u201Cwhy\u201D explanation.', items:[]},
+      {heading:'Differentiation', text:'', items:['Sentence frames','Preprinted neutral scenario','Optional oral rehearsal','Extension: when might an emotional appeal be manipulative, or insufficient without evidence?']},
+      {heading:'Teacher talk', text:'\u201CA rhetorical device is not a scavenger-hunt prize. The question is what the choice does to a particular audience.\u201D', items:[]}],
+    materials:['Scenario cards','Two audience cards per group','Colored pencils or highlighters (green, yellow, red)','FDR excerpts','Timer','Composition and spiral notebooks'],
+    links:[L('FDR Lumio resource')], notebook:'11/12 \u2014 Rhetoric Remix: Audience Matters',
+    guidance:['Printables (scenario cards, audience cards, vote slips, exit slips) are drafted in the Nov 12\u201313 lesson pack. Review before printing.']}),
+  E({id:'d1113', date:'2026-11-13', title:'Museum of Persuasion \u2014 From Fear to Dream', short:'Museum of Persuasion', phase:'fdr',
+    primarySkill:'R.3.4', secondarySkill:'R.2.3', durationMinutes:50, durationNote:'50-minute model; adapt to the actual bell.', prepStatus:'IN_PROGRESS', pack:true,
+    focus:'Museum of Persuasion: FDR placards; MLK bridge.',
+    objective:'Analyze how rhetorical choices respond to a specific historical need and predict how a later speaker might use rhetoric for a different purpose.',
+    hook:'\u201CWhat makes a speech worthy of being remembered?\u201D Write one quality and a specific example.',
+    activities:[
+      A('0\u20135','Bellwork (composition notebook)','\u201CWhat makes a speech worthy of being remembered?\u201D Write one quality and a specific example.'),
+      A('5\u201310','Context bridge','Two simple visual timelines: economic crisis in 1933, civil rights struggle in 1963. No long history lecture; distinguish circumstances and audiences.'),
+      A('10\u201314','Model','Teacher makes a 3-line museum label: excerpt / rhetorical choice / effect on the intended audience. Model the causal link explicitly, not just identification.'),
+      A('14\u201330','Gallery construction','Groups receive one of three short FDR excerpt cards and a half-sheet museum placard. Required: artifact title; 8\u201315 word excerpt; 1933 context in one sentence; device and evidence; effect on listeners; one question to visitors. Students physically mount and display their placard.'),
+      A('30\u201339','Museum walk','Groups circulate. At each display, visitors leave a sticky-note answer to the question or a specific challenge to the analysis. An optional docent explains the label; rotate roles to avoid passive watching.'),
+      A('39\u201345','MLK teaser','Play a short, appropriately sourced MLK audio/video selection or read a brief licensed excerpt. Students complete: \u201CFDR needed Americans to ___. MLK needed Americans to ___. A rhetorical choice both might use is ___, but its effect differs because ___.\u201D'),
+      A('45\u201350','Individual exit (spiral notebook)','Entry title \u201C11/13 \u2014 Museum of Persuasion\u201D. Choose one FDR line and one MLK teaser line or idea; explain a similarity or difference in purpose using audience and context.')],
+    deliverable:'Evidence-based gallery label and exit',
+    sections:[
+      {heading:'Success criterion', text:'The placard identifies a choice, cites a phrase, and convincingly explains its effect; the individual exit compares purposes.', items:[]},
+      {heading:'Access', text:'Display captions or transcripts, avoid requiring public speaking from every student, and provide printed evidence.', items:[]},
+      {heading:'Fallback', text:'If Thursday runs long, cut the gallery to two displays and use Friday to finish FDR annotations before the MLK teaser.', items:[]}],
+    materials:['3 FDR excerpt cards','Museum placard template (half sheet)','Tape','Sticky notes','Timer','MLK source clip with transcript','Projector'],
+    links:[L('MLK audio/video selection or licensed excerpt, with transcript'), L('FDR Lumio resource')], notebook:'11/13 \u2014 Museum of Persuasion',
+    guidance:['FDR excerpt cards should carry the team\u2019s selected Lumio excerpts. The lesson pack leaves the excerpt text blank instead of reprinting a different selection.']}),
+  E({id:'d1116', date:'2026-11-16', title:'MLK: historical context + guided first read', short:'MLK context + first read', phase:'mlk',
+    primarySkill:'R.2.3', secondarySkill:'R.3.4', focus:'MLK historical context and guided first read.', deliverable:'Two annotated excerpts with purpose/effect',
+    links:[L('MLK selected excerpt / clip (appropriately sourced)')],
+    guidance:['Historical context is a short runway, not the destination.']}),
+  E({id:'d1117', date:'2026-11-17', title:'MLK imagery: figurative-language Bingo + quote-to-mood', short:'MLK imagery + mood', phase:'mlk',
+    owners:['Carina Seagrave','Carissa Motilalsingh'], primarySkill:'R.3.1', secondarySkill:'R.3.4', prepStatus:'UNKNOWN',
+    focus:'MLK imagery, figurative-language Bingo, quote-to-mood.', deliverable:'Quotation \u2192 mood \u2192 explanation',
+    activities:[A('','Figurative-Language Bingo (Carina Seagrave)','MLK rhetorical imagery and repetition, ending with an effect explanation. Carina also contributed a mood exit ticket.'), A('','Quote-to-Mood (Carissa Motilalsingh)','Sort brief excerpts by mood; justify with diction, syntax and imagery.')],
+    links:[L('Figurative-Language Bingo + mood exit ticket (Carina)'), L('Quote-to-Mood (Carissa)')],
+    guidance:['R.3.1: students explain how the figurative language creates the mood, not just name the device or the mood.', 'Readiness and links not yet confirmed with the authors.']}),
+  E({id:'d1118', date:'2026-11-18', title:'MLK rhetorical soundboard: central idea and evidence', short:'MLK soundboard + evidence', phase:'mlk',
+    primarySkill:'R.2.2', secondarySkill:'R.2.3', focus:'MLK rhetorical soundboard and central idea/evidence.', deliverable:'Evidence ranking with justification',
+    guidance:['R.2.2: evaluate the quality, relevance and sufficiency of support, not just identify the main idea.']}),
+  E({id:'d1119', date:'2026-11-19', title:'RFK, April 4, 1968 remarks: eulogy purpose and audience', short:'RFK: purpose + audience', phase:'rfk',
+    primarySkill:'R.2.3', secondarySkill:'R.3.4', focus:'RFK April 4, 1968 remarks; eulogy purpose and audience.', deliverable:'Audience\u2013purpose\u2013effect triangle',
+    links:[L('RFK transcript / clip'), L('Eulogy conventions mini-lesson')],
+    guidance:['Builds toward SBUA transfer on eulogy purpose and conventions. Do not reproduce secure assessment passages.']}),
+  E({id:'d1120', date:'2026-11-20', title:'RFK/MLK compare: Eulogy Architects', short:'Eulogy Architects', phase:'rfk',
+    primarySkill:'R.3.4', secondarySkill:'R.3.1', focus:'RFK/MLK compare; Eulogy Architects.', deliverable:'Short original tribute + device-effect annotations'}),
+  E({id:'d1130', date:'2026-11-30', title:'RFK revisit: evidence and central idea comparison', short:'RFK revisit: evidence', phase:'rfk',
+    primarySkill:'R.2.2', secondarySkill:'R.2.3', focus:'RFK revisit; evidence and central idea comparison.', deliverable:'Two-text evidence verdict',
+    guidance:['First class day after Thanksgiving Break.']}),
+  E({id:'d1201', date:'2026-12-01', title:'Contemporary 2026 article: genre, author purpose, sourcing', short:'2026 article: purpose + sourcing', phase:'contemp',
+    primarySkill:'R.2.3', secondarySkill:'R.2.1', seedStatus:'PROPOSED; ARTICLE TBD', prepStatus:'BLOCKED',
+    focus:'Contemporary 2026 political/informational article: genre, author purpose, sourcing.', deliverable:'Framing / structure annotation',
+    links:[L('2026 Politico article (exact article TBD)')],
+    guidance:['Article not yet selected. Verify publication, date, title, URL, access, reading load, factual claims, balance and licensing. Do not substitute a fabricated article.']}),
+  E({id:'d1202', date:'2026-12-02', title:'Contemporary article: claim and support \u2014 Evidence on Trial', short:'Evidence on Trial', phase:'contemp',
+    owners:['Josh Moody'], primarySkill:'R.2.2', secondarySkill:'R.3.4', prepStatus:'BLOCKED',
+    focus:'Contemporary article: claim and support; Evidence on Trial.', deliverable:'Admit / challenge / reject evidence verdict',
+    activities:[A('','Evidence on Trial (Josh Moody)','Claims with strong, weak and irrelevant supports. Students physically place evidence cards in admit / challenge / reject zones and defend the verdict, then write one verdict paragraph evaluating relevance and sufficiency.')],
+    links:[L('Evidence on Trial materials (Josh)'), L('2026 Politico article (exact article TBD)')],
+    guidance:['Blocked until the 2026 article is selected and vetted.']}),
+  E({id:'d1203', date:'2026-12-03', title:'Data Detective Lab: original science/technology passage with chart', short:'Data Detective Lab', phase:'contemp',
+    primarySkill:'R.2.2', secondarySkill:'R.2.1', focus:'Data Detective Lab: original science/technology passage with chart.', deliverable:'What the chart proves / cannot prove',
+    activities:[A('','Data Detective','Teacher-authored chart plus a short informational article; students build a \u201Cwhat the data shows / what it cannot show\u201D T-chart.')],
+    links:[L('\u201CScience of Intelligence\u201D practice analogue (teacher-written)')],
+    guidance:['Use an original, teacher-authored passage and chart as an analogue. Do not reproduce \u201CThe Science of Intelligence\u201D or other secure SBUA material.', 'Transfer target: charts, statistics, text features, central ideas and supporting evidence.']}),
+  E({id:'d1204', date:'2026-12-04', title:'Stations round 1: teacher table, mood, rhetoric, morphology', short:'Stations round 1', phase:'practice',
+    owners:ALL4, primarySkill:'V.1.2', secondarySkill:'R.3.1', prepStatus:'UNKNOWN',
+    focus:'Stations round 1: teacher table, mood, rhetoric, morphology.', deliverable:'Individual station passport',
+    activities:[
+      A('12\u201315 min','Wordplay / Jeopardy (Danny Duong)','Connotation, derivation, audience-sensitive word choice. Deliverable: rewrite one headline with a different connotation and explain the effect.'),
+      A('12\u201315 min','Quote-to-Mood (Carissa Motilalsingh)','Sort brief FDR/MLK/RFK excerpts by mood; justify with diction, syntax, imagery. Deliverable: mood evidence slip.'),
+      A('12\u201315 min','Figurative-Language Bingo (Carina Seagrave)','MLK rhetorical imagery/repetition with a final effect explanation. Deliverable: one winning-square evidence/effect sentence.'),
+      A('12\u201315 min','Evidence on Trial (Josh Moody)','Three claims with strong, weak and irrelevant supports; students place evidence cards in admit / challenge / reject zones and defend the verdict. Deliverable: one verdict paragraph evaluating relevance and sufficiency.'),
+      A('8\u201310 min','Teacher table','6\u20138 students pulled from the previous day\u2019s exits for targeted work.')],
+    sections:[{heading:'Management', text:'', items:['Station passport','90-second transitions','Visible timer','Each station has a must-do and a stretch','An individual artifact is required even after group talk','The teacher may run Evidence on Trial instead of an additional teacher table if staffing or time is tight']}],
+    links:[L('Station passport')],
+    guidance:['4 core stations, 12\u201315 minutes each, spread across two days instead of one 45-minute period.', 'Confirm each author\u2019s readiness and links on the Stations tab. Not every station is published.']}),
+  E({id:'d1207', date:'2026-12-07', title:'Stations round 2: complete rotations; context and connotation', short:'Stations round 2', phase:'practice',
+    owners:ALL4, primarySkill:'V.1.3', secondarySkill:'R.3.4', prepStatus:'UNKNOWN',
+    focus:'Stations round 2: complete rotations; context/connotation.', deliverable:'Passport + context-based vocabulary inference',
+    activities:[A('','Complete rotations','Students finish the stations they did not reach on Dec 4.'), A('','Context and connotation','Context-based vocabulary inference added to the passport.')],
+    links:[L('Station passport')],
+    guidance:['Station details and author links live on the Stations tab.']}),
+  E({id:'d1208', date:'2026-12-08', title:'Independent transfer: unfamiliar speech + short informational text', short:'Independent transfer', phase:'practice',
+    primarySkill:'R.2.3', secondarySkill:'R.2.2', focus:'Independent unfamiliar speech and short informational text transfer.', deliverable:'Timed evidence-based analysis',
+    guidance:['Use teacher-selected or teacher-authored analogues; protect assessment security.']}),
+  E({id:'d1209', date:'2026-12-09', title:'Benchmark checkpoint + error coding', short:'Benchmark checkpoint', phase:'practice',
+    primarySkill:'R.3.4', secondarySkill:'R.2.2', seedStatus:'PROPOSED; LINK TBD', assessmentFlag:'CHECKPOINT',
+    focus:'Benchmark checkpoint (MasteryConnect if available); error coding.', deliverable:'Independent check + skill tracker',
+    links:[L('Benchmark checkpoint (MasteryConnect, if available)')]}),
+  E({id:'d1210', date:'2026-12-10', title:'Targeted teacher tables + morphology microgroups', short:'Teacher tables', phase:'practice',
+    primarySkill:'V.1.2', secondarySkill:'V.1.3', focus:'Targeted teacher tables from checkpoint data; morphology microgroups.', deliverable:'Corrected reasoning and new example',
+    activities:[A('8\u201310 min','Teacher table','6\u20138 students pulled from the checkpoint data. Prompt progression: find the claim \u2192 identify the exact supporting phrase \u2192 explain what it proves \u2192 decide whether the support is enough.'), A('','Morphology microgroups','Greek/Latin roots and affixes (V.1.2) alongside context-based denotation and connotation (V.1.3).')],
+    guidance:['Group students by observed need, not assumed achievement band.']}),
+  E({id:'d1211', date:'2026-12-11', title:'Change One Mind: ethical persuasion prototype + peer testing', short:'Change One Mind', phase:'pbl',
+    primarySkill:'R.2.3', secondarySkill:'C.1.5', teamSharedFlag:null,
+    focus:'Change One Mind: ethical persuasion prototype and peer testing.', deliverable:'Argument artifact + audience feedback + revision',
+    sections:[
+      {heading:'Challenge', text:'Choose a realistic school or community issue, identify a real or simulated audience, and design an ethical 60-second persuasive message or alternative physical artifact that could change how that audience thinks.', items:[]},
+      {heading:'Choice board', text:'', items:['(A) 60-second speech + audience Q&A','(B) Two-panel before/after museum display','(C) Rhetorical campaign postcard and 30-second pitch','(D) Mock public-service announcement with a visual/data insert','(E) Staged \u201Cpersuasion courtroom\u201D where an evidence exhibit must survive cross-examination']},
+      {heading:'Constraints', text:'', items:['1 clear claim','2 credible supports, at least one a checkable fact','2 purposeful rhetorical choices','A specified audience','A 4\u20135 sentence designer\u2019s note explaining audience effect and ethical limitations','Nonpartisan issues are welcome (water-bottle refilling, lunch lines, reading time, campus cleanliness)','No fabricated data or deceptive claims; cite sources']},
+      {heading:'Audience feedback', text:'Two peers acting as the target audience answer \u201CWhat persuaded me?\u201D and \u201CWhat evidence would I still need?\u201D The student revises one line or feature.', items:[]},
+      {heading:'Rubric (20 points)', text:'Not graded on whether the audience actually agrees.', items:['Argument clarity \u2014 4','Evidence quality \u2014 5','Rhetorical choices / effect explanation \u2014 5','Audience adaptation \u2014 4','Reflection / revision \u2014 2']}],
+    guidance:['Students must not be compelled to disclose political beliefs or advocate a partisan position.', 'The brief scopes the full PBL at 2\u20133 periods; this calendar holds one day. Use a 25-minute prototype if the SBUA window is close.', 'CLT to decide: common to the team or optional extension, and whether it must precede the SBUA.', 'Enrichment and transfer, not a replacement for required assessment preparation.']}),
+  E({id:'d1214', date:'2026-12-14', title:'SBUA 2.2 testing, day 1 (placeholder)', short:'SBUA day 1', phase:'sbua',
+    primarySkill:'R.2.2', secondarySkill:'R.2.3', status:'UNCONFIRMED', seedStatus:'TENTATIVE', dateStatus:'HOLD', prepStatus:'UNKNOWN', assessmentFlag:'SBUA',
+    focus:'SBUA 2.2 testing, day 1 (placeholder; confirm window).', deliverable:'Secure assessment',
+    guidance:['Planning placeholder. Confirm the testing window with AP/IFC before publishing.', 'SBUA Unify ID 3924427 appears on CRM p. 9; confirm live deployment.', 'Listed standards are scheduling emphases, not a claim about question distribution.']}),
+  E({id:'d1215', date:'2026-12-15', title:'SBUA 2.2 testing, day 2 (placeholder)', short:'SBUA day 2', phase:'sbua',
+    primarySkill:'R.3.1', secondarySkill:'R.3.4', status:'UNCONFIRMED', seedStatus:'TENTATIVE', dateStatus:'HOLD', prepStatus:'UNKNOWN', assessmentFlag:'SBUA',
+    focus:'SBUA 2.2 testing, day 2 (placeholder; confirm window).', deliverable:'Secure assessment completion',
+    guidance:['Planning placeholder. Confirm the testing window with AP/IFC before publishing.', 'Listed standards are scheduling emphases, not a claim about question distribution.']}),
+  E({id:'d1216', date:'2026-12-16', title:'Revision of Knowledge, day 1', short:'Revision day 1', phase:'sbua',
+    primarySkill:'R.2.2', secondarySkill:'R.2.3', seedStatus:'TENTATIVE', dateStatus:'HOLD', assessmentFlag:'REVISION',
+    focus:'Revision of Knowledge, day 1.', deliverable:'Error analysis / evidence-based revision',
+    guidance:['Moves with the SBUA window. The CRM reserves two post-test revision days.']}),
+  E({id:'d1217', date:'2026-12-17', title:'Revision of Knowledge, day 2', short:'Revision day 2', phase:'sbua',
+    primarySkill:'R.3.4', secondarySkill:'R.3.1', seedStatus:'TENTATIVE', dateStatus:'HOLD', assessmentFlag:'REVISION',
+    focus:'Revision of Knowledge, day 2.', deliverable:'Reassessment of thinking / reflection',
+    guidance:['Moves with the SBUA window. The CRM reserves two post-test revision days.']}),
+  E({id:'d1218', date:'2026-12-18', title:'Unit closure: makeup, recovery, rhetoric gallery reflection', short:'Unit closure', phase:'closure',
+    primarySkill:'R.3.4', secondarySkill:'C.1.4', focus:'Unit closure, makeup/recovery, rhetoric gallery reflection; marking period ends.', deliverable:'Final transfer reflection / outstanding work',
+    guidance:['Last instructional day of the unit. The second marking period ends Fri Dec 18.', 'The CRM prints Dec 19 (a Saturday) as the unit end date.']})
+];
+const SEED_BY_ID = Object.fromEntries(SEED_ENTRIES.map(e => [e.id, e]));
+const ORDER = Object.fromEntries(SEED_ENTRIES.map((e, i) => [e.id, i]));
+
+const SEED_STATIONS = [
+  {id:'st-wordplay', name:'Wordplay / Jeopardy', author:'Danny Duong', standards:['V.1.3','V.1.2'], optional:false,
+   focus:'Vocabulary wordplay: connotation, derivation, audience-sensitive word choice.', deliverable:'Rewrite one headline with a different connotation and explain the effect.', readiness:'NOT_CONFIRMED', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'st-mood', name:'Quote-to-Mood', author:'Carissa Motilalsingh', standards:['R.3.1'], optional:false,
+   focus:'Sort brief FDR/MLK/RFK excerpts by mood; justify with diction, syntax, imagery.', deliverable:'Mood evidence slip.', readiness:'NOT_CONFIRMED', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'st-bingo', name:'Figurative-Language Bingo', author:'Carina Seagrave', standards:['R.3.1','R.3.4'], optional:false,
+   focus:'MLK rhetorical imagery and repetition, ending with an effect explanation. Also contributed: mood exit ticket.', deliverable:'One winning-square evidence/effect sentence.', readiness:'NOT_CONFIRMED', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'st-trial', name:'Evidence on Trial', author:'Josh Moody', standards:['R.2.2'], optional:false,
+   focus:'Three claims with strong, weak and irrelevant supports. Students physically place evidence cards in admit / challenge / reject zones and defend the verdict.', deliverable:'One verdict paragraph evaluating relevance and sufficiency.', readiness:'NOT_CONFIRMED', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'st-data', name:'Data Detective (optional fifth)', author:'', standards:['R.2.2','R.2.1'], optional:true,
+   focus:'A teacher-authored chart plus a short informational article.', deliverable:'\u201CWhat the data shows / what it cannot show\u201D T-chart.', readiness:'NOT_CONFIRMED', url:'', notes:'', lastUpdated:SEED_VERSION}
+];
+const STATION_BY_ID = Object.fromEntries(SEED_STATIONS.map(s => [s.id, s]));
+
+const SEED_RESOURCES = [
+  {id:'res-lumio', name:'FDR Lumio resource', state:'BUILT', note:'Built for the Nov 11 launch (selected excerpts, I Do / We Do / You Do, exit ticket). Share URL not yet collected.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-fdr', name:'FDR First Inaugural (1933): selected excerpts', state:'SELECTED', note:'Selected excerpts, not the complete speech. Same excerpts feed the Nov 13 museum cards.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-mlk', name:'MLK, \u201CI Have a Dream\u201D (1963): selected excerpt or clip', state:'TBD', note:'Use an appropriately sourced, licensed excerpt or clip with captions or a transcript.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-rfk', name:'RFK remarks on the assassination of MLK (April 4, 1968): transcript or clip', state:'TBD', note:'Needed Nov 19\u201320 and Nov 30.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-article', name:'2026 Politico article (exact link TBD)', state:'TBD', note:'Verify publication, date, title, reading load, factual claims, balance and licensing. Do not substitute a fabricated article.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-science', name:'\u201CScience of Intelligence\u201D practice analogue (teacher-written)', state:'TO_WRITE', note:'Original data-rich passage with chart for transfer practice. Do not reproduce the secure SBUA passage.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-eulogy', name:'Eulogy conventions mini-lesson', state:'TO_WRITE', note:'Prepares transfer to eulogy purpose and conventions without exposing \u201CThe Eulogy of Mahatma Gandhi\u201D.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-stations', name:'Station packets', state:'TBD', note:'Per-station links and readiness are tracked on the Stations tab.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-rubric', name:'Common exit-ticket rubric', state:'TO_WRITE', note:'Nov 12 success criterion: 1 cited choice + 1 plausible audience effect + 1 \u201Cwhy\u201D explanation.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-crm', name:'CRM 2.2', state:'VERIFIED', note:'CRM 2.2.pdf, pp. 1\u20134 and 6\u201310: benchmark stack, pacing, SBUA Unify ID 3924427 (p. 9).', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-calendar', name:'OCPS 2026\u20132027 school calendar', state:'VERIFIED', note:'2026-2027_school_calendar.pdf, p. 1: Thanksgiving Break Nov 23\u201327, 2026.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-ifc', name:'IFC dates', state:'PENDING', note:'IFC end date not verified in the available files.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-sbua', name:'SBUA 2.2 testing window', state:'PENDING', note:'Placeholder Dec 14\u201315. Confirm live deployment and window with AP/IFC. Obtain distractor/justification sheets.', url:'', notes:'', lastUpdated:SEED_VERSION},
+  {id:'res-pack', name:'Nov 12\u201313 lesson pack with printables', state:'INCLUDED', note:'Teacher-facing plans plus scenario cards, audience cards, museum placard and exit slips. Ships as a file in the same folder as this dashboard.', url:'', local:'unit-2-2-lesson-pack-nov-12-13.html', notes:'', lastUpdated:SEED_VERSION}
+];
+const RES_BY_ID = Object.fromEntries(SEED_RESOURCES.map(r => [r.id, r]));
+
+/* ================================================================
+   2. UTILITIES
+   ================================================================ */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clone = o => JSON.parse(JSON.stringify(o));
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const isHttp = u => typeof u === 'string' && /^https?:\/\/[^\s<>"]+$/i.test(u.trim());
+const pad = n => String(n).padStart(2, '0');
+const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DOW_LONG = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MON_LONG = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function dt(s){ const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d, 12); }
+function toISO(x){ return x.getFullYear() + '-' + pad(x.getMonth() + 1) + '-' + pad(x.getDate()); }
+function addDays(s, n){ const x = dt(s); x.setDate(x.getDate() + n); return toISO(x); }
+function dow(s){ return dt(s).getDay(); }
+function isValidISO(s){ return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && toISO(dt(s)) === s; }
+function fmt(s){ const x = dt(s); return DOW[x.getDay()] + ' ' + MON[x.getMonth()] + ' ' + x.getDate(); }
+function fmtY(s){ return fmt(s) + ', ' + dt(s).getFullYear(); }
+function fmtMD(s){ const x = dt(s); return MON[x.getMonth()] + ' ' + x.getDate(); }
+function fmtLong(s){ const x = dt(s); return DOW_LONG[x.getDay()] + ', ' + MON_LONG[x.getMonth()] + ' ' + x.getDate() + ', ' + x.getFullYear(); }
+function slash(s){ const x = dt(s); return (x.getMonth() + 1) + '/' + x.getDate(); }
+function mondayOf(s){ const w = dow(s); return addDays(s, w === 0 ? -6 : 1 - w); }
+function isWeekend(s){ const w = dow(s); return w === 0 || w === 6; }
+function breakOn(s){ return FACTS.find(f => f.type === 'break' && f.start <= s && s <= f.end) || null; }
+function factsOn(s){ return FACTS.filter(f => f.start <= s && s <= f.end); }
+function nowStamp(){ return new Date().toISOString(); }
+function fmtStamp(s){
+  if (!s) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return fmtY(s) + ' (seed)';
+  const x = new Date(s); if (isNaN(x)) return s;
+  return MON[x.getMonth()] + ' ' + x.getDate() + ', ' + x.getFullYear() + ' ' + pad(x.getHours()) + ':' + pad(x.getMinutes());
+}
+function schoolDayNote(s){
+  const w = dow(s);
+  if (w === 3) return {short:'~40 min', long:'Wednesday periods may be shorter (~40 min).'};
+  if (w === 4) return {short:'Huddle', long:'Thursday Darter Huddle may alter class time.'};
+  return null;
+}
+function stdLabel(code){ const s = STANDARDS[code]; return s ? code + ' \u00B7 ' + s.name : (code || '\u2014'); }
+function ownersText(e){ return e.owners && e.owners.length ? e.owners.join(', ') : 'Unassigned'; }
+function needsLinkCount(e){ return (e.links || []).filter(l => !isHttp(l.url)).length; }
+
+/* ---------- storage ---------- */
+let storageOK = true;
+function readStore(key){
+  try { const raw = window.localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
+  catch (err) { storageOK = false; return null; }
+}
+function writeStore(key, val){
+  try { window.localStorage.setItem(key, JSON.stringify(val)); return true; }
+  catch (err) { storageOK = false; return false; }
+}
+function removeStore(key){ try { window.localStorage.removeItem(key); } catch (err) { storageOK = false; } }
+
+function emptyOverrides(){ return {v:1, entries:{}, stations:{}, resources:{}, settings:{}}; }
+let overrides = (function(){
+  const raw = readStore(STORE_KEY);
+  const o = emptyOverrides();
+  if (raw && typeof raw === 'object') {
+    for (const k of ['entries','stations','resources','settings']) if (raw[k] && typeof raw[k] === 'object') o[k] = raw[k];
+  }
+  // drop overrides for unknown ids
+  for (const id of Object.keys(o.entries)) if (!SEED_BY_ID[id]) delete o.entries[id];
+  for (const id of Object.keys(o.stations)) if (!STATION_BY_ID[id]) delete o.stations[id];
+  for (const id of Object.keys(o.resources)) if (!RES_BY_ID[id]) delete o.resources[id];
+  return o;
+})();
+function persist(){ writeStore(STORE_KEY, overrides); }
+
+/* ---------- merged state ---------- */
+let S = null;
+function rebuild(){
+  const settings = Object.assign({}, SEED_SETTINGS, overrides.settings);
+  const entries = SEED_ENTRIES.map(e => Object.assign(clone(e), overrides.entries[e.id] || {}));
+  entries.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : ORDER[a.id] - ORDER[b.id]);
+  const stations = SEED_STATIONS.map(s => Object.assign(clone(s), overrides.stations[s.id] || {}));
+  const resources = SEED_RESOURCES.map(r => Object.assign(clone(r), overrides.resources[r.id] || {}));
+  const byDate = {};
+  for (const e of entries) (byDate[e.date] = byDate[e.date] || []).push(e);
+  S = {settings, entries, stations, resources, byDate, byId:Object.fromEntries(entries.map(e => [e.id, e]))};
+}
+function editCount(){
+  return Object.keys(overrides.entries).length + Object.keys(overrides.stations).length + Object.keys(overrides.resources).length + Object.keys(overrides.settings).length;
+}
+
+/* Apply a patch to one record: values equal to the seed are dropped, so "revert" is just an empty override. */
+function patchRecord(kind, seed, id, patch){
+  const cur = Object.assign({}, overrides[kind][id] || {});
+  let changed = false;
+  for (const [k, v] of Object.entries(patch)) {
+    const before = k in cur ? cur[k] : seed[k];
+    if (!same(before, v)) changed = true;
+    if (same(v, seed[k])) delete cur[k]; else cur[k] = clone(v);
+  }
+  if (!changed) return false;
+  delete cur.lastUpdated;
+  if (Object.keys(cur).length) { cur.lastUpdated = nowStamp(); overrides[kind][id] = cur; }
+  else delete overrides[kind][id];
+  persist(); rebuild();
+  return true;
+}
+const setEntry = (id, patch) => patchRecord('entries', SEED_BY_ID[id], id, patch);
+const setStation = (id, patch) => patchRecord('stations', STATION_BY_ID[id], id, patch);
+const setResource = (id, patch) => patchRecord('resources', RES_BY_ID[id], id, patch);
+function setSettings(patch){
+  const cur = Object.assign({}, overrides.settings);
+  for (const [k, v] of Object.entries(patch)) { if (same(v, SEED_SETTINGS[k])) delete cur[k]; else cur[k] = v; }
+  overrides.settings = cur; persist(); rebuild();
+}
+
+/* ---------- calendar helpers ---------- */
+function schoolDays(){
+  const out = []; const st = S.settings;
+  for (let s = st.unitStart; s <= st.lastInstructionalDay; s = addDays(s, 1)) if (!isWeekend(s) && !breakOn(s)) out.push(s);
+  return out;
+}
+function rangeEnd(){
+  const last = S.entries.length ? S.entries[S.entries.length - 1].date : S.settings.lastInstructionalDay;
+  return [S.settings.lastInstructionalDay, S.settings.crmPrintedEnd, last].sort().pop();
+}
+function rangeStart(){
+  const first = S.entries.length ? S.entries[0].date : S.settings.unitStart;
+  return [S.settings.unitStart, first].sort()[0];
+}
+function dateProblem(s){
+  if (!isValidISO(s)) return 'Enter a complete date.';
+  if (isWeekend(s)) return fmtY(s) + ' is a weekend. Choose a school day.';
+  if (breakOn(s)) return fmtY(s) + ' falls in Thanksgiving Break (Nov 23\u201327). No instruction is scheduled during the break.';
+  if (s < S.settings.unitStart) return fmtY(s) + ' is before the unit starts (' + fmtY(S.settings.unitStart) + ').';
+  if (s > S.settings.lastInstructionalDay) return fmtY(s) + ' is after the last instructional day (' + fmtY(S.settings.lastInstructionalDay) + '). Change the unit end date on the Unit timeline tab first.';
+  return '';
+}
+
+/* ================================================================
+   3. UI STATE, FILTERS
+   ================================================================ */
+const qsToday = new URLSearchParams(location.search).get('today');
+const TODAY = isValidISO(qsToday) ? qsToday : toISO(new Date());
+rebuild();
+
+const ui = Object.assign({view:'month', month:'', week:'', filters:{q:'', phase:'', status:'', owner:'', std:''}}, (function(){
+  const r = readStore(UI_KEY); return r && typeof r === 'object' ? {filters:Object.assign({q:'', phase:'', status:'', owner:'', std:''}, r.filters || {})} : {};
+})());
+(function initPosition(){
+  const inUnit = TODAY >= rangeStart() && TODAY <= rangeEnd();
+  const anchor = inUnit ? TODAY : S.settings.unitStart;
+  ui.month = anchor.slice(0, 7);
+  let wk = mondayOf(anchor);
+  if (inUnit && isWeekend(TODAY) && dow(TODAY) === 6) wk = addDays(wk, 7);
+  if (wk > mondayOf(rangeEnd())) wk = mondayOf(rangeEnd());
+  ui.week = wk;
+  const h = location.hash.replace('#', '');
+  if (VIEWS.includes(h)) ui.view = h;
+})();
+function saveUI(){ writeStore(UI_KEY, {filters:ui.filters}); }
+
+function matches(e){
+  const f = ui.filters;
+  if (f.phase && e.phase !== f.phase) return false;
+  if (f.status && e.status !== f.status) return false;
+  if (f.owner === '__none' && e.owners.length) return false;
+  if (f.owner && f.owner !== '__none' && !e.owners.includes(f.owner)) return false;
+  if (f.std && e.primarySkill !== f.std && e.secondarySkill !== f.std) return false;
+  if (f.q) {
+    const hay = [e.title, e.short, e.focus, e.objective, e.hook, e.deliverable, e.notes, e.primarySkill, e.secondarySkill, e.owners.join(' '), e.materials.join(' '),
+      e.activities.map(a => a.label + ' ' + a.detail).join(' '), e.links.map(l => l.label).join(' '), e.guidance.join(' '), e.notebook,
+      (PHASE_BY_ID[e.phase] || {}).name, STATUS[e.status] ? e.status : '', fmtY(e.date)].join(' ').toLowerCase();
+    const terms = f.q.toLowerCase().split(/\s+/).filter(Boolean);
+    if (!terms.every(t => hay.includes(t))) return false;
+  }
+  return true;
+}
+function filtersActive(){ const f = ui.filters; return !!(f.q || f.phase || f.status || f.owner || f.std); }
+
+/* ================================================================
+   4. SMALL RENDER HELPERS
+   ================================================================ */
+function statusChip(st){ const s = STATUS[st] || STATUS.PROPOSED; return '<span class="chip s-' + esc(st) + '" title="' + esc(s.desc) + '"><span aria-hidden="true">' + s.icon + '</span>' + esc(st) + '</span>'; }
+function dateChip(ds){ const d = DATE_STATUS[ds] || DATE_STATUS.PROPOSED; return '<span class="chip d-' + esc(ds) + '" title="' + esc(d.desc) + '">' + esc(d.chip) + '</span>'; }
+function prepChip(p){ return '<span class="chip p-' + esc(p) + '">Prep: ' + esc((PREP[p] || PREP.UNKNOWN).label) + '</span>'; }
+function needsChip(n){ return n ? '<span class="chip needs">' + (n > 1 ? n + ' \u00D7 ' : '') + 'Needs link</span>' : ''; }
+function assessChip(a){ return a ? '<span class="chip flag">' + esc(ASSESS[a] || a) + '</span>' : ''; }
+function sharedText(v){ return v === true ? 'Shared Core deliverable' : v === false ? 'Individual / optional' : 'Undecided (CLT to confirm)'; }
+function options(map, sel, allLabel){
+  let h = allLabel != null ? '<option value="">' + esc(allLabel) + '</option>' : '';
+  for (const [v, l] of map) h += '<option value="' + esc(v) + '"' + (v === sel ? ' selected' : '') + '>' + esc(l) + '</option>';
+  return h;
+}
+function linkHTML(l){
+  if (isHttp(l.url)) return '<a href="' + esc(l.url.trim()) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label || l.url) + '</a>';
+  return '<span>' + esc(l.label || 'Untitled link') + '</span> <span class="chip needs">Needs link</span>';
+}
+function textBlock(t){ return t ? t.split(/\n{2,}/).map(p => '<p class="ptxt">' + esc(p) + '</p>').join('') : ''; }
+let toastTimer = null;
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3200); }
+
+/* ================================================================
+   5. HEADER, SUMMARY, FILTER CONTROLS
+   ================================================================ */
+function renderFacts(){
+  const st = S.settings;
+  const n = schoolDays().length;
+  $('#unitFacts').innerHTML =
+    '<span>CRM span <b>' + esc(fmtMD(st.unitStart)) + ' \u2013 ' + esc(fmtMD(st.crmPrintedEnd)) + ', 2026</b> (' + st.crmStatedDays + ' days stated in CRM)</span>' +
+    '<span>Last instructional day <b>' + esc(fmtY(st.lastInstructionalDay)) + '</b></span>' +
+    '<span>Thanksgiving Break <b>Nov 23\u201327</b>, no instruction (confirmed)</span>' +
+    '<span>School days on this map <b class="tnum">' + n + '</b></span>';
+}
+function sbuaWindow(){
+  const sb = S.entries.filter(e => e.assessmentFlag === 'SBUA' && e.status !== 'DEFERRED');
+  if (!sb.length) return {text:'No SBUA days on the calendar.', confirmed:false};
+  const a = sb[0].date, b = sb[sb.length - 1].date;
+  const confirmed = sb.every(e => e.dateStatus === 'CONFIRMED');
+  return {text:(a === b ? fmtY(a) : fmt(a) + ' \u2013 ' + fmtY(b)), confirmed};
+}
+function renderSummary(){
+  const today = S.byDate[TODAY] || [];
+  const facts = factsOn(TODAY);
+  let todayHTML;
+  if (today.length) todayHTML = today.map(e => '<button class="linkish" type="button" data-open="' + esc(e.id) + '">' + esc(e.short || e.title) + '</button><div class="chips">' + statusChip(e.status) + '</div>').join('');
+  else if (facts.length) todayHTML = '<p class="big">' + esc(facts[0].title) + '</p>';
+  else todayHTML = '<p class="big">No class entry today</p>';
+  const next = S.entries.find(e => e.date > TODAY && e.status !== 'DEFERRED');
+  const past = S.entries.filter(e => e.date < TODAY && e.status !== 'IMPLEMENTED' && e.status !== 'DEFERRED');
+  const sb = sbuaWindow();
+  const ents = S.entries.filter(e => e.status !== 'DEFERRED');
+  const cnt = k => ents.filter(e => e.prepStatus === k).length;
+  const ready = cnt('READY'), prog = cnt('IN_PROGRESS'), block = cnt('BLOCKED');
+  const links = ents.reduce((n, e) => n + needsLinkCount(e), 0);
+  const total = ents.length || 1;
+  const pct = n => (n / total * 100).toFixed(1) + '%';
+  $('#summary').innerHTML =
+    '<div class="tile"><p class="eyebrow">Today \u00B7 ' + esc(fmt(TODAY)) + '</p>' + todayHTML +
+      (past.length ? '<p class="small">' + past.length + ' earlier ' + (past.length === 1 ? 'day still needs' : 'days still need') + ' a delivery check. Mark a lesson Implemented only after it is taught.</p>' : '') + '</div>' +
+    '<div class="tile"><p class="eyebrow">Up next</p>' + (next ? '<p class="small">' + esc(fmt(next.date)) + '</p><button class="linkish" type="button" data-open="' + esc(next.id) + '">' + esc(next.short || next.title) + '</button>' : '<p class="big">Nothing scheduled</p>') + '</div>' +
+    '<div class="tile"><p class="eyebrow">' + (sb.confirmed ? 'SBUA window' : 'Tentative SBUA window') + '</p><p class="big">' + esc(sb.text) + '</p><p class="small">' + (sb.confirmed ? 'Marked confirmed in this browser.' : 'Planning placeholder. Confirm with AP/IFC before publishing.') + '</p></div>' +
+    '<div class="tile"><p class="eyebrow">Prep readiness (not student mastery)</p><p class="big tnum">' + ready + ' of ' + ents.length + ' days ready</p>' +
+      '<div class="bar" role="img" aria-label="' + ready + ' ready, ' + prog + ' in progress, ' + block + ' blocked out of ' + ents.length + ' days"><span class="b-ready" style="width:' + pct(ready) + '"></span><span class="b-prog" style="width:' + pct(prog) + '"></span><span class="b-block" style="width:' + pct(block) + '"></span></div>' +
+      '<p class="small tnum">' + prog + ' in progress \u00B7 ' + block + ' blocked \u00B7 ' + links + ' links still needed</p></div>';
+  const n = editCount();
+  $('#editCount').textContent = n ? 'This browser holds ' + n + ' local ' + (n === 1 ? 'edit' : 'edits') + '.' : 'No local edits yet; you are viewing the seeded plan.';
+  const sw = $('#storageWarn');
+  if (!storageOK) { sw.hidden = false; sw.textContent = 'This browser is blocking local storage, so edits last only until this tab closes. Export JSON to keep them.'; }
+}
+function fillFilterSelects(){
+  const f = ui.filters;
+  $('#fSearch').value = f.q;
+  $('#fPhase').innerHTML = options(PHASES.map(p => [p.id, p.name]), f.phase, 'All phases');
+  $('#fStatus').innerHTML = options(STATUS_IDS.map(s => [s, STATUS[s].label]), f.status, 'All statuses');
+  $('#fOwner').innerHTML = options(OWNERS.map(o => [o, o]).concat([['__none', 'Unassigned']]), f.owner, 'All owners');
+  $('#fStd').innerHTML = options(STD_ORDER.map(c => [c, c + ' \u00B7 ' + STANDARDS[c].name]), f.std, 'All standards');
+}
+function renderShowing(){
+  const n = S.entries.filter(matches).length;
+  const v = ui.view;
+  const relevant = ['month','week','timeline','prep','standards'].includes(v);
+  $('#toolbar').querySelector('.filters').hidden = !relevant;
+  $('#showing').textContent = relevant ? (filtersActive() ? 'Showing ' + n + ' of ' + S.entries.length + ' lesson days. Filters only change what is visible; edits are kept.' : 'Showing all ' + S.entries.length + ' lesson days.') : '';
+}
+
+/* ================================================================
+   6. MONTH VIEW
+   ================================================================ */
+function monthsInRange(){
+  const out = []; let m = rangeStart().slice(0, 7); const end = rangeEnd().slice(0, 7);
+  while (m <= end) { out.push(m); let [y, mo] = m.split('-').map(Number); mo++; if (mo > 12) { mo = 1; y++; } m = y + '-' + pad(mo); }
+  return out;
+}
+function monthEntryButton(e){
+  const ph = PHASE_BY_ID[e.phase] || PHASES[0];
+  return '<li><button type="button" class="mentry ph-' + esc(e.phase) + '" data-open="' + esc(e.id) + '">' +
+    '<span class="me-top"><span>' + esc(ph.abbr) + '</span><span class="tnum">' + esc(e.primarySkill) + (e.secondarySkill ? ' \u00B7 ' + esc(e.secondarySkill) : '') + '</span></span>' +
+    '<span class="me-title">' + esc(e.short || e.title) + '</span>' +
+    '<span class="chips">' + statusChip(e.status) + (e.dateStatus !== 'PROPOSED' ? dateChip(e.dateStatus) : '') + '</span>' +
+    '<span class="sr">' + esc(e.title) + '. Primary ' + esc(e.primarySkill) + ', supporting ' + esc(e.secondarySkill) + '.</span></button></li>';
+}
+function factHTML(f, s){
+  if (f.type === 'break') return '';
+  return '<p class="fact"><b>' + (f.nonClass ? 'Not a class day' : 'Calendar') + '</b>' + esc(f.title) + '</p>';
+}
+function renderMonth(){
+  const months = monthsInRange();
+  if (!months.includes(ui.month)) ui.month = months[0];
+  const idx = months.indexOf(ui.month);
+  const [y, m] = ui.month.split('-').map(Number);
+  const first = ui.month + '-01';
+  const last = toISO(new Date(y, m, 0, 12));
+  const gStart = addDays(first, -dow(first));
+  const gEnd = addDays(last, 6 - dow(last));
+  const st = S.settings;
+  let rows = '';
+  for (let wk = gStart; wk <= gEnd; wk = addDays(wk, 7)) {
+    let cells = '';
+    const mon = addDays(wk, 1), fri = addDays(wk, 5);
+    const brk = breakOn(mon);
+    const fullBreak = brk && brk.start <= mon && brk.end >= fri && mon.slice(0, 7) === ui.month && fri.slice(0, 7) === ui.month;
+    for (let i = 0; i < 7; i++) {
+      const s = addDays(wk, i);
+      if (fullBreak && i >= 1 && i <= 5) {
+        if (i === 1) cells += '<td colspan="5" class="breakspan hatch"><span class="breaklabel">' + esc(brk.title) + '<small>' + esc(fmtMD(brk.start)) + '\u2013' + esc(String(dt(brk.end).getDate())) + ' \u00B7 OCPS calendar, confirmed \u00B7 no lessons or required work</small></span></td>';
+        continue;
+      }
+      cells += dayCell(s, st);
+    }
+    rows += '<tr>' + cells + '</tr>';
+  }
+  // Agenda (phone)
+  let agenda = '';
+  let curWeek = '';
+  for (let s = first; s <= last; s = addDays(s, 1)) {
+    const ents = (S.byDate[s] || []).filter(matches);
+    const hiddenN = (S.byDate[s] || []).length - ents.length;
+    const facts = factsOn(s);
+    const brk = breakOn(s);
+    if (brk && s !== brk.start && s !== first) continue;
+    if (!ents.length && !facts.length && !hiddenN) continue;
+    const wk = mondayOf(s);
+    if (wk !== curWeek) { curWeek = wk; agenda += '<li class="aweek">Week of ' + esc(fmtMD(wk)) + '</li>'; }
+    if (brk) { agenda += '<li class="breakbox hatch"><b>' + esc(brk.title) + '</b><span class="muted">' + esc(fmt(brk.start)) + ' \u2013 ' + esc(fmt(brk.end)) + ' \u00B7 confirmed \u00B7 no lessons or required work</span></li>'; continue; }
+    agenda += '<li class="wday' + (s === TODAY ? ' is-today' : '') + '"><div class="wd-date"><span class="wd-dow">' + esc(DOW_LONG[dow(s)]) + (s === TODAY ? ' \u00B7 Today' : '') + '</span><span class="wd-md">' + esc(fmtMD(s)) + '</span></div><div class="wd-items">' +
+      ents.map(e => weekCard(e, true)).join('') + facts.map(f => '<div class="nobox">' + esc(f.title) + '</div>').join('') +
+      (hiddenN ? '<p class="filtered-note">' + hiddenN + ' hidden by filters</p>' : '') + '</div></li>';
+  }
+  $('#view-month').innerHTML =
+    '<div class="vhead"><h2 id="monthTitle">' + esc(MON_LONG[m - 1]) + ' ' + y + '</h2><div class="navbtns">' +
+      '<button class="btn small" type="button" data-month="' + (idx > 0 ? months[idx - 1] : '') + '"' + (idx > 0 ? '' : ' disabled') + '>\u2039 ' + (idx > 0 ? esc(MON_LONG[Number(months[idx - 1].slice(5)) - 1]) : 'Previous') + '</button>' +
+      '<button class="btn small" type="button" data-month="' + (idx < months.length - 1 ? months[idx + 1] : '') + '"' + (idx < months.length - 1 ? '' : ' disabled') + '>' + (idx < months.length - 1 ? esc(MON_LONG[Number(months[idx + 1].slice(5)) - 1]) : 'Next') + ' \u203A</button></div></div>' +
+    '<div class="mtable-wrap"><table class="month" aria-labelledby="monthTitle"><colgroup><col class="wk"><col><col><col><col><col><col class="wk"></colgroup>' +
+      '<thead><tr>' + DOW.map((d, i) => '<th scope="col"><abbr title="' + DOW_LONG[i] + '">' + d + '</abbr></th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+    '<div class="magenda"><ol class="agenda">' + (agenda || '<li class="nobox">No lesson days match the filters this month.</li>') + '</ol></div>' +
+    legendHTML();
+}
+function dayCell(s, st){
+  const inMonth = s.slice(0, 7) === ui.month;
+  const all = S.byDate[s] || [];
+  const ents = all.filter(matches);
+  const facts = factsOn(s);
+  const brk = breakOn(s);
+  const cls = ['day'];
+  if (!inMonth) cls.push('out');
+  if (isWeekend(s)) cls.push('wknd');
+  if (s === TODAY) cls.push('today');
+  if (brk) cls.push('hatch');
+  if (inMonth && !isWeekend(s) && !brk && s > st.lastInstructionalDay && s <= rangeEnd()) cls.push('after');
+  const note = all.length ? schoolDayNote(s) : null;
+  let h = '<td class="' + cls.join(' ') + '"><div class="dhead"><span class="dnum" aria-hidden="true">' + dt(s).getDate() + '</span><span class="sr">' + esc(fmtLong(s)) + '</span>' +
+    (note ? '<span class="dnote" title="' + esc(note.long) + '">' + esc(note.short) + '</span>' : '') +
+    (s === TODAY ? '<span class="today-tag">Today</span>' : '') + '</div>';
+  if (brk && inMonth) h += '<p class="fact"><b>No instruction</b>' + esc(brk.title.replace(' \u2014 no instruction', '')) + '</p>';
+  if (inMonth) h += facts.map(f => factHTML(f, s)).join('');
+  if (ents.length) h += '<ul class="mentries">' + ents.map(monthEntryButton).join('') + '</ul>';
+  if (all.length > ents.length) h += '<p class="filtered-note">' + (all.length - ents.length) + ' hidden by filters</p>';
+  return h + '</td>';
+}
+function legendHTML(){
+  return '<div class="legend" aria-label="Legend">' +
+    '<span class="grp"><b>Status</b> ' + STATUS_IDS.map(statusChip).join(' ') + '</span>' +
+    '<span class="grp"><b>Dates</b> ' + dateChip('HOLD') + ' placeholder awaiting confirmation</span>' +
+    '<span class="grp"><span class="hatch-swatch hatch"></span>No instruction</span>' +
+    '<span class="grp"><b>Phases</b> ' + PHASES.map(p => '<span class="ph-' + p.id + '"><span class="swatch"></span>' + esc(p.name) + '</span>').join(' ') + '</span>' +
+    '<span class="grp"><b>Day notes</b> ~40 min = shorter Wednesday period \u00B7 Huddle = Thursday Darter Huddle may alter class time</span></div>';
+}
+
+/* ================================================================
+   7. WEEK VIEW
+   ================================================================ */
+function weeksInRange(){
+  const out = []; for (let w = mondayOf(rangeStart()); w <= mondayOf(rangeEnd()); w = addDays(w, 7)) out.push(w); return out;
+}
+function weekLabel(w){
+  const fri = addDays(w, 4);
+  const md = fmtMD(w) + '\u2013' + (w.slice(5, 7) === fri.slice(5, 7) ? dt(fri).getDate() : fmtMD(fri));
+  const days = [0,1,2,3,4].map(i => addDays(w, i));
+  if (days.every(d => breakOn(d))) return md + ' \u00B7 Thanksgiving Break';
+  const ph = [...new Set(days.flatMap(d => (S.byDate[d] || []).map(e => (PHASE_BY_ID[e.phase] || {}).name)))].filter(Boolean);
+  return md + (ph.length ? ' \u00B7 ' + ph.join(', ') : '');
+}
+function weekCard(e, compact){
+  const ph = PHASE_BY_ID[e.phase] || PHASES[0];
+  const nl = needsLinkCount(e);
+  const afterEnd = e.date > S.settings.lastInstructionalDay;
+  return '<article class="wcard ph-' + esc(e.phase) + '">' +
+    '<div class="wc-top"><span class="wc-phase">' + esc(ph.name) + '</span>' + statusChip(e.status) + dateChip(e.dateStatus) + prepChip(e.prepStatus) + assessChip(e.assessmentFlag) + needsChip(nl) +
+      (afterEnd ? '<span class="chip needs">After unit end</span>' : '') + '</div>' +
+    '<h3><button class="linkish" type="button" data-open="' + esc(e.id) + '">' + esc(e.title) + '</button></h3>' +
+    (compact ? '' : '<p class="wc-focus">' + esc(e.objective || e.focus) + '</p>') +
+    '<dl class="meta">' +
+      '<div><dt>Primary</dt><dd>' + esc(stdLabel(e.primarySkill)) + '</dd></div>' +
+      '<div><dt>Supporting</dt><dd>' + esc(stdLabel(e.secondarySkill)) + '</dd></div>' +
+      '<div><dt>Deliverable / checkpoint</dt><dd>' + esc(e.deliverable) + '</dd></div>' +
+      (compact ? '' : '<div><dt>Owner</dt><dd>' + esc(ownersText(e)) + '</dd></div>') +
+    '</dl></article>';
+}
+function renderWeek(){
+  const weeks = weeksInRange();
+  if (!weeks.includes(ui.week)) ui.week = weeks[0];
+  const i = weeks.indexOf(ui.week);
+  const w = ui.week;
+  let rows = '';
+  const wkBreak = [0,1,2,3,4].every(k => breakOn(addDays(w, k))) ? breakOn(w) : null;
+  if (wkBreak) rows += '<div class="wday"><div class="wd-date"><span class="wd-dow">Monday \u2013 Friday</span><span class="wd-md">' + esc(fmtMD(wkBreak.start)) + '\u2013' + dt(wkBreak.end).getDate() + '</span></div><div class="wd-items"><div class="breakbox hatch"><b>' + esc(wkBreak.title) + '</b><span class="muted">' + esc(wkBreak.source) + ' \u00B7 confirmed \u00B7 no lessons or required work</span></div></div></div>';
+  for (let k = 0; k < 7; k++) {
+    const s = addDays(w, k);
+    if (wkBreak && k < 5) continue;
+    const all = S.byDate[s] || [];
+    const facts = factsOn(s);
+    if (k >= 5 && !all.length && !facts.length) continue;
+    const ents = all.filter(matches);
+    const brk = breakOn(s);
+    const note = all.length ? schoolDayNote(s) : null;
+    let body;
+    if (brk) body = '<div class="breakbox hatch"><b>' + esc(brk.title) + '</b><span class="muted">' + esc(brk.source) + ' \u00B7 confirmed \u00B7 no lessons or required work</span></div>';
+    else body = ents.map(e => weekCard(e, false)).join('') +
+      facts.map(f => '<div class="nobox"><b>' + esc(f.title) + '</b><br>' + esc(f.detail) + '</div>').join('') +
+      (all.length > ents.length ? '<p class="filtered-note">' + (all.length - ents.length) + ' entry hidden by filters</p>' : '') +
+      (!all.length && !facts.length ? '<div class="nobox">' + (isWeekend(s) ? 'Weekend' : s > S.settings.lastInstructionalDay ? 'After the last instructional day' : s < S.settings.unitStart ? 'Before the unit begins' : 'No entry on the map for this day') + '</div>' : '');
+    rows += '<div class="wday"><div class="wd-date"><span class="wd-dow">' + esc(DOW_LONG[dow(s)]) + (s === TODAY ? ' \u00B7 Today' : '') + '</span><span class="wd-md">' + esc(fmtMD(s)) + '</span>' +
+      (note ? '<span class="wd-sch">' + esc(note.long) + '</span>' : '') + '</div><div class="wd-items">' + body + '</div></div>';
+  }
+  $('#view-week').innerHTML =
+    '<div class="vhead"><h2 id="weekTitle">Week of ' + esc(fmtMD(w)) + ' \u2013 ' + esc(fmtMD(addDays(w, 4))) + ', ' + dt(addDays(w, 4)).getFullYear() + '</h2><div class="navbtns">' +
+      '<button class="btn small" type="button" data-week="' + (i > 0 ? weeks[i - 1] : '') + '"' + (i > 0 ? '' : ' disabled') + '>\u2039 Previous week</button>' +
+      '<label class="sr" for="weekPick">Jump to week</label><select id="weekPick">' + weeks.map(x => '<option value="' + x + '"' + (x === w ? ' selected' : '') + '>' + esc(weekLabel(x)) + '</option>').join('') + '</select>' +
+      '<button class="btn small" type="button" data-week="' + (i < weeks.length - 1 ? weeks[i + 1] : '') + '"' + (i < weeks.length - 1 ? '' : ' disabled') + '>Next week \u203A</button>' +
+      '<button class="btn small" type="button" data-action="print-week">Print this week</button></div></div>' +
+    '<div>' + rows + '</div>';
+}
+
+/* ================================================================
+   8. TIMELINE VIEW
+   ================================================================ */
+function renderTimeline(){
+  const st = S.settings;
+  const days = schoolDays();
+  const extra = S.entries.map(e => e.date).filter(d => !days.includes(d));
+  const seq = [];
+  let lastDay = null;
+  const allDays = [...new Set(days.concat(extra))].sort();
+  for (const d of allDays) {
+    if (lastDay) {
+      for (let s = addDays(lastDay, 1); s < d; s = addDays(s, 1)) {
+        const b = breakOn(s);
+        if (b && !seq.some(x => x.brk === b.id)) { seq.push({brk:b.id, title:b.title, start:b.start, end:b.end}); }
+      }
+    }
+    seq.push({day:d}); lastDay = d;
+  }
+  const cols = seq.map(x => x.brk ? 'minmax(70px,1.6fr)' : 'minmax(40px,1fr)').join(' ');
+  // bands
+  let bands = ''; let i = 0;
+  while (i < seq.length) {
+    const x = seq[i];
+    if (x.brk) { bands += '<div class="tl-band brk hatch" style="grid-row:1;grid-column:' + (i + 1) + ' / span 1">Break</div>'; i++; continue; }
+    const ph = ((S.byDate[x.day] || [])[0] || {}).phase || '';
+    let j = i + 1;
+    while (j < seq.length && !seq[j].brk && (((S.byDate[seq[j].day] || [])[0] || {}).phase || '') === ph) j++;
+    const p = PHASE_BY_ID[ph];
+    if (p) bands += '<button type="button" class="tl-band ph-' + p.id + '" data-phase="' + p.id + '" style="grid-row:1;grid-column:' + (i + 1) + ' / span ' + (j - i) + '" title="Filter to ' + esc(p.name) + '">' + esc(p.abbr) + '</button>';
+    else bands += '<div class="tl-band gap" style="grid-row:1;grid-column:' + (i + 1) + ' / span ' + (j - i) + '">Open</div>';
+    i = j;
+  }
+  // days
+  let dayCells = '';
+  seq.forEach((x, k) => {
+    if (x.brk) { dayCells += '<div class="tl-brk hatch" style="grid-row:2 / span 1;grid-column:' + (k + 1) + '">Nov 23\u201327<br>no class</div>'; return; }
+    const es = S.byDate[x.day] || [];
+    const e = es[0];
+    const m = es.some(matches);
+    if (!e) { dayCells += '<div class="tl-day" style="grid-row:2;grid-column:' + (k + 1) + '"><span class="dl">' + DOW[dow(x.day)][0] + '</span><span class="dn">' + dt(x.day).getDate() + '</span><span class="ds">\u2014</span></div>'; return; }
+    dayCells += '<button type="button" class="tl-day' + (m ? '' : ' dim') + (x.day === TODAY ? ' today' : '') + '" style="grid-row:2;grid-column:' + (k + 1) + '" data-open="' + esc(e.id) + '" title="' + esc(fmt(x.day) + ' \u00B7 ' + e.title + ' \u00B7 ' + e.status) + '">' +
+      '<span class="dl">' + DOW[dow(x.day)][0] + '</span><span class="dn">' + dt(x.day).getDate() + '</span><span class="ds">' + esc(e.primarySkill) + '</span><span class="st" aria-hidden="true">' + (STATUS[e.status] || STATUS.PROPOSED).icon + '</span>' +
+      '<span class="sr">' + esc(fmtLong(x.day) + ': ' + e.title + ', ' + e.status) + '</span></button>';
+  });
+  // weeks label row
+  let weekRow = ''; let k0 = 0;
+  while (k0 < seq.length) {
+    if (seq[k0].brk) { k0++; continue; }
+    const wk = mondayOf(seq[k0].day); let k1 = k0 + 1;
+    while (k1 < seq.length && !seq[k1].brk && mondayOf(seq[k1].day) === wk) k1++;
+    weekRow += '<div class="tl-weeks" style="grid-row:3;grid-column:' + (k0 + 1) + ' / span ' + (k1 - k0) + '">' + (k1 - k0 > 1 ? 'Week of ' : '') + esc(fmtMD(wk)) + '</div>';
+    k0 = k1;
+  }
+  // phase cards
+  const cards = PHASES.map(p => {
+    const es = S.entries.filter(e => e.phase === p.id);
+    if (!es.length) return '';
+    const rng = es.length === 1 ? fmt(es[0].date) : fmt(es[0].date) + ' \u2013 ' + fmt(es[es.length - 1].date);
+    return '<article class="phase ph-' + p.id + '"><h3>' + esc(p.name) + '</h3><p class="rng tnum">' + esc(rng) + ' \u00B7 ' + es.length + ' ' + (es.length === 1 ? 'day' : 'days') + '</p><p class="crm">' + esc(p.crm) + '</p><ol>' +
+      es.map(e => '<li' + (matches(e) ? '' : ' style="opacity:.45"') + '><span class="dt">' + esc(fmt(e.date)) + '</span><button class="linkish" type="button" data-open="' + esc(e.id) + '">' + esc(e.short || e.title) + '</button>' + statusChip(e.status) + '</li>').join('') + '</ol></article>';
+  }).join('');
+  const after = S.entries.filter(e => e.date > st.lastInstructionalDay);
+  $('#view-timeline').innerHTML =
+    '<div class="vhead"><h2>Unit timeline</h2></div>' +
+    '<div class="settings">' +
+      '<div class="kv"><span>Unit start</span>' + esc(fmtY(st.unitStart)) + '</div>' +
+      '<form id="endForm"><div class="field"><label for="endDate">Last instructional day</label><input type="date" id="endDate" value="' + esc(st.lastInstructionalDay) + '" min="' + esc(st.unitStart) + '"></div><button class="btn small" type="submit">Save end date</button>' +
+        (st.lastInstructionalDay !== SEED_SETTINGS.lastInstructionalDay ? '<button class="btn small" type="button" id="endReset">Restore Dec 18</button>' : '') + '</form>' +
+      '<div class="kv"><span>CRM printed end</span>' + esc(fmtY(st.crmPrintedEnd)) + ' \u00B7 not a class day</div>' +
+      '<div class="kv"><span>School days</span><span class="tnum" style="font-size:14px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:400">' + days.length + ' on this map \u00B7 CRM states ' + st.crmStatedDays + '</span></div>' +
+      '<p id="endMsg" class="muted" style="flex-basis:100%;font-size:13px" role="status">' + (after.length ? after.length + ' ' + (after.length === 1 ? 'entry falls' : 'entries fall') + ' after the last instructional day: ' + esc(after.map(e => fmt(e.date) + ' ' + e.short).join('; ')) + '. Move ' + (after.length === 1 ? 'it' : 'them') + ' or extend the end date.' : 'Bands follow the dates on the map. Click a band to filter by phase, or a day to open it.') + '</p>' +
+    '</div>' +
+    '<div class="tl-scroll" tabindex="0" aria-label="Phase bands by school day (scrolls sideways)"><div class="tl" style="grid-template-columns:' + cols + '">' + bands + dayCells + weekRow + '</div></div>' +
+    '<p class="muted" style="font-size:12.5px;margin-top:6px">Each day shows its primary standard and a status mark: \u25C6 built, \u25CB proposed, \u2713 implemented, \u21B7 deferred, ? unconfirmed.</p>' +
+    '<div class="phases">' + cards + '</div>';
+}
+
+/* ================================================================
+   9. PREP BOARD
+   ================================================================ */
+function renderPrep(){
+  const ents = S.entries.filter(matches);
+  const cols = ['NOT_STARTED','IN_PROGRESS','BLOCKED','READY','UNKNOWN'].map(p => {
+    const list = ents.filter(e => e.prepStatus === p);
+    return '<section class="col" aria-label="' + esc(PREP[p].label) + '"><h3><span>' + esc(PREP[p].label) + '</span><span class="tnum">' + list.length + '</span></h3>' +
+      (list.length ? list.map(e => {
+        const nl = needsLinkCount(e);
+        return '<article class="pcard ph-' + esc(e.phase) + '"><span class="pd">' + esc(fmt(e.date)) + ' \u00B7 ' + esc((PHASE_BY_ID[e.phase] || {}).name) + '</span>' +
+          '<button class="linkish" type="button" data-open="' + esc(e.id) + '"><b>' + esc(e.short || e.title) + '</b></button>' +
+          (e.materials.length ? '<ul>' + e.materials.map(m => '<li>' + esc(m) + '</li>').join('') + '</ul>' : '<span class="empty">No materials listed yet</span>') +
+          (e.links.length ? '<span class="chips">' + (nl ? needsChip(nl) : '<span class="chip ok">Links added</span>') + '</span>' : '') +
+          (e.pack ? '<span style="font-size:12.5px">Printables: <a href="unit-2-2-lesson-pack-nov-12-13.html">lesson pack</a> (file in this folder)</span>' : '') +
+          '<label class="sr" for="prep-' + esc(e.id) + '">Prep status for ' + esc(e.short) + '</label><select id="prep-' + esc(e.id) + '" data-prep="' + esc(e.id) + '">' + options(PREP_IDS.map(k => [k, PREP[k].label]), e.prepStatus) + '</select></article>';
+      }).join('') : '<p class="empty">None</p>') + '</section>';
+  }).join('');
+  $('#view-prep').innerHTML = '<div class="vhead"><h2>Material prep</h2><p class="muted" style="font-size:14px;flex-basis:100%">Readiness of materials and links, not student mastery. Change a card\u2019s prep status with its menu; the change saves in this browser.</p></div><div class="board">' + cols + '</div>';
+}
+
+/* ================================================================
+   10. STANDARDS MAP
+   ================================================================ */
+function renderStandards(){
+  const ents = S.entries;
+  const count = (c, k) => ents.filter(e => e[k] === c).length;
+  const card = c => {
+    const s = STANDARDS[c];
+    return '<article class="scard"><span class="code">' + esc(s.code) + (s.tier === 'essential' ? ' \u00B7 SBUA-assessed' : ' \u00B7 supporting') + '</span><h3>' + esc(s.name) + '</h3>' +
+      (s.tier === 'essential' ? '<p>' + esc(s.focus) + '</p>' : '<p class="muted" style="font-size:13.5px">See CRM 2.2 for the full benchmark language.</p>') +
+      (s.guard ? '<p class="guard">' + esc(s.guard) + '</p>' : '') +
+      '<p class="counts tnum">Primary on ' + count(c, 'primarySkill') + ' days \u00B7 supporting on ' + count(c, 'secondarySkill') + '</p>' +
+      '<div><button class="btn small" type="button" data-std="' + esc(c) + '">' + (ui.filters.std === c ? 'Clear this filter' : 'Filter calendar to ' + esc(c)) + '</button></div></article>';
+  };
+  const used = STD_ORDER.filter(c => ents.some(e => e.primarySkill === c || e.secondarySkill === c));
+  const days = ents.map(e => e.date);
+  let head = '<th scope="col"><span class="sr">Standard</span></th>';
+  let prev = null;
+  const colsHTML = [];
+  for (const e of ents) {
+    if (prev && breakBetween(prev.date, e.date)) colsHTML.push({brk:true});
+    colsHTML.push({e}); prev = e;
+  }
+  head += colsHTML.map(c => c.brk ? '<td class="brkcol" aria-hidden="true"></td>' : '<th scope="col" title="' + esc(fmt(c.e.date) + ' \u00B7 ' + c.e.title) + '">' + esc(slash(c.e.date)) + '<br>' + DOW[dow(c.e.date)][0] + '</th>').join('');
+  const rows = used.map(c => {
+    const s = STANDARDS[c];
+    return '<tr class="' + (s.tier === 'essential' ? 'ess' : 'sup') + '"><th scope="row">' + esc(c) + '<small>' + esc(s.name) + '</small></th>' +
+      colsHTML.map(x => {
+        if (x.brk) return '<td class="brkcol" aria-hidden="true"></td>';
+        const e = x.e; const role = e.primarySkill === c ? 'P' : e.secondarySkill === c ? 'S' : '';
+        const dim = matches(e) ? '' : ' class="dimcol"';
+        if (!role) return '<td' + dim + '></td>';
+        return '<td' + dim + '><button type="button" class="' + role + '" data-open="' + esc(e.id) + '" title="' + esc(fmt(e.date) + ' \u00B7 ' + e.short + ' \u00B7 ' + (role === 'P' ? 'primary' : 'supporting')) + '"><span aria-hidden="true">' + role + '</span><span class="sr">' + esc(fmt(e.date) + ', ' + e.short + ': ' + c + (role === 'P' ? ' primary' : ' supporting')) + '</span></button></td>';
+      }).join('') + '</tr>';
+  }).join('');
+  $('#view-standards').innerHTML =
+    '<div class="vhead"><h2>Standards map</h2></div>' +
+    '<div class="callout" style="margin-bottom:14px"><b>CRM 2.2 benchmark stack: verified</b> (CRM 2.2.pdf, pp. 1\u20134, 6\u201310). The CRM is the standards and cognitive-demand spine, not a required reading list. Daily primary and supporting standards below are <b>proposed scheduling emphases</b>. On SBUA days they are not a claim about question distribution.</div>' +
+    '<h3 class="section-h">Essential \u00B7 SBUA-assessed (six)</h3><div class="cards">' + STD_ORDER.filter(c => STANDARDS[c].tier === 'essential').map(card).join('') + '</div>' +
+    '<h3 class="section-h">Supporting (six)</h3><div class="cards">' + STD_ORDER.filter(c => STANDARDS[c].tier === 'supporting').map(card).join('') + '</div>' +
+    '<div class="prose" style="margin-top:14px"><p><b>Keep these apart.</b> R.3.1 is about the mood created; R.3.4 is about rhetorical craft; R.2.2 is about support for ideas. R.2.4 is <b>not</b> in this unit\u2019s CRM benchmark stack, so optional opposing-argument activities are enrichment.</p><p><b>ELA Expectations:</b> evidence-based reasoning, reading comprehension, inference, collaboration, format, voice/tone.</p></div>' +
+    '<h3 class="section-h">Day-by-day matrix</h3><p class="muted" style="font-size:13.5px">P = primary standard for the day, S = supporting. Hatched column = Thanksgiving Break. Select a cell to open that lesson.</p>' +
+    '<div class="mx-wrap" tabindex="0" aria-label="Standards by day matrix (scrolls sideways)"><table class="mx"><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function breakBetween(a, b){ for (let s = addDays(a, 1); s < b; s = addDays(s, 1)) if (breakOn(s)) return true; return false; }
+
+/* ================================================================
+   11. STATIONS
+   ================================================================ */
+function renderStations(){
+  const sts = S.stations;
+  const core = sts.filter(s => !s.optional);
+  const ready = core.filter(s => s.readiness === 'READY').length;
+  const withLinks = sts.filter(s => isHttp(s.url)).length;
+  const sched = ['d1204','d1207'].map(id => S.byId[id]).filter(Boolean);
+  const card = s => {
+    const std = s.standards.map(c => c + ' (' + STANDARDS[c].name + ')').join(', ');
+    return '<article class="stcard"><div class="chips">' + (s.optional ? '<span class="chip d-PROPOSED">Optional</span>' : '') +
+      '<span class="chip ' + (s.readiness === 'READY' ? 'ok' : s.readiness === 'NOT_USING' ? 's-DEFERRED' : 'needs') + '">' + esc(STATION_READY[s.readiness] || s.readiness) + '</span>' +
+      (isHttp(s.url) ? '<span class="chip ok">Link added</span>' : '<span class="chip needs">Needs link</span>') + '</div>' +
+      '<h3>' + esc(s.name) + '</h3><p class="who">' + (s.author ? 'Author: <b>' + esc(s.author) + '</b>' : 'Not assigned to a CLT member') + '</p>' +
+      '<p>' + esc(s.focus) + '</p>' +
+      '<dl class="meta"><div><dt>Must-do (deliverable)</dt><dd>' + esc(s.deliverable) + '</dd></div><div><dt>Stretch</dt><dd>Set by the station author (not yet provided)</dd></div>' +
+      '<div><dt>Likely alignment</dt><dd>' + esc(std) + ' \u2014 verify with author</dd></div></dl>' +
+      (isHttp(s.url) ? '<p><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">Open station materials</a></p>' : '') +
+      '<form data-station="' + esc(s.id) + '"><div class="row"><div class="field"><label for="sr-' + esc(s.id) + '">Readiness</label><select id="sr-' + esc(s.id) + '" name="readiness">' + options(Object.entries(STATION_READY), s.readiness) + '</select></div>' +
+      '<div class="field" style="flex:2 1 240px"><label for="su-' + esc(s.id) + '">Materials link (https://\u2026)</label><input type="url" id="su-' + esc(s.id) + '" name="url" value="' + esc(s.url) + '" placeholder="Paste the shared link"></div></div>' +
+      '<div class="field"><label for="sn-' + esc(s.id) + '">Notes</label><textarea id="sn-' + esc(s.id) + '" name="notes" rows="2">' + esc(s.notes) + '</textarea></div>' +
+      '<div class="ebtns"><button class="btn small primary" type="submit">Save station</button><span class="muted" style="font-size:12px">Last updated ' + esc(fmtStamp(s.lastUpdated)) + '</span></div><p class="errors" role="alert" hidden></p></form></article>';
+  };
+  $('#view-stations').innerHTML =
+    '<div class="vhead"><h2>Team station board</h2></div>' +
+    '<div class="callout" style="margin-bottom:14px"><b class="tnum">' + ready + ' of ' + core.length + '</b> core stations confirmed ready \u00B7 <b class="tnum">' + withLinks + '</b> station links added. Confirm each author\u2019s readiness and link; nothing here means a station is published until its author says so.' +
+      (sched.length ? '<br>Scheduled: ' + sched.map(e => '<button class="linkish" type="button" data-open="' + esc(e.id) + '">' + esc(fmt(e.date) + ' \u00B7 ' + e.short) + '</button>').join(' and ') + '. Related lessons: Nov 17 (Bingo, quote-to-mood) and Dec 2 (Evidence on Trial).' : '') + '</div>' +
+    '<div class="cards">' + sts.map(card).join('') +
+      '<article class="stcard"><div class="chips"><span class="chip d-PROPOSED">Every classroom</span></div><h3>Teacher table</h3><p class="who">Run by each classroom teacher</p>' +
+      '<p>6\u20138 students pulled from the previous day\u2019s exits for 8\u201310 minutes of targeted work. Track students by observed need, not assumed achievement band.</p>' +
+      '<dl class="meta"><div><dt>Prompt progression</dt><dd>Find the claim \u2192 identify the exact supporting phrase \u2192 explain what it proves \u2192 decide whether the support is enough.</dd></div></dl></article></div>' +
+    '<h3 class="section-h">Management</h3><div class="prose"><ul><li>4 core stations, 12\u201315 minutes each, ideally across two days instead of squeezed into one 45-minute period.</li><li>Station passport, 90-second transitions, visible timer.</li><li>Each station has a must-do and a stretch; an individual artifact is required even after group talk.</li><li>The teacher may run Evidence on Trial instead of an additional teacher table if staffing or time is tight.</li></ul></div>';
+}
+
+/* ================================================================
+   12. RESOURCES
+   ================================================================ */
+function renderResources(){
+  const items = S.resources.map(r => {
+    const linked = isHttp(r.url);
+    return '<div class="ritem"><div><div class="chips" style="margin-bottom:4px"><span class="chip ' + (r.state === 'VERIFIED' || r.state === 'INCLUDED' ? 'ok' : r.state === 'BUILT' ? 's-BUILT' : r.state === 'PENDING' ? 'd-HOLD' : 'd-PROPOSED') + '">' + esc(RES_STATE[r.state] || r.state) + '</span>' +
+      (r.local ? '<span class="chip ok">File in this folder</span>' : linked ? '<span class="chip ok">Link added</span>' : '<span class="chip needs">Needs link</span>') + '</div>' +
+      '<h3>' + esc(r.name) + '</h3><p>' + esc(r.note) + '</p>' +
+      (r.local ? '<p><a href="' + esc(r.local) + '">Open ' + esc(r.local) + '</a> (works when both files sit in the same folder)</p>' : '') +
+      (linked ? '<p><a href="' + esc(r.url) + '" target="_blank" rel="noopener noreferrer">Open link</a></p>' : '') + '</div>' +
+      '<form data-res="' + esc(r.id) + '"><div class="field" style="flex:1 1 100%"><label for="ru-' + esc(r.id) + '">Shared link (https://\u2026)</label><input type="url" id="ru-' + esc(r.id) + '" name="url" value="' + esc(r.url) + '" placeholder="' + (r.local ? 'Optional: hosted copy of the lesson pack' : 'Paste the shared link') + '"></div>' +
+      '<div class="field" style="flex:1 1 100%"><label for="rn-' + esc(r.id) + '">Notes</label><input type="text" id="rn-' + esc(r.id) + '" name="notes" value="' + esc(r.notes) + '"></div>' +
+      '<button class="btn small primary" type="submit">Save</button><span class="muted" style="font-size:12px;align-self:center">Updated ' + esc(fmtStamp(r.lastUpdated)) + '</span><p class="errors" role="alert" hidden style="flex-basis:100%"></p></form></div>';
+  }).join('');
+  $('#view-resources').innerHTML =
+    '<div class="vhead"><h2>Resources</h2></div>' +
+    '<h3 class="section-h">Annotation key (team agreement)</h3>' +
+    '<div class="key"><span><i class="k-ethos" aria-hidden="true"></i>Green = ethos</span><span><i class="k-logos" aria-hidden="true"></i>Yellow = logos</span><span><i class="k-pathos" aria-hidden="true"></i>Red = pathos</span></div>' +
+    '<p class="muted" style="margin-top:6px;font-size:14px">Kairos can be addressed in discussion. Do not add a fourth highlight color without a team decision. Exit tickets need a cited example and the intended audience effect, not just color labels.</p>' +
+    '<h3 class="section-h">Student workflow</h3><div class="tbl-wrap"><table class="plain"><thead><tr><th scope="col">Where</th><th scope="col">Used for</th></tr></thead><tbody>' +
+      '<tr><td>Composition notebook</td><td>Bellwork</td></tr><tr><td>Spiral notebook</td><td>Analysis and station artifacts, with clear TOC titles (e.g. \u201C11/12 \u2014 Rhetoric Remix: Audience Matters\u201D)</td></tr>' +
+      '<tr><td>Canvas</td><td>Navigation and access</td></tr><tr><td>Lumio</td><td>Interactive markup and exit tasks</td></tr></tbody></table></div>' +
+    '<h3 class="section-h">Assessment security</h3><p class="prose">\u201CThe Science of Intelligence\u201D and \u201CThe Eulogy of Mahatma Gandhi\u201D are SBUA transfer anchors, not classroom texts for reproduction. Use teacher-authored analogues for practice.</p>' +
+    '<h3 class="section-h">Resource list</h3><p class="muted" style="font-size:13.5px;margin-bottom:8px">Every resource without a shared link shows <b>Needs link</b>. Links must start with https:// or http://. Saved links stay in this browser until you export.</p>' +
+    '<div class="rlist">' + items + '</div>';
+}
+
+/* ================================================================
+   13. HELP
+   ================================================================ */
+function renderHelp(){
+  $('#view-help').innerHTML =
+    '<div class="vhead"><h2>Help for teachers</h2></div><div class="help-grid">' +
+    '<article><h3>What this is</h3><p>A coordination tool for the English I CLT\u2019s Unit 2.2 plan. It is <b>not</b> a record of implemented instruction and <b>not</b> a district-approved calendar. Every lesson starts as Proposed unless the brief says otherwise.</p><ul><li><b>Lesson status</b>: Built, Proposed, Implemented, Deferred, Unconfirmed.</li><li><b>Date status</b>: Confirmed, Proposed, Hold. SBUA and revision days start on Hold.</li><li><b>Prep status</b>: readiness of materials, not student mastery.</li></ul></article>' +
+    '<article><h3>Finding and opening lessons</h3><ul><li>Use the tabs for Month, Week agenda, Unit timeline, Material prep, Standards map, Stations and Resources.</li><li>Select any lesson to open its detail: plan, standards, materials, links, notes and the edit form.</li><li>Filters and search narrow what you see on the calendar views. They never delete or reset edits.</li><li>On a phone the month view becomes a list of day cards.</li></ul></article>' +
+    '<article><h3>Editing</h3><ol><li>Open a lesson and scroll to <b>Edit this entry</b>.</li><li>Change status, date, date status, prep, minutes, objective, links or notes.</li><li>Select <b>Save changes</b>. Each changed field shows its seeded value so you can compare.</li><li><b>Revert to seed</b> restores one lesson. <b>Reset</b> (top right) clears every local edit after you confirm.</li></ol><p>Dates on weekends, in Thanksgiving Break, or after the last instructional day are refused. Change the end date on the Unit timeline tab.</p></article>' +
+    '<article><h3>Sharing with the team</h3><p><b>Local edits are not shared.</b> They live in this browser only and never reach a colleague\u2019s screen.</p><ol><li>Select <b>Export\u2026</b> \u2192 JSON \u2192 Download (or Copy).</li><li>Send the file to whoever maintains the team copy.</li><li>They select <b>Import JSON</b>, review the summary, and confirm.</li><li>Publish one centrally maintained copy (Canvas, team Drive or site) and treat it as the source of truth.</li></ol></article>' +
+    '<article><h3>Exports</h3><ul><li><b>JSON</b>: everything, including notes and links. The only format Import accepts.</li><li><b>CSV</b>: one row per lesson day for a spreadsheet.</li><li><b>Calendar (.ics)</b>: only dates marked Confirmed. Hold and proposed dates are left out. By default that means the CRM start, Thanksgiving Break, the end of the marking period and the CRM printed end.</li></ul><p>If your platform blocks downloads, use <b>Copy text</b> and paste into a file.</p></article>' +
+    '<article><h3>Printing</h3><ul><li><b>Print week</b> prints the selected week with full lesson details, nothing truncated.</li><li>With a lesson open, <b>Print this lesson</b> prints just that lesson.</li><li>Your browser\u2019s own Print command does the same: the open lesson if one is open, otherwise the selected week.</li></ul></article>' +
+    '<article><h3>Hosting</h3><p>This is one self-contained HTML file: no internet connection, build step or outside libraries needed. Put it in a team Drive folder, on a Google Site, or link it from Canvas. Keep <code>unit-2-2-lesson-pack-nov-12-13.html</code> in the same folder so the printables link works. A file on your computer is not a public link until you upload it somewhere the team can reach.</p></article>' +
+    '<article><h3>Locked calendar facts</h3><p>Thanksgiving Break (Nov 23\u201327), the end of the second marking period (Dec 18) and the CRM printed end (Dec 19, a Saturday) are locked. If weather makeup changes the break, edit the file only after district confirmation.</p></article>' +
+    '<article><h3>Future option: real team sync</h3><p>Not built. If the CLT wants shared live edits, a later version could use a Google Sheet plus Apps Script:</p><ul><li>One Sheet with tabs <code>Entries</code>, <code>Stations</code>, <code>Resources</code>, columns matching the JSON fields.</li><li>An Apps Script web app restricted to the school domain: <code>doGet</code> returns JSON; <code>doPost</code> validates a single-record change, takes <code>LockService</code>, compares <code>lastUpdated</code> to catch conflicts, and writes the row.</li><li>The dashboard would read from and write to that web app URL instead of localStorage.</li></ul><p>Until then, export and import JSON.</p></article>' +
+    '<article><h3>Quick reference</h3><ul><li>Tab keys: \u2190 \u2192 move between tabs; Home/End jump.</li><li>Esc closes a dialog and returns focus to where you were.</li><li>Add <code>?today=2026-11-12</code> to the address to preview the dashboard as of another date.</li><li>Seed data: production brief of Nov 11, 2026 (schema v' + SCHEMA_VERSION + ').</li></ul></article>' +
+    '</div>';
+}
+
+/* ================================================================
+   14. LESSON DETAIL + EDITING
+   ================================================================ */
+let openId = null;
+let dirty = false;
+function lessonPlanHTML(e){
+  const ph = PHASE_BY_ID[e.phase] || PHASES[0];
+  const sec = s => '<div><h3>' + esc(s.heading) + '</h3>' + textBlock(s.text) + (s.items && s.items.length ? '<ul class="guidance">' + s.items.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul>' : '') + '</div>';
+  const nd = '<p class="notdrafted">Not drafted yet. Shared Core: the standards and deliverable are common; methods are each teacher\u2019s call.</p>';
+  const plan =
+    '<div><h3>Focus (seeded calendar row)</h3><p>' + esc(e.focus) + '</p></div>' +
+    '<div><h3>Objective</h3>' + (e.objective ? '<p class="lead">' + esc(e.objective) + '</p>' : '<p class="notdrafted">No objective written yet.</p>') + '</div>' +
+    (e.hook ? '<div><h3>Hook / bellwork</h3><p>' + esc(e.hook) + '</p></div>' : '') +
+    '<div><h3>Activities' + (e.durationMinutes ? ' (' + e.durationMinutes + ' min)' : '') + '</h3>' + (e.activities.length ? '<ol class="acts">' + e.activities.map(a => '<li><span class="act-time">' + esc(a.time ? a.time + (/min/.test(a.time) ? '' : ' min') : '\u2014') + '</span><div><strong>' + esc(a.label) + '</strong><p>' + esc(a.detail) + '</p></div></li>').join('') + '</ol>' : nd) + '</div>' +
+    '<div><h3>Deliverable / checkpoint</h3><p><b>' + esc(e.deliverable) + '</b></p></div>' +
+    e.sections.map(sec).join('') +
+    '<div><h3>Materials</h3>' + (e.materials.length ? '<ul class="guidance">' + e.materials.map(m => '<li>' + esc(m) + '</li>').join('') + '</ul>' : '<p class="notdrafted">None listed yet.</p>') + '</div>' +
+    '<div><h3>Spiral notebook TOC title</h3><p><code>' + esc(e.notebook || (slash(e.date) + ' \u2014 ' + (e.short || e.title))) + '</code>' + (e.notebook ? '' : ' <span class="muted" style="font-size:13px">(suggested)</span>') + '</p></div>';
+  const std = (code, lbl) => {
+    const s = STANDARDS[code];
+    if (!s) return '<div class="stdbox"><span class="lbl">' + lbl + '</span><b>' + esc(code || 'None') + '</b></div>';
+    return '<div class="stdbox"><span class="lbl">' + lbl + '</span><b>' + esc(s.code) + ' \u00B7 ' + esc(s.name) + '</b>' + (s.tier === 'essential' ? '<p>' + esc(s.focus) + '</p>' : '<p class="muted">Supporting benchmark. See CRM 2.2 for full language.</p>') + (s.guard ? '<p class="guard">' + esc(s.guard) + '</p>' : '') + '</div>';
+  };
+  const note = schoolDayNote(e.date);
+  const side =
+    '<div><h3>Standards</h3>' + std(e.primarySkill, 'Primary') + '<div style="height:6px"></div>' + std(e.secondarySkill, 'Supporting') +
+      (e.assessmentFlag === 'SBUA' ? '<p class="muted" style="font-size:13px;margin-top:6px">Scheduling emphasis only; not a claim about question distribution.</p>' : '') + '</div>' +
+    '<div><h3>Schedule</h3><p>' + esc(fmtLong(e.date)) + '</p><p class="muted" style="font-size:14px">' + (e.durationMinutes ? e.durationMinutes + ' minutes. ' : 'Minutes not set; verify the bell schedule. ') + esc(e.durationNote) + (note ? ' ' + esc(note.long) : '') + '</p></div>' +
+    '<div><h3>Ownership</h3><p>' + esc(ownersText(e)) + '</p><p class="muted" style="font-size:14px">' + esc(sharedText(e.teamSharedFlag)) + '</p></div>' +
+    '<div><h3>Links</h3>' + (e.links.length ? '<ul class="linkrows">' + e.links.map(l => '<li>' + linkHTML(l) + '</li>').join('') + '</ul>' : '<p class="notdrafted">No links listed.</p>') +
+      (e.pack ? '<p style="margin-top:6px;font-size:14px">Printables: <a href="unit-2-2-lesson-pack-nov-12-13.html#' + (e.id === 'd1112' ? 'nov12' : 'nov13') + '">Nov 12\u201313 lesson pack</a> (file in this folder)</p>' : '') + '</div>' +
+    (e.guidance.length ? '<div><h3>Planning notes from the brief</h3><ul class="guidance">' + e.guidance.map(g => '<li>' + esc(g) + '</li>').join('') + '</ul></div>' : '') +
+    '<div><h3>Team notes</h3>' + (e.notes ? textBlock(e.notes) : '<p class="notdrafted">No notes yet.</p>') + '</div>' +
+    '<div><h3>Record</h3><p class="muted" style="font-size:13px">Seed status: ' + esc(e.seedStatus) + '<br>Last updated: ' + esc(fmtStamp(e.lastUpdated)) + '<br>ID: <code>' + esc(e.id) + '</code></p></div>';
+  return {plan, side, ph};
+}
+function seedHint(e, k, fmtFn){
+  const seed = SEED_BY_ID[e.id];
+  if (same(seed[k], e[k])) return '';
+  const v = fmtFn ? fmtFn(seed[k]) : (seed[k] == null || seed[k] === '' ? '(blank)' : String(seed[k]));
+  return ' <span class="seedhint">\u00B7 seed: ' + esc(v) + '</span>';
+}
+function linkRow(l, n){
+  return '<div class="lrow"><label class="sr" for="ll' + n + '">Link label</label><input type="text" id="ll' + n + '" data-ll value="' + esc(l.label) + '" placeholder="Label">' +
+    '<label class="sr" for="lu' + n + '">Link URL</label><input type="url" id="lu' + n + '" data-lu value="' + esc(l.url) + '" placeholder="https://\u2026 (leave blank = Needs link)">' +
+    '<button class="btn small danger" type="button" data-rmlink>Remove</button></div>';
+}
+let linkSeq = 0;
+function renderLesson(id, focusSel){
+  const e = S.byId[id]; if (!e) return;
+  openId = id; dirty = false;
+  const {plan, side, ph} = lessonPlanHTML(e);
+  const idx = S.entries.indexOf(e);
+  const prev = S.entries[idx - 1], next = S.entries[idx + 1];
+  const dayN = schoolDays().indexOf(e.date) + 1;
+  const tot = schoolDays().length;
+  const editable = '<form class="editbox" id="editForm" novalidate><h3>Edit this entry <span class="seedhint">(saved in this browser only)</span></h3><div class="errors" id="formErrors" role="alert" hidden></div>' +
+    '<div class="egrid">' +
+      '<div class="field"><label for="eStatus">Lesson status' + seedHint(e, 'status') + '</label><select id="eStatus" name="status">' + options(STATUS_IDS.map(s => [s, s + ' \u2014 ' + STATUS[s].desc]), e.status) + '</select></div>' +
+      '<div class="field"><label for="eDate">Date' + seedHint(e, 'date', fmt) + '</label><input type="date" id="eDate" name="date" value="' + esc(e.date) + '" min="' + esc(S.settings.unitStart) + '" max="' + esc(S.settings.lastInstructionalDay) + '"></div>' +
+      '<div class="field"><label for="eDateStatus">Date status' + seedHint(e, 'dateStatus') + '</label><select id="eDateStatus" name="dateStatus">' + options(DATE_STATUS_IDS.map(s => [s, DATE_STATUS[s].label]), e.dateStatus) + '</select></div>' +
+      '<div class="field"><label for="ePrep">Prep status' + seedHint(e, 'prepStatus', v => (PREP[v] || {}).label) + '</label><select id="ePrep" name="prepStatus">' + options(PREP_IDS.map(k => [k, PREP[k].label]), e.prepStatus) + '</select></div>' +
+      '<div class="field"><label for="eMin">Minutes' + seedHint(e, 'durationMinutes') + '</label><input type="number" id="eMin" name="durationMinutes" min="1" max="240" step="1" inputmode="numeric" value="' + (e.durationMinutes == null ? '' : esc(e.durationMinutes)) + '" placeholder="Not set"></div>' +
+    '</div>' +
+    '<div class="field"><label for="eObj">Objective' + seedHint(e, 'objective') + '</label><textarea id="eObj" name="objective" rows="2">' + esc(e.objective) + '</textarea></div>' +
+    '<div class="field"><span id="linksLbl">Links' + seedHint(e, 'links', v => v.length + ' link(s)') + '</span><div id="linkRows" role="group" aria-labelledby="linksLbl" style="display:flex;flex-direction:column;gap:6px">' + e.links.map(l => linkRow(l, ++linkSeq)).join('') + '</div><div><button class="btn small" type="button" id="addLink">Add link</button></div></div>' +
+    '<div class="field"><label for="eNotes">Team notes' + seedHint(e, 'notes') + '</label><textarea id="eNotes" name="notes" rows="3" placeholder="What happened, what to change, who to ask">' + esc(e.notes) + '</textarea></div>' +
+    '<div class="ebtns"><button class="btn primary" type="submit">Save changes</button><button class="btn" type="button" id="revertEntry"' + (overrides.entries[e.id] ? '' : ' disabled') + '>Revert to seed</button><span class="muted" style="font-size:12.5px">Seeded values stay in the file as the fallback.</span></div></form>';
+  $('#lessonInner').className = 'dlg ph-' + e.phase;
+  $('#lessonInner').innerHTML =
+    '<div class="dlg-head"><div class="ttl"><p class="eyebrow">' + esc(fmtY(e.date)) + ' \u00B7 ' + esc(ph.name) + (dayN ? ' \u00B7 school day ' + dayN + ' of ' + tot : '') + '</p>' +
+      '<h2 id="lessonTitle" tabindex="-1">' + esc(e.title) + '</h2>' +
+      '<div class="chips">' + statusChip(e.status) + dateChip(e.dateStatus) + prepChip(e.prepStatus) + assessChip(e.assessmentFlag) + needsChip(needsLinkCount(e)) + (e.date > S.settings.lastInstructionalDay ? '<span class="chip needs">After unit end</span>' : '') + '</div></div>' +
+      '<button class="xbtn" type="button" data-close aria-label="Close lesson details">\u00D7</button></div>' +
+    '<div class="discard" id="discardBar" hidden><span>You have unsaved edits.</span><button class="btn small" type="button" id="keepEditing">Keep editing</button><button class="btn small danger" type="button" id="discardEdits">Discard and close</button></div>' +
+    '<div class="dlg-body"><div class="lgrid"><div class="plan">' + plan + '</div><aside class="side" aria-label="Lesson details">' + side + '</aside></div>' + editable + '</div>' +
+    '<div class="dlg-foot"><button class="btn small" type="button" data-nav="' + (prev ? esc(prev.id) : '') + '"' + (prev ? '' : ' disabled') + '>\u2039 ' + (prev ? esc(fmt(prev.date)) : 'Previous') + '</button>' +
+      '<button class="btn small" type="button" data-action="print-lesson">Print this lesson</button>' +
+      '<button class="btn small" type="button" data-nav="' + (next ? esc(next.id) : '') + '"' + (next ? '' : ' disabled') + '>' + (next ? esc(fmt(next.date)) : 'Next') + ' \u203A</button></div>';
+  const dlg = $('#lessonDlg');
+  if (!dlg.open) dlg.showModal();
+  const tgt = focusSel ? $(focusSel, dlg) : $('#lessonTitle');
+  (tgt || $('#lessonTitle')).focus();
+  $('.dlg-body', dlg).scrollTop = 0;
+}
+let returnFocus = null;
+function openLesson(id){
+  returnFocus = document.activeElement;
+  renderLesson(id);
+}
+function closeLesson(){
+  const dlg = $('#lessonDlg');
+  if (dlg.open) dlg.close();
+}
+function afterLessonClose(){
+  const id = openId; openId = null; dirty = false;
+  renderView();
+  let tgt = returnFocus && document.body.contains(returnFocus) ? returnFocus : null;
+  if (!tgt && id) tgt = $('#view-' + ui.view + ' [data-open="' + id + '"]') || $('#summary [data-open="' + id + '"]');
+  if (tgt) tgt.focus(); else $('#main').focus();
+}
+function collectLinks(){
+  return $$('#linkRows .lrow').map(r => ({label:$('[data-ll]', r).value.trim(), url:$('[data-lu]', r).value.trim()})).filter(l => l.label || l.url);
+}
+function saveLesson(){
+  const e = S.byId[openId]; const f = $('#editForm');
+  const errs = []; let firstBad = null;
+  const date = f.date.value;
+  if (date !== e.date) { const p = dateProblem(date); if (p) { errs.push(p); firstBad = firstBad || f.date; } }
+  let mins = f.durationMinutes.value.trim();
+  if (mins === '') mins = null; else { mins = Number(mins); if (!Number.isInteger(mins) || mins < 1 || mins > 240) { errs.push('Minutes must be a whole number from 1 to 240, or blank.'); firstBad = firstBad || f.durationMinutes; mins = e.durationMinutes; } }
+  const links = collectLinks();
+  links.forEach((l, i) => {
+    if (l.url && !isHttp(l.url)) { errs.push('Link ' + (i + 1) + ' (' + (l.label || 'no label') + ') must start with https:// or http://. Leave it blank to keep it marked Needs link.'); firstBad = firstBad || $$('#linkRows [data-lu]').find(x => x.value.trim() === l.url); }
+    if (!l.label) { errs.push('Link ' + (i + 1) + ' needs a label.'); firstBad = firstBad || $$('#linkRows [data-ll]')[i]; }
+  });
+  const box = $('#formErrors');
+  if (errs.length) { box.hidden = false; box.innerHTML = '<b>Not saved.</b><ul>' + errs.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'; if (firstBad) firstBad.focus(); return; }
+  const changed = setEntry(e.id, {status:f.status.value, date, dateStatus:f.dateStatus.value, prepStatus:f.prepStatus.value, durationMinutes:mins, objective:f.objective.value.trim(), links, notes:f.notes.value.replace(/\s+$/, '')});
+  renderChrome();
+  renderLesson(e.id, '#editForm .btn.primary');
+  toast(changed ? 'Saved in this browser. Export JSON to share it.' : 'No changes to save.');
+}
+
+/* ================================================================
+   15. EXPORT / IMPORT / ICS / CSV / PRINT
+   ================================================================ */
+function buildExport(){
+  return {schema:SCHEMA, schemaVersion:SCHEMA_VERSION, seedVersion:SEED_VERSION, exportedAt:nowStamp(),
+    notice:'Local export from one browser. Not synchronized with anyone else. Import it into the team copy to share.',
+    settings:clone(S.settings), entries:clone(S.entries), stations:clone(S.stations), resources:clone(S.resources), calendarFacts:clone(FACTS)};
+}
+function csvCell(v){
+  let s = v == null ? '' : String(v);
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+function buildCSV(){
+  const cols = ['id','date','weekday','title','phase','owners','primarySkill','secondarySkill','durationMinutes','status','seedStatus','dateStatus','prepStatus','focus','objective','hook','activities','deliverable','materials','links','notes','assessmentFlag','teamSharedFlag','lastUpdated'];
+  const rows = [cols.join(',')];
+  for (const e of S.entries) {
+    const v = {
+      id:e.id, date:e.date, weekday:DOW[dow(e.date)], title:e.title, phase:(PHASE_BY_ID[e.phase] || {}).name || e.phase, owners:e.owners.join('; ') || 'Unassigned',
+      primarySkill:e.primarySkill, secondarySkill:e.secondarySkill, durationMinutes:e.durationMinutes == null ? '' : e.durationMinutes, status:e.status, seedStatus:e.seedStatus,
+      dateStatus:e.dateStatus, prepStatus:e.prepStatus, focus:e.focus, objective:e.objective, hook:e.hook,
+      activities:e.activities.map(a => (a.time ? a.time + ' ' : '') + a.label + ': ' + a.detail).join(' | '), deliverable:e.deliverable, materials:e.materials.join('; '),
+      links:e.links.map(l => l.label + ' <' + (isHttp(l.url) ? l.url : 'NEEDS LINK') + '>').join('; '), notes:e.notes, assessmentFlag:e.assessmentFlag || '',
+      teamSharedFlag:e.teamSharedFlag === null ? 'undecided' : String(e.teamSharedFlag), lastUpdated:e.lastUpdated};
+    rows.push(cols.map(c => csvCell(v[c])).join(','));
+  }
+  return '\uFEFF' + rows.join('\r\n') + '\r\n';
+}
+function icsEsc(s){ return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+function icsFold(line){
+  const enc = new TextEncoder();
+  if (enc.encode(line).length <= 75) return line;
+  const out = []; let cur = ''; let curLen = 0; let limit = 75;
+  for (const ch of line) {
+    const n = enc.encode(ch).length;
+    if (curLen + n > limit) { out.push(cur); cur = ''; curLen = 0; limit = 74; }
+    cur += ch; curLen += n;
+  }
+  out.push(cur);
+  return out.join('\r\n ');
+}
+function icsEvents(){
+  const ev = [];
+  for (const f of FACTS) if (f.dateStatus === 'CONFIRMED') ev.push({uid:f.id, start:f.start, end:f.end, summary:'Unit 2.2: ' + f.title, desc:f.detail + ' Source: ' + f.source + '.'});
+  for (const e of S.entries) if (e.dateStatus === 'CONFIRMED' && e.status !== 'DEFERRED')
+    ev.push({uid:e.id, start:e.date, end:e.date, summary:'Unit 2.2: ' + e.title, desc:'Lesson status: ' + e.status + ' (date confirmed; the lesson itself may still be a plan). Primary ' + e.primarySkill + ', supporting ' + e.secondarySkill + '. Deliverable: ' + e.deliverable + '.'});
+  ev.sort((a, b) => a.start < b.start ? -1 : a.start > b.start ? 1 : 0);
+  return ev;
+}
+function buildICS(){
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const L2 = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//English I CLT//Unit 2.2 Pacing Dashboard//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:' + icsEsc('Unit 2.2 \u2014 confirmed dates')];
+  for (const v of icsEvents()) {
+    L2.push('BEGIN:VEVENT', 'UID:' + v.uid + '-2026@unit22-dashboard', 'DTSTAMP:' + stamp, 'DTSTART;VALUE=DATE:' + v.start.replace(/-/g, ''), 'DTEND;VALUE=DATE:' + addDays(v.end, 1).replace(/-/g, ''),
+      'SUMMARY:' + icsEsc(v.summary), 'DESCRIPTION:' + icsEsc(v.desc), 'TRANSP:TRANSPARENT', 'END:VEVENT');
+  }
+  L2.push('END:VCALENDAR');
+  return L2.map(icsFold).join('\r\n') + '\r\n';
+}
+
+/* --- import validation --- */
+const T = {
+  str:v => typeof v === 'string', date:v => isValidISO(v), strArr:v => Array.isArray(v) && v.every(x => typeof x === 'string'),
+  numOrNull:v => v === null || (typeof v === 'number' && isFinite(v) && v > 0 && v <= 240), bool:v => typeof v === 'boolean', tri:v => v === true || v === false || v === null,
+  links:v => Array.isArray(v) && v.every(l => l && typeof l.label === 'string' && typeof l.url === 'string' && (l.url === '' || isHttp(l.url))),
+  acts:v => Array.isArray(v) && v.every(a => a && typeof a.time === 'string' && typeof a.label === 'string' && typeof a.detail === 'string'),
+  secs:v => Array.isArray(v) && v.every(s => s && typeof s.heading === 'string' && typeof s.text === 'string' && Array.isArray(s.items) && s.items.every(i => typeof i === 'string')),
+  enumOf:list => v => list.includes(v), enumOrNull:list => v => v === null || list.includes(v)
+};
+const ENTRY_FIELDS = {date:T.date, title:T.str, short:T.str, phase:T.enumOf(PHASES.map(p => p.id)), owners:T.strArr, primarySkill:T.str, secondarySkill:T.str,
+  durationMinutes:T.numOrNull, durationNote:T.str, status:T.enumOf(STATUS_IDS), seedStatus:T.str, dateStatus:T.enumOf(DATE_STATUS_IDS), prepStatus:T.enumOf(PREP_IDS),
+  focus:T.str, objective:T.str, hook:T.str, activities:T.acts, deliverable:T.str, sections:T.secs, materials:T.strArr, links:T.links, notes:T.str, guidance:T.strArr,
+  assessmentFlag:T.enumOrNull(Object.keys(ASSESS)), teamSharedFlag:T.tri, pack:T.bool, notebook:T.str};
+const STATION_FIELDS = {readiness:T.enumOf(Object.keys(STATION_READY)), url:v => v === '' || isHttp(v), notes:T.str};
+const RES_FIELDS = {url:v => v === '' || isHttp(v), notes:T.str};
+function diffFrom(seed, incoming, fields, warn, label){
+  const o = {};
+  for (const [k, ok] of Object.entries(fields)) {
+    if (!(k in incoming)) continue;
+    if (!ok(incoming[k])) { warn.push(label + ': ignored invalid "' + k + '"'); continue; }
+    if (!same(incoming[k], seed[k])) o[k] = clone(incoming[k]);
+  }
+  if (Object.keys(o).length) o.lastUpdated = typeof incoming.lastUpdated === 'string' && incoming.lastUpdated ? incoming.lastUpdated : nowStamp();
+  return o;
+}
+function parseImport(text){
+  let data;
+  try { data = JSON.parse(text); } catch (err) { throw new Error('That file is not valid JSON. Export a fresh copy from the dashboard and try again.'); }
+  if (!data || data.schema !== SCHEMA) throw new Error('This JSON did not come from the Unit 2.2 dashboard (it is missing "schema": "' + SCHEMA + '").');
+  if (!Array.isArray(data.entries)) throw new Error('This JSON has no "entries" list.');
+  const next = emptyOverrides(); const warn = []; const unknown = [];
+  for (const e of data.entries) {
+    if (!e || !SEED_BY_ID[e.id]) { unknown.push(e && e.id ? String(e.id) : '(no id)'); continue; }
+    const o = diffFrom(SEED_BY_ID[e.id], e, ENTRY_FIELDS, warn, e.id);
+    if (o.date && dateProblem(o.date) && !(o.date > SEED_SETTINGS.lastInstructionalDay)) { warn.push(e.id + ': ignored date ' + o.date + ' (' + dateProblem(o.date) + ')'); delete o.date; if (Object.keys(o).length === 1) delete o.lastUpdated; }
+    if (Object.keys(o).length) next.entries[e.id] = o;
+  }
+  for (const s of (Array.isArray(data.stations) ? data.stations : [])) {
+    if (!s || !STATION_BY_ID[s.id]) { unknown.push(s && s.id ? String(s.id) : '(station without id)'); continue; }
+    const o = diffFrom(STATION_BY_ID[s.id], s, STATION_FIELDS, warn, s.id); if (Object.keys(o).length) next.stations[s.id] = o;
+  }
+  for (const r of (Array.isArray(data.resources) ? data.resources : [])) {
+    if (!r || !RES_BY_ID[r.id]) { unknown.push(r && r.id ? String(r.id) : '(resource without id)'); continue; }
+    const o = diffFrom(RES_BY_ID[r.id], r, RES_FIELDS, warn, r.id); if (Object.keys(o).length) next.resources[r.id] = o;
+  }
+  if (data.settings && typeof data.settings === 'object') {
+    const v = data.settings.lastInstructionalDay;
+    if (v !== undefined) {
+      if (isValidISO(v) && !isWeekend(v) && !breakOn(v) && v >= SEED_SETTINGS.unitStart) { if (v !== SEED_SETTINGS.lastInstructionalDay) next.settings.lastInstructionalDay = v; }
+      else warn.push('settings: ignored invalid lastInstructionalDay');
+    }
+  }
+  // dates after the default end date are allowed only if the imported end date covers them
+  const end = next.settings.lastInstructionalDay || SEED_SETTINGS.lastInstructionalDay;
+  for (const [id, o] of Object.entries(next.entries)) if (o.date && o.date > end) { warn.push(id + ': ignored date ' + o.date + ' (after the last instructional day)'); delete o.date; if (Object.keys(o).length === 1) delete next.entries[id]; }
+  return {next, warn, unknown, seedVersion:data.seedVersion, exportedAt:data.exportedAt};
+}
+function applyImport(next){ overrides = next; persist(); rebuild(); }
+
+/* --- download / copy --- */
+function download(name, text, mime){
+  try {
+    const blob = new Blob([text], {type:mime});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = name; a.rel = 'noopener';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    toast('Download started: ' + name + '. If nothing saved, use Copy text instead.');
+  } catch (err) { toast('This page cannot start downloads here. Use Copy text instead.'); }
+}
+function copyText(text, ta){
+  const fallback = () => { ta.focus(); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (err) { ok = false; } toast(ok ? 'Copied.' : 'Text selected. Press Ctrl+C (or \u2318C) to copy.'); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard.'), fallback);
+  else fallback();
+}
+let exportFmt = 'json';
+function stampDate(){ return TODAY; }
+function exportPayload(){
+  if (exportFmt === 'csv') return {name:'unit22-lessons-' + stampDate() + '.csv', mime:'text/csv;charset=utf-8', text:buildCSV()};
+  if (exportFmt === 'ics') return {name:'unit22-confirmed-dates.ics', mime:'text/calendar;charset=utf-8', text:buildICS()};
+  return {name:'unit22-dashboard-' + stampDate() + '.json', mime:'application/json', text:JSON.stringify(buildExport(), null, 2)};
+}
+function renderExport(){
+  $$('#exportDlg [data-fmt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.fmt === exportFmt)));
+  const p = exportPayload();
+  let info;
+  if (exportFmt === 'json') info = '<p>Full data for handoff: settings, all ' + S.entries.length + ' lesson days, stations and resources, including your ' + editCount() + ' local ' + (editCount() === 1 ? 'edit' : 'edits') + '. This is the format <b>Import JSON</b> reads.</p>';
+  else if (exportFmt === 'csv') info = '<p>One row per lesson day (' + S.entries.length + ' rows) for a spreadsheet. Links without a URL read \u201CNEEDS LINK\u201D. CSV cannot be imported back.</p>';
+  else {
+    const ev = icsEvents(); const ex = S.entries.filter(e => e.dateStatus !== 'CONFIRMED' || e.status === 'DEFERRED');
+    info = '<p><b>Confirmed dates only.</b> Included (' + ev.length + '):</p><ul>' + ev.map(v => '<li>' + esc(v.start === v.end ? fmt(v.start) : fmt(v.start) + ' \u2013 ' + fmt(v.end)) + ': ' + esc(v.summary.replace('Unit 2.2: ', '')) + '</li>').join('') + '</ul>' +
+      '<p>Left out: ' + ex.length + ' lesson ' + (ex.length === 1 ? 'day' : 'days') + ' whose dates are proposed or on hold (or that are deferred). Mark a lesson\u2019s date Confirmed after the team agrees on it to include it.</p>';
+  }
+  $('#exportInfo').innerHTML = info;
+  $('#exportText').value = p.text;
+  $('#exportName').textContent = p.name;
+}
+
+/* --- confirm dialog --- */
+let confirmResolve = null;
+function askConfirm(title, bodyHTML, yesLabel, danger){
+  return new Promise(res => {
+    confirmResolve = res;
+    $('#confirmTitle').textContent = title;
+    $('#confirmBody').innerHTML = bodyHTML;
+    const y = $('#confirmYes'); y.textContent = yesLabel || 'Confirm'; y.className = 'btn ' + (danger ? 'danger' : 'primary');
+    $('#confirmDlg').showModal();
+    $('#confirmNo').focus();
+  });
+}
+function finishConfirm(v){ const d = $('#confirmDlg'); if (d.open) d.close(); const r = confirmResolve; confirmResolve = null; if (r) r(v); }
+
+/* --- print --- */
+function printEntryHTML(e){
+  const {plan, side} = lessonPlanHTML(e);
+  return '<section class="pentry"><p class="eyebrow">' + esc(fmtY(e.date)) + ' \u00B7 ' + esc((PHASE_BY_ID[e.phase] || {}).name) + '</p><h3>' + esc(e.title) + '</h3><div class="chips">' + statusChip(e.status) + dateChip(e.dateStatus) + prepChip(e.prepStatus) + assessChip(e.assessmentFlag) + '</div>' +
+    '<div class="plan" style="margin-top:6pt">' + plan + '</div><div class="side" style="margin-top:8pt">' + side.replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/g, '$2 ($1)') + '</div></section>';
+}
+function printHeader(sub){
+  return '<header class="phead"><p class="eyebrow">English I CLT \u00B7 Unit 2.2 \u00B7 Words That Move History</p><h1>' + esc(sub) + '</h1><p class="pnote">PROPOSED working plan, not a district-approved calendar. Printed ' + esc(fmtY(TODAY)) + ' from a local copy; local edits are not shared. ' + (editCount() ? 'This printout includes ' + editCount() + ' local edits.' : 'Seeded plan, no local edits.') + '</p></header>';
+}
+function preparePrint(kind){
+  let h;
+  if (kind === 'lesson' && openId) { h = printHeader('Lesson: ' + fmt(S.byId[openId].date)) + printEntryHTML(S.byId[openId]); }
+  else {
+    const w = ui.week; h = printHeader('Week of ' + fmtMD(w) + ' \u2013 ' + fmtMD(addDays(w, 4)) + ', ' + dt(w).getFullYear());
+    for (let k = 0; k < 7; k++) {
+      const s = addDays(w, k); const ents = (S.byDate[s] || []); const facts = factsOn(s);
+      if (k >= 5 && !ents.length && !facts.length) continue;
+      const brk = breakOn(s);
+      h += '<section class="pday"><h2>' + esc(fmtLong(s)) + '</h2>' + (schoolDayNote(s) && ents.length ? '<p class="pnote">' + esc(schoolDayNote(s).long) + '</p>' : '') +
+        (brk ? '<p>' + esc(brk.title) + ' (' + esc(brk.source) + ').</p>' : '') +
+        facts.filter(f => f.type !== 'break').map(f => '<p><b>' + esc(f.title) + '.</b> ' + esc(f.detail) + '</p>').join('') +
+        ents.map(printEntryHTML).join('') + (!ents.length && !facts.length ? '<p>No entry on the map.</p>' : '') + '</section>';
+    }
+  }
+  $('#printArea').innerHTML = h;
+}
+function doPrint(kind){ preparePrint(kind); try { window.print(); } catch (err) { toast('Printing is not available here. Open the file directly in a browser to print.'); } }
+window.addEventListener('beforeprint', () => { preparePrint($('#lessonDlg').open ? 'lesson' : 'week'); });
+
+/* ================================================================
+   16. VIEW SWITCHING + EVENTS
+   ================================================================ */
+const RENDER = {month:renderMonth, week:renderWeek, timeline:renderTimeline, prep:renderPrep, standards:renderStandards, stations:renderStations, resources:renderResources, help:renderHelp};
+function renderView(){
+  for (const v of VIEWS) {
+    const on = v === ui.view;
+    $('#view-' + v).hidden = !on;
+    const t = $('#tab-' + v); t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+  }
+  RENDER[ui.view]();
+  renderShowing();
+}
+function renderChrome(){ renderFacts(); renderSummary(); }
+function setView(v, focusTab){
+  if (!VIEWS.includes(v)) return;
+  ui.view = v;
+  if (location.hash !== '#' + v) { try { history.replaceState(null, '', '#' + v); } catch (err) { location.hash = v; } }
+  renderView();
+  if (focusTab) $('#tab-' + v).focus();
+}
+
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button, a');
+  if (!t) return;
+  if (t.matches('[data-open]')) { openLesson(t.dataset.open); return; }
+  if (t.matches('.tab')) { setView(t.dataset.view); return; }
+  if (t.matches('[data-month]') && t.dataset.month) { ui.month = t.dataset.month; renderView(); $('#monthTitle').setAttribute('tabindex', '-1'); $('#monthTitle').focus(); return; }
+  if (t.matches('[data-week]') && t.dataset.week) { ui.week = t.dataset.week; ui.month = t.dataset.week.slice(0, 7); renderView(); $('#weekTitle').setAttribute('tabindex', '-1'); $('#weekTitle').focus(); return; }
+  if (t.matches('[data-phase]')) { ui.filters.phase = ui.filters.phase === t.dataset.phase ? '' : t.dataset.phase; saveUI(); fillFilterSelects(); renderView(); return; }
+  if (t.matches('[data-std]')) { ui.filters.std = ui.filters.std === t.dataset.std ? '' : t.dataset.std; saveUI(); fillFilterSelects(); renderView(); toast(ui.filters.std ? 'Calendar views now show only days with ' + ui.filters.std + '.' : 'Standard filter cleared.'); return; }
+  if (t.matches('[data-action="print-week"]') || t.id === 'btnPrint') { doPrint('week'); return; }
+  if (t.matches('[data-action="print-lesson"]')) { doPrint('lesson'); return; }
+  if (t.matches('[data-nav]') && t.dataset.nav) { if (dirty) { showDiscard(() => renderLesson(t.dataset.nav)); return; } renderLesson(t.dataset.nav); return; }
+  if (t.matches('#lessonDlg [data-close]')) { requestCloseLesson(); return; }
+  if (t.matches('#exportDlg [data-close]')) { $('#exportDlg').close(); return; }
+  if (t.matches('[data-fmt]')) { exportFmt = t.dataset.fmt; renderExport(); return; }
+  if (t.id === 'addLink') { $('#linkRows').insertAdjacentHTML('beforeend', linkRow({label:'', url:''}, ++linkSeq)); dirty = true; const rows = $$('#linkRows .lrow'); $('[data-ll]', rows[rows.length - 1]).focus(); return; }
+  if (t.matches('[data-rmlink]')) { const row = t.closest('.lrow'); const nextBtn = row.nextElementSibling ? $('[data-rmlink]', row.nextElementSibling) : $('#addLink'); row.remove(); dirty = true; nextBtn.focus(); return; }
+  if (t.id === 'revertEntry') {
+    const id = openId;
+    askConfirm('Revert this lesson?', '<p>Restore <b>' + esc(S.byId[id].title) + '</b> to its seeded values. Your notes, links and status changes for this lesson will be removed from this browser.</p>', 'Revert lesson', true).then(ok => {
+      if (!ok) { $('#revertEntry').focus(); return; }
+      delete overrides.entries[id]; persist(); rebuild(); renderChrome(); renderLesson(id); toast('Lesson reverted to seeded values.');
+    });
+    return;
+  }
+  if (t.id === 'keepEditing') { $('#discardBar').hidden = true; $('#editForm .btn.primary').focus(); return; }
+  if (t.id === 'discardEdits') { const fn = discardThen; discardThen = null; dirty = false; $('#discardBar').hidden = true; if (fn) fn(); return; }
+  if (t.id === 'confirmYes') { finishConfirm(true); return; }
+  if (t.id === 'confirmNo') { finishConfirm(false); return; }
+  if (t.id === 'fClear') { ui.filters = {q:'', phase:'', status:'', owner:'', std:''}; saveUI(); fillFilterSelects(); renderView(); $('#fSearch').focus(); return; }
+  if (t.id === 'btnExport') { exportFmt = 'json'; renderExport(); $('#exportDlg').showModal(); $('#exportTitle').focus(); return; }
+  if (t.id === 'exportDownload') { const p = exportPayload(); download(p.name, p.text, p.mime); return; }
+  if (t.id === 'exportCopy') { copyText($('#exportText').value, $('#exportText')); return; }
+  if (t.id === 'btnImport') { $('#importFile').value = ''; $('#importFile').click(); return; }
+  if (t.id === 'btnReset') {
+    const n = editCount();
+    askConfirm('Reset all local edits?', n ? '<p>This removes <b>' + n + '</b> local ' + (n === 1 ? 'edit' : 'edits') + ' from this browser and returns every lesson, station and resource to the seeded plan.</p><p>Export JSON first if you want to keep them. This cannot be undone.</p>' : '<p>There are no local edits. The dashboard already shows the seeded plan.</p>', n ? 'Reset everything' : 'OK', !!n).then(ok => {
+      if (ok && n) { overrides = emptyOverrides(); removeStore(STORE_KEY); rebuild(); renderChrome(); renderView(); toast('All local edits cleared.'); }
+      $('#btnReset').focus();
+    });
+    return;
+  }
+  if (t.id === 'endReset') { setSettings({lastInstructionalDay:SEED_SETTINGS.lastInstructionalDay}); renderChrome(); renderView(); toast('Last instructional day restored to Fri Dec 18.'); return; }
+});
+
+document.addEventListener('submit', ev => {
+  const f = ev.target; ev.preventDefault();
+  if (f.id === 'editForm') { saveLesson(); return; }
+  if (f.id === 'filters') return;
+  if (f.id === 'endForm') {
+    const v = $('#endDate').value; const msg = $('#endMsg');
+    let p = '';
+    if (!isValidISO(v)) p = 'Enter a complete date.'; else if (isWeekend(v)) p = fmtY(v) + ' is a weekend. The last instructional day must be a school day.'; else if (breakOn(v)) p = fmtY(v) + ' is in Thanksgiving Break.'; else if (v < S.settings.unitStart) p = 'The end date cannot be before the unit starts.';
+    if (p) { msg.textContent = p; msg.style.color = 'var(--burgundy)'; $('#endDate').focus(); return; }
+    setSettings({lastInstructionalDay:v}); renderChrome(); renderView(); toast('Last instructional day set to ' + fmtY(v) + ' in this browser.'); $('#endDate').focus();
+    return;
+  }
+  if (f.dataset.station) {
+    const id = f.dataset.station; const url = f.url.value.trim(); const err = $('.errors', f);
+    if (url && !isHttp(url)) { err.hidden = false; err.textContent = 'The link must start with https:// or http://. Leave it blank if there is no link yet.'; f.url.focus(); return; }
+    const ch = setStation(id, {readiness:f.readiness.value, url, notes:f.notes.value.replace(/\s+$/, '')});
+    renderChrome(); renderView(); const nf = $('form[data-station="' + id + '"] .btn.primary'); if (nf) nf.focus(); toast(ch ? 'Station saved in this browser.' : 'No changes to save.');
+    return;
+  }
+  if (f.dataset.res) {
+    const id = f.dataset.res; const url = f.url.value.trim(); const err = $('.errors', f);
+    if (url && !isHttp(url)) { err.hidden = false; err.textContent = 'The link must start with https:// or http://. Leave it blank if there is no link yet.'; f.url.focus(); return; }
+    const ch = setResource(id, {url, notes:f.notes.value.trim()});
+    renderChrome(); renderView(); const nf = $('form[data-res="' + id + '"] .btn.primary'); if (nf) nf.focus(); toast(ch ? 'Resource saved in this browser.' : 'No changes to save.');
+  }
+});
+
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.id === 'weekPick') { ui.week = t.value; ui.month = t.value.slice(0, 7); renderView(); $('#weekPick').focus(); return; }
+  if (t.matches('[data-prep]')) { const id = t.dataset.prep; setEntry(id, {prepStatus:t.value}); renderChrome(); renderView(); const n = $('#prep-' + id); if (n) n.focus(); toast('Prep status saved: ' + PREP[t.value].label + '.'); return; }
+  if (['fPhase','fStatus','fOwner','fStd'].includes(t.id)) {
+    const key = {fPhase:'phase', fStatus:'status', fOwner:'owner', fStd:'std'}[t.id];
+    ui.filters[key] = t.value; saveUI(); renderView(); return;
+  }
+  if (t.closest('#editForm')) dirty = true;
+});
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.id === 'fSearch') { ui.filters.q = t.value; saveUI(); renderView(); return; }
+  if (t.closest('#editForm')) dirty = true;
+});
+$('#filters').addEventListener('submit', ev => ev.preventDefault());
+
+$('.tabs').addEventListener('keydown', ev => {
+  const i = VIEWS.indexOf(ui.view); let n = null;
+  if (ev.key === 'ArrowRight') n = (i + 1) % VIEWS.length; else if (ev.key === 'ArrowLeft') n = (i - 1 + VIEWS.length) % VIEWS.length; else if (ev.key === 'Home') n = 0; else if (ev.key === 'End') n = VIEWS.length - 1;
+  if (n !== null) { ev.preventDefault(); setView(VIEWS[n], true); }
+});
+
+let discardThen = null;
+function showDiscard(fn){ discardThen = fn; $('#discardBar').hidden = false; $('#keepEditing').focus(); }
+function requestCloseLesson(){ if (dirty) showDiscard(closeLesson); else closeLesson(); }
+$('#lessonDlg').addEventListener('cancel', ev => { if (dirty) { ev.preventDefault(); showDiscard(closeLesson); } });
+$('#lessonDlg').addEventListener('close', afterLessonClose);
+$('#lessonDlg').addEventListener('click', ev => { if (ev.target === ev.currentTarget) requestCloseLesson(); });
+$('#confirmDlg').addEventListener('cancel', ev => { ev.preventDefault(); finishConfirm(false); });
+$('#exportDlg').addEventListener('close', () => { $('#btnExport').focus(); });
+$('#exportDlg').addEventListener('click', ev => { if (ev.target === ev.currentTarget) ev.currentTarget.close(); });
+
+$('#importFile').addEventListener('change', ev => {
+  const file = ev.target.files && ev.target.files[0]; if (!file) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    let res;
+    try { res = parseImport(String(rd.result)); }
+    catch (err) { askConfirm('Import failed', '<p>' + esc(err.message) + '</p><p>Nothing in this browser changed.</p>', 'OK', false).then(() => $('#btnImport').focus()); return; }
+    const ne = Object.keys(res.next.entries).length, ns = Object.keys(res.next.stations).length, nr = Object.keys(res.next.resources).length, nset = Object.keys(res.next.settings).length;
+    const body = '<p>File: <b>' + esc(file.name) + '</b>' + (res.exportedAt ? ', exported ' + esc(fmtStamp(res.exportedAt)) : '') + '.</p>' +
+      '<ul><li>' + ne + ' lesson ' + (ne === 1 ? 'day differs' : 'days differ') + ' from the seeded plan</li><li>' + ns + ' station ' + (ns === 1 ? 'edit' : 'edits') + ', ' + nr + ' resource ' + (nr === 1 ? 'edit' : 'edits') + (nset ? ', unit end date ' + esc(fmtY(res.next.settings.lastInstructionalDay)) : '') + '</li></ul>' +
+      (res.seedVersion && res.seedVersion !== SEED_VERSION ? '<p>This file was made from a different seed version (' + esc(res.seedVersion) + ' vs ' + SEED_VERSION + '). Check the result.</p>' : '') +
+      (res.unknown.length ? '<p>Skipped ' + res.unknown.length + ' unknown ' + (res.unknown.length === 1 ? 'record' : 'records') + ': ' + esc(res.unknown.slice(0, 6).join(', ')) + (res.unknown.length > 6 ? '\u2026' : '') + '</p>' : '') +
+      (res.warn.length ? '<p>Warnings:</p><ul>' + res.warn.slice(0, 8).map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '') +
+      '<p><b>Importing replaces the ' + editCount() + ' local ' + (editCount() === 1 ? 'edit' : 'edits') + ' in this browser.</b> Export first if you need them.</p>';
+    askConfirm('Import this JSON?', body, 'Replace local edits', true).then(ok => {
+      if (ok) { applyImport(res.next); renderChrome(); renderView(); toast('Imported. ' + editCount() + ' local edits now in this browser.'); }
+      $('#btnImport').focus();
+    });
+  };
+  rd.onerror = () => toast('Could not read that file.');
+  rd.readAsText(file);
+});
+
+window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (VIEWS.includes(h) && h !== ui.view) setView(h); });
+
+/* ================================================================
+   17. BOOT + TEST HOOKS
+   ================================================================ */
+fillFilterSelects();
+renderChrome();
+renderView();
+
+window.unit22 = {
+  version:SCHEMA_VERSION, seedVersion:SEED_VERSION, today:TODAY,
+  state:() => clone({settings:S.settings, entries:S.entries, stations:S.stations, resources:S.resources}),
+  overrides:() => clone(overrides), buildExport, buildCSV, buildICS, parseImport, applyImport:n => { applyImport(n); renderChrome(); renderView(); },
+  reset:() => { overrides = emptyOverrides(); removeStore(STORE_KEY); rebuild(); renderChrome(); renderView(); },
+  fmt, dow:s => DOW[dow(s)], dateProblem, schoolDays, preparePrint
+};
+})();
+</script>
+</body>
+</html>
