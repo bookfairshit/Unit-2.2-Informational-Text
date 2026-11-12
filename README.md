@@ -28,7 +28,8 @@ Open `unit-2-2-dashboard.html` in any current browser. A **Help** tab inside the
 
 - **Views:** Month (agenda cards on phones), Week agenda, Unit timeline with phase bands, Material prep board, Standards map, Stations board, Resources, Help.
 - **Lesson detail:** select any lesson to see its plan, standards, schedule notes, links and planning notes from the brief, plus an edit form.
-- **Editing:** lesson status, date, date status, prep status, minutes, objective, links and notes. Station readiness/links and resource links are edited on their tabs. Seeded values stay in the file as the fallback; each lesson has *Revert to seed*, and *Reset* clears everything after an in-page confirmation.
+- **Editing:** lesson status, date, date status, prep status, minutes, objective, owners, links and notes. Station readiness, author and links, and resource links, are edited on their tabs.
+- **Team roster:** Danny Duong, Carissa Motilalsingh, Carina Seagrave, Josh Moody, Mary Jo "MJ" Gunderman, Israel Dao-Anis. To add someone, add their name to the `TEAM` list near the top of the dashboard's script. Seeded values stay in the file as the fallback; each lesson has *Revert to seed*, and *Reset* clears everything after an in-page confirmation.
 - **Filters and search:** by phase, status, owner and standard, plus free-text search across lessons and materials. Filters only change what is visible.
 - **Export:** JSON (handoff + the only format Import reads), CSV (one row per lesson day), and `.ics` with **confirmed dates only**. Hold and proposed dates are left out. Copy-to-clipboard is offered wherever downloads are blocked.
 - **Print:** *Print week* prints the selected week with full lesson details; *Print this lesson* prints one lesson.

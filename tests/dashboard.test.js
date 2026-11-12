@@ -188,6 +188,40 @@ function ok(cond, msg){ if (cond) { pass++; console.log('  ✓ ' + msg); } else 
     await ctx.close();
   }
 
+  console.log('Team roster and owner assignment');
+  {
+    const {ctx, page} = await fresh();
+    const MJ = 'Mary Jo “MJ” Gunderman', IDA = 'Israel Dao-Anis';
+    const opts = await page.$$eval('#fOwner option', os => os.map(o => o.value));
+    ok(opts.includes(MJ) && opts.includes(IDA), 'Owner filter lists MJ Gunderman and Israel Dao-Anis');
+    const seeded = await page.evaluate(() => unit22.state().entries.filter(e => e.owners.some(o => /Gunderman|Dao-Anis/.test(o))).length);
+    ok(seeded === 0, 'New teammates are not pre-assigned to any lesson');
+    // Saving a lesson without touching owners must not reorder or alter them
+    await page.click('#view-month [data-open="d1117"]');
+    await page.click('#editForm button[type=submit]');
+    await page.keyboard.press('Escape');
+    ok(!(await page.evaluate(() => 'd1117' in unit22.overrides().entries)), 'Saving with owners unchanged creates no edit');
+    // Assign MJ to Data Detective Lab through the form
+    await page.click('#view-month [data-open="d1203"]');
+    await page.check('#editForm input[name=owner][value="' + MJ + '"]');
+    await page.click('#editForm button[type=submit]');
+    await page.keyboard.press('Escape');
+    await page.selectOption('#fOwner', MJ);
+    ok(/Showing 1 of 24/.test(await page.textContent('#showing')), 'Filtering by MJ shows exactly the one assigned lesson');
+    await page.click('#fClear');
+    // Station author picker
+    await page.click('#tab-stations');
+    await page.selectOption('#sa-st-data', IDA);
+    await page.click('form[data-station="st-data"] button[type=submit]');
+    ok((await page.evaluate(() => unit22.state().stations.find(s => s.id === 'st-data').author)) === 'Israel Dao-Anis', 'Station author can be set to Israel Dao-Anis');
+    // Both survive an export/import round trip
+    const a = await page.evaluate(() => { const x = unit22.buildExport(); delete x.exportedAt; return JSON.stringify(x); });
+    await page.evaluate(() => { const t = JSON.stringify(unit22.buildExport()); unit22.reset(); unit22.applyImport(unit22.parseImport(t).next); });
+    const b = await page.evaluate(() => { const x = unit22.buildExport(); delete x.exportedAt; return JSON.stringify(x); });
+    ok(a === b && a.includes('Gunderman') && a.includes('Dao-Anis'), 'Owner and author edits survive export → import');
+    await ctx.close();
+  }
+
   console.log('Print week does not truncate');
   {
     const {ctx, page} = await fresh();
