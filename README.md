@@ -19,9 +19,11 @@ English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – De
 | `unit-2-2-dashboard.html` | The calendar and planning dashboard. One self-contained file: no internet connection, build step or outside libraries. |
 | `unit-2-2-lesson-pack-nov-12-13.html` | Pass 2: lesson plans for Thu Nov 12 (Rhetoric Remix) and Fri Nov 13 (Museum of Persuasion), with board text, scenario and audience cards, group sheet, vote slips, exit tickets, FDR excerpt card templates, museum placards, gallery role cards and MLK teaser half sheets. Prints to 16 letter pages. |
 | `lumio/rhetoric-remix-nov-12.pptx` | Paper-free Nov 12 deck for Lumio (26 slides): bellwork, a linked FDR First Inaugural video (https://youtu.be/khFwYWWF6Tc), six lines from the speech to mark, mini-model, success criteria, one card per table (8 tables, each a different kind of public message with two contrasting audiences and space to write), Audience Switch with a curveball audience per table, listener vote, spiral transfer and exit ticket. Teacher bank at the end: 12 fictional scenarios, 24 audiences, a blank card to duplicate, and two timing plans (full speech vs. speech excerpt). Live download: `https://bookfairshit.github.io/Unit-2.2-Informational-Text/lumio/rhetoric-remix-nov-12.pptx` |
+| `lumio/museum-of-persuasion-nov-13.pptx` | Paper-free Nov 13 deck for Lumio (17 slides) with a word-for-word teacher script in every slide's speaker notes: bellwork, 1933/1963 context bridge, model museum label, curator directions, one exhibit slide per table (each an FDR line on its own gallery wall plus a six-part label to type into), museum walk with sticky-note starters, MLK teaser (clip to be added by the teacher) and spiral exit. Last slide: run of show and fallbacks. |
+| `unit-2-2-teacher-script-nov-13.html` | The same Nov 13 teacher script as a phone-friendly page (Do / Say / Ask cues by time block, exhibit assignments with suggested readings, fallbacks). Live: `https://bookfairshit.github.io/Unit-2.2-Informational-Text/unit-2-2-teacher-script-nov-13.html` |
 | `tests/dashboard.test.js` | Automated checks for the quality tests in brief §10. |
 
-Keep both HTML files in the same folder so the dashboard's links to the lesson pack work.
+Keep the HTML files and the `lumio/` folder together so the links between them work.
 
 ## Using the dashboard
 
