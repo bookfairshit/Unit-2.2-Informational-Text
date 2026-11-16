@@ -91,9 +91,11 @@ function ok(cond, msg){ if (cond) { pass++; console.log('  ✓ ' + msg); } else 
       await page.click('#tab-' + v);
       hrefs.push(...await page.$$eval('a[href]', as => as.map(a => a.getAttribute('href'))));
     }
-    const bad = hrefs.filter(h => !(h === '#main' || /^unit-2-2-lesson-pack-nov-12-13\.html(#nov1[23])?$/.test(h)));
-    ok(bad.length === 0, 'Only internal anchors and the bundled lesson pack are linked (' + (bad.join(', ') || 'none') + ')');
-    ok(fs.existsSync(path.join(ROOT, 'unit-2-2-lesson-pack-nov-12-13.html')), 'Lesson pack file referenced by the dashboard exists');
+    const filePaths = await page.evaluate(() => unit22.state().entries.flatMap(e => e.files.map(f => f.path)));
+    const local = [...new Set(hrefs.concat(filePaths))].filter(h => h !== '#main');
+    const bad = local.filter(h => /^[a-z][a-z0-9+.-]*:/i.test(h) || h.includes('..') || !fs.existsSync(path.join(ROOT, h.split('#')[0])));
+    ok(bad.length === 0, 'Every link is an internal anchor or a file that exists in the repo (' + (bad.join(', ') || 'none bad') + ')');
+    ok(filePaths.length >= 7 && filePaths.some(p => p.includes('power-of-purpose-nov-16.pptx')), 'Lessons link their decks, scripts and packs (' + filePaths.length + ' files)');
     const seedUrls = await page.evaluate(() => { const s = unit22.state(); return s.entries.flatMap(e => e.links.map(l => l.url)).concat(s.stations.map(x => x.url), s.resources.map(x => x.url)).filter(Boolean); });
     ok(seedUrls.length === 0, 'Seed data carries no invented URLs');
     await page.click('#tab-month');
