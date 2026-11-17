@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Text Blueprint Student Pages</title>
+<meta name="description" content="Printable student direction pages for English I, Nov 17–20, 2026: The Text Blueprint stations, checkpoint and transfer task.">
+<style>
+:root{
+  /* Layout: letter-size sheets; each page prints on its own sheet and reads at arm's length on a station table. */
+  --paper:#FFFFFF; --bg:#F6F1E6; --ink:#23201C; --ink-2:#5E574B; --rule:#D9CDB4;
+  --p:#7A2233; --blue:#2F4E69; --green:#2F6B4F; --gold:#8A6417; --gold-fill:#B8892A; --tint:#EADFC6;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans)}
+.stack{display:flex;flex-direction:column;align-items:center;gap:24px;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{width:100%;max-width:8.5in;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.top p{margin:0;font-size:14px;color:var(--ink-2)}
+.print{appearance:none;border:1px solid var(--rule);background:var(--paper);border-radius:4px;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}
+.sheet{background:var(--paper);width:100%;max-width:8.5in;padding:.5in;box-shadow:0 1px 2px rgba(38,34,27,.1),0 10px 30px rgba(38,34,27,.08);display:flex;flex-direction:column;gap:14px;min-width:0}
+.sheet-label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--ink-2);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:6px}
+h2{font-family:var(--serif);font-size:30px;line-height:1.15;margin:0;text-wrap:balance}
+h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 6px;color:var(--c,var(--ink))}
+p{margin:0}
+ol,ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.goal{font-family:var(--serif);font-size:20px;font-style:italic}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.col{border:2px solid var(--c);border-radius:6px;padding:16px;font-size:20px;line-height:1.45}
+.col ol{gap:16px}
+.station{gap:12px}
+.station .col{font-size:21px;padding:16px}
+.station h2{font-size:34px}
+.station h3{font-size:16px}
+.station .goal{font-size:24px}
+.station .rule,.station .bank{font-size:17px}
+.layer{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;border-left:8px solid var(--c);background:#FBF8F1;padding:12px 14px;border-radius:4px}
+.lname span{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--c)}
+.lname b{font-family:var(--serif);font-size:24px}
+.lq{font-weight:700;font-size:17px}
+.sentence{background:var(--ink);color:#fff;border-radius:6px;padding:14px 16px;font-family:var(--serif);font-size:19px}
+.sentence b{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#E8C870;margin-bottom:4px}
+.rule{background:var(--tint);border-radius:6px;padding:10px 12px;font-size:15.5px}
+.bank{font-size:15.5px;border:1px dashed var(--ink-2);border-radius:6px;padding:8px 12px}
+.foot{font-size:13.5px;color:var(--ink-2);margin-top:auto}
+.done{border:1.5px solid var(--ink);border-radius:6px;padding:12px 16px;font-size:18px}
+.done ul{list-style:none;padding-left:0;gap:6px}
+.done li::before{content:'☐  ';font-size:20px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th,td{border:1.5px solid var(--ink);padding:10px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th:first-child{width:42%}
+th{font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.blank{height:44px}
+.cut{border-top:2px dashed var(--ink-2);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.cutlabel{font-size:12px;color:var(--ink-2)}
+.boxes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cbox{border:2px solid var(--c);border-radius:6px;overflow:hidden}
+.cbox h3{background:var(--c);color:#fff;padding:8px 12px;margin:0;font-size:15px}
+.cbox ul{list-style:none;padding:10px 12px;gap:10px}
+.cbox li{border-bottom:1px solid var(--rule);padding-bottom:8px;font-size:15px}
+.cbox li span{color:var(--ink-2);font-style:italic;font-size:13.5px}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.job{border:1.5px solid var(--rule);border-radius:6px;padding:10px 12px;font-size:15px}
+.job b{display:block;font-family:var(--serif);font-size:19px}
+.order{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.order div{border:2px solid var(--ink);border-radius:6px;padding:10px 12px;font-size:15px}
+.order b{display:block;font-size:18px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+@media screen and (max-width:640px){.sheet{padding:20px 16px} .two,.boxes,.jobs,.order{grid-template-columns:1fr} .layer{grid-template-columns:1fr} h2{font-size:25px}}
+@media print{@page{size:letter;margin:.5in} body{background:#fff;font-size:11pt} .top{display:none} .stack{padding:0;gap:0;display:block} .sheet{box-shadow:none;max-width:none;width:auto;padding:0;break-after:page} .sheet:last-child{break-after:auto}}
+</style>
+</head>
+<body><main class="stack">
+<div class="top"><p>Student direction pages · print one-sided, letter size. Pages 3–5 go in sheet protectors at the stations.</p><button class="print" type="button" onclick="try{window.print()}catch(e){}">Print pages</button></div>
+<section class="sheet" id="page-1" aria-labelledby="ph-1"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 1 · Keep this out all week</span></div><h2 id="ph-1">The Text Blueprint: how a text gets built</h2><p class="goal">An author’s purpose, appeals and language aren’t separate. They work together to build the text.</p><div class="layer" style="--c:#B8892A"><div class="lname"><span>The building</span><b>Effect</b></div><div><p class="lq">What does the audience think, feel, and do?</p><p>Mood is the feeling the words create. The effect should lead back to the purpose.</p></div></div><div class="layer" style="--c:#2F6B4F"><div class="lname"><span>Materials</span><b>Language</b></div><div><p class="lq">Which words do the work?</p><p>Metaphor, simile, repetition, imagery, allusion, word choice.</p></div></div><div class="layer" style="--c:#2F4E69"><div class="lname"><span>Frame</span><b>Appeals</b></div><div><p class="lq">How will the author reach this audience?</p><p>Ethos: credibility and character (why trust?). Logos: logic and evidence (does it make sense?). Pathos: emotion (how does it feel?). Strong texts combine them.</p></div></div><div class="layer" style="--c:#7A2233"><div class="lname"><span>Foundation</span><b>Purpose</b></div><div><p class="lq">Why does this text exist?</p><p>P persuade · I inform · E entertain or engage. The primary purpose is the main destination; texts often inform or entertain in order to persuade.</p></div></div><div class="sentence"><b>Blueprint sentence</b>___’s primary purpose is to ___. To reach ___, the author combines ___ and ___, using ___, so that the audience ___.</div><p class="foot">Read the blueprint from the bottom up: purpose is the foundation everything else stands on.</p></section>
+<section class="sheet" id="page-2" aria-labelledby="ph-2"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 2 · Wednesday</span></div><h2 id="ph-2">Group jobs and passport</h2><div class="jobs"><div class="job"><b>Facilitator</b>Reads the directions aloud and keeps the talk on task.</div><div class="job"><b>Timekeeper</b>Watches the timer and calls the 3-minute warning.</div><div class="job"><b>Checker</b>Initials each passport line before the group moves on.</div><div class="job"><b>Materials + Tech</b>Gets the direction page, transcripts and markers.</div></div><p>Next birthday is the Facilitator; go clockwise. Rotate jobs on Thursday.</p><div class="rule"><b>Teacher table:</b> if your name is called, bring your spiral and transcript. Rejoin your group after. You finish what you missed on Thursday.</div>
+<div class="cut"><span class="cutlabel">✂ Cut along the dashed line and glue into your spiral · New entry: 11/17 – The Text Blueprint</span>
+<table><thead><tr><th>Station</th><th>Date</th><th>Notebook page</th><th>Checker initials</th></tr></thead><tbody><tr><td>A · Foundation (Purpose)</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr><tr><td>B · Frame (Appeals)</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr><tr><td>C · Materials + Effect</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr><tr><td>Blueprint Checkpoint (on your own)</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr></tbody></table></div></section>
+<section class="sheet station" id="page-3" aria-labelledby="ph-3"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 3 · Station A</span></div><h2 id="ph-3">Station A · Foundation: Purpose</h2>
+<p class="goal">Find King’s purposes and show how they work together.</p>
+<div class="two"><div class="col" style="--c:#2F6B4F"><h3>Discover</h3><ol><li>Find one place King INFORMS (facts or history).</li><li>Find one place he PERSUADES (calls for belief or action).</li><li>Find one place that ENGAGES (a vivid picture or story that pulls listeners in).</li></ol></div>
+<div class="col" style="--c:#7A2233"><h3>Explain · in your spiral</h3><ol><li>“King informs about ___ in order to ___.”</li><li>“King’s primary purpose is to persuade ___ to ___.”</li><li>Stretch: “The support that best proves his point is ___ because ___.”</li></ol></div></div>
+<div class="done"><h3>Done when you have</h3><ul><li>Three lines found (inform, persuade, engage), with opening words</li><li>Your own primary-purpose sentence</li><li>The Checker initialed your passport</li></ul></div>
+
+<div class="rule"><b>Use your transcript</b> and write the opening words of each line you use. <b>Before you move,</b> the Checker reads every member’s work and initials the passport. A group answer is not your answer.</div></section>
+<section class="sheet station" id="page-4" aria-labelledby="ph-4"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 4 · Station B</span></div><h2 id="ph-4">Station B · Frame: Appeals</h2>
+<p class="goal">Show how King combines ethos, logos and pathos to reach his audience.</p>
+<div class="two"><div class="col" style="--c:#2F6B4F"><h3>Discover</h3><ol><li>Find one line for each appeal: ethos, logos, pathos. Write its opening words.</li><li>Which appeal carries the promise section? Which carries the dream section?</li></ol></div>
+<div class="col" style="--c:#7A2233"><h3>Explain · in your spiral</h3><ol><li>For each appeal: “King uses ___ in ‘___’ to make his audience ___, which helps him ___.”</li><li>“He shifts from ___ to ___ because ___.”</li></ol></div></div>
+<div class="done"><h3>Done when you have</h3><ul><li>One line for each appeal, with opening words</li><li>An explain sentence for each appeal</li><li>Your shift sentence</li><li>The Checker initialed your passport</li></ul></div>
+
+<div class="rule"><b>Use your transcript</b> and write the opening words of each line you use. <b>Before you move,</b> the Checker reads every member’s work and initials the passport. A group answer is not your answer.</div></section>
+<section class="sheet station" id="page-5" aria-labelledby="ph-5"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 5 · Station C</span></div><h2 id="ph-5">Station C · Materials + Effect: Language and mood</h2>
+<p class="goal">Connect King’s word choices to the appeal they power and the mood they create.</p>
+<div class="two"><div class="col" style="--c:#2F6B4F"><h3>Discover</h3><ol><li>Hunt for 3 devices: metaphor, simile, repeated phrase, light vs. dark image, real place name, historical or biblical allusion, call to action.</li><li>For each, name the mood it creates (hopeful, urgent, determined, defiant, solemn, joyful…).</li></ol></div>
+<div class="col" style="--c:#7A2233"><h3>Explain · in your spiral</h3><ol><li>For each device: “The ___ in ‘___’ powers ___ and creates a ___ mood, so the audience ___.”</li></ol></div></div>
+<div class="done"><h3>Done when you have</h3><ul><li>Three devices, each tied to an appeal AND a mood</li><li>Three explain sentences</li><li>The Checker initialed your passport</li></ul></div>
+<div class="bank"><b>Mood words:</b> hopeful · urgent · determined · defiant · solemn · indignant · joyful · triumphant · peaceful</div>
+<div class="rule"><b>Use your transcript</b> and write the opening words of each line you use. <b>Before you move,</b> the Checker reads every member’s work and initials the passport. A group answer is not your answer.</div></section>
+<section class="sheet" id="page-6" aria-labelledby="ph-6"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 6 · Thursday · on your own</span></div><h2 id="ph-6">Blueprint Checkpoint</h2><div class="order"><div><b>1 · Checkpoint</b>Quiet, about 25 minutes.</div><div><b>2 · Finish stations</b>Any you missed.</div><div><b>3 · Passport</b>Checker initials, then turn in.</div></div>
+<p>In your spiral, draw both boxes. Use one excerpt from each section of the speech.</p>
+<div class="boxes"><div class="cbox" style="--c:#7A2233"><h3>Excerpt A — Promise</h3><ul><li><b>Words</b> <span>the exact words</span></li><li><b>Language</b> <span>the device or word choice</span></li><li><b>Appeal</b> <span>name it and say what it means</span></li><li><b>Purpose</b> <span>persuade whom, to do what</span></li><li><b>Effect</b> <span>think, feel, do + the mood</span></li></ul></div><div class="cbox" style="--c:#2F4E69"><h3>Excerpt B — Dream</h3><ul><li><b>Words</b> <span>the exact words</span></li><li><b>Language</b> <span>the device or word choice</span></li><li><b>Appeal</b> <span>name it and say what it means</span></li><li><b>Purpose</b> <span>persuade whom, to do what</span></li><li><b>Effect</b> <span>think, feel, do + the mood</span></li></ul></div></div>
+<div class="sentence"><b>Then finish with your blueprint sentence for the whole speech</b>King’s primary purpose is to ___. To reach ___, he combines ___ and ___, using ___, so that his audience ___.</div>
+<p class="foot">Strong checkpoints connect the layers. “Pathos” alone is a label; say which feeling, in whom, and how it serves King’s purpose.</p></section>
+<section class="sheet" id="page-7" aria-labelledby="ph-7"><div class="sheet-label"><span>English I · The Text Blueprint</span><span>Page 7 · Friday · on your own</span></div><h2 id="ph-7">Blueprint a commercial</h2><p class="goal">Pick any commercial or ad you know well. Build its blueprint.</p>
+<table><tbody><tr><th style="width:34%">The ad<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12.5px">What is it for? Who made it?</span></th><td style="height:78px"></td></tr><tr><th style="width:34%">Audience<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12.5px">Who is it built for?</span></th><td style="height:78px"></td></tr><tr><th style="width:34%">Foundation · Purpose<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12.5px">Primary purpose, and any purposes that support it (PIE)</span></th><td style="height:78px"></td></tr><tr><th style="width:34%">Frame · Appeals<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12.5px">Which appeals does it combine? How?</span></th><td style="height:78px"></td></tr><tr><th style="width:34%">Materials · Language<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12.5px">Slogan, words, images, music: what does the work?</span></th><td style="height:78px"></td></tr><tr><th style="width:34%">The building · Effect<br><span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12.5px">What does the audience think, feel, and do?</span></th><td style="height:78px"></td></tr></tbody></table>
+<div class="sentence"><b>Blueprint sentence</b>The ad’s primary purpose is to ___. To reach ___, it combines ___ and ___, using ___, so that the audience ___.</div>
+<p class="foot">Write in your spiral if you don’t have this page.</p></section>
+</main></body></html>
