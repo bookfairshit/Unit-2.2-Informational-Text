@@ -1,6 +1,6 @@
 # Unit 2.2 — Words That Move History
 
-English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – Dec 18, 2026), plus teacher-facing plans, decks and printables for Nov 12–20.
+English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – Dec 18, 2026), plus teacher-facing plans, decks and printables for Nov 12–20, and the Nov 19 Rhetoric Lab website.
 
 > **Status: PROPOSED working plan, not a district-approved calendar.** The dashboard is a coordination tool, not a record of implemented instruction.
 
@@ -26,8 +26,10 @@ English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – De
 | `lumio/text-blueprint-nov-17-20.pptx` | "The Text Blueprint" (21 slides), Tue Nov 17 – Fri Nov 20. One idea: an author's purpose (PIE), rhetorical appeals and language work together to build a text. Purpose is the foundation, appeals the frame, language the materials, and effect/mood the finished building. Tuesday is whole group: the bellwork is a school-appropriate commercial with an obvious call to action, which becomes the I do model (the ASPCA "Angel" ad is built in; four other options with blueprints are in the notes, on a teacher-only slide and in the pacing guide; no video links are included). Then We do on chunk 1 of "I Have a Dream" starting from King's call to action, read and watch the dream section, and an exit blueprint sentence. Wednesday runs three 11-minute layer stations (A Foundation, B Frame, C Materials + Effect) with a teacher table pulling students by Tuesday's exit sort. Thursday (teacher out) is an individual Blueprint Checkpoint, then station catch-up. Friday is small-group teacher table plus a "blueprint a commercial" transfer task, then a first blueprint of RFK's April 4, 1968 Indianapolis remarks (teacher supplies the recording or transcript). Every slide's presenter notes carry the minute-by-minute script and expected answers. Replaces the earlier Dream Stations deck. |
 | `unit-2-2-pacing-guide-nov-17-20.html` | Teacher-facing minute-by-minute pacing guide for Nov 17–20. Every segment is tagged PROTECT (must happen), FLEX (shrink) or CUT FIRST (drop when behind), with a minimum day and if-behind rules for each day, the teacher-table plan, and a print list. Assumes Tue 45, Wed 40, Thu 40 and Fri 45-minute periods (bell schedule not verified). Prints one day per page. |
 | `unit-2-2-blueprint-student-pages.html` | Seven printable student direction pages (letter): the Text Blueprint anchor, group jobs and a cut-and-glue passport, Stations A–C (in sheet protectors at the stations), the Thursday Blueprint Checkpoint, and the Friday "Blueprint a commercial" task. |
-| `unit-2-2-sub-plan-nov-19.html` | Printable guest-teacher plan for Thu Nov 19 (Blueprint Checkpoint, then station catch-up), with blanks for the teacher to fill in (room, periods, Darter Huddle schedule, seating chart, transcript location, how to collect work, emergency procedures). |
+| `unit-2-2-sub-plan-nov-19.html` | Printable guest-teacher plan for Thu Nov 19: The Rhetoric Lab (script, timing for 40/47/50-minute classes, troubleshooting), with blanks for the teacher to fill in (room, periods, Darter Huddle schedule, where paper copies are, emergency procedures). Replaces the earlier Blueprint Checkpoint plan. |
+| `rhetoric-lab/` | **The Rhetoric Lab: How King's Words Work** (Thu Nov 19, sub day). A self-paced website students open from Canvas: Toolbox, Image Lab, Sound of Persuasion and Evidence Test practice with feedback and honest attempt records, then an independent analysis (A language → mood → purpose, B rhetoric → appeal → audience, C support → judgment) of the class copy of chunks 2 and 3. Students paste one generated report into Canvas Text Entry. Also contains `canvas-assignment.html` (assignment text plus teacher setup notes), `student-fallback.html` (4 printable pages, no keys), `substitute-directions.md`, and its own README with setup steps and verification results. Live: `https://bookfairshit.github.io/Unit-2.2-Informational-Text/rhetoric-lab/`. The teacher guide (keys, rubric) is deliberately kept out of this public repository. |
 | `tests/dashboard.test.js` | Automated checks for the quality tests in brief §10. |
+| `tests/rhetoric-lab.test.js` | Automated acceptance checks for the Rhetoric Lab (build brief §12). |
 
 Keep the HTML files and the `lumio/` folder together so the links between them work.
 
@@ -76,6 +78,7 @@ Requires Node and the `playwright` package with a Chromium build.
 
 ```
 node tests/dashboard.test.js
+node tests/rhetoric-lab.test.js
 ```
 
 Covers: weekdays for Nov 11/12/13, month and week rollover, keyboard-operable dialogs (focus in, Tab containment, Esc, focus return, unsaved-edit guard), no fake links, URL validation and HTML escaping, Thanksgiving excluded from instruction, CRM end Dec 19 and last student day Dec 18, editable end date, edits surviving filters and reloads, the local-only notice, JSON export → reset → import → export round trip, CSV, confirmed-only ICS with line folding, untruncated print output, and no horizontal scroll at phone width.
