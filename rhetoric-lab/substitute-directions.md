@@ -2,11 +2,13 @@
 
 **Lesson:** 11/19 — The Rhetoric Lab: How King's Words Work. Students work **independently** on a website linked in Canvas. You do not need to teach rhetoric. The website teaches; you help with access and navigation.
 
-**Teacher fills in before Thursday:** Room ______ · Periods/times ______ · Darter Huddle schedule ______ · Paper class copies and printed fallbacks are ______ · Where paper work goes ______
+**Text:** students read chunks 2 and 3 of their *I Have a Dream* notetaker (a Google Doc). There are no paper copies of the speech unless the teacher printed a backup.
+
+**Teacher fills in before Thursday:** Room ______ · Periods/times ______ · Darter Huddle schedule ______ · Printed backup (chunks 2–3 + student fallback) is ______ · Where paper work goes ______
 
 ## Opening script (read aloud)
 
-> "Open today's Rhetoric Lab assignment in Canvas and follow the website directions. Work independently. Keep your speech copy open. You will submit one analysis report to Canvas before the end of class. The website does not submit it for you."
+> "Open today's Rhetoric Lab assignment in Canvas and follow the website directions. Work independently. Keep your speech copy open: your I Have a Dream notetaker, chunks 2 and 3. You will submit one analysis report to Canvas before the end of class. The website does not submit it for you."
 
 ## While students work
 
@@ -34,8 +36,8 @@
 | Problem | What to do |
 |---|---|
 | The website will not open | Refresh once. If it still fails, hand out the printed student fallback. Students complete A, B, and C in their spiral under the lesson title and upload photos if they can. |
-| No class text | The **Class copy** button on the site explains the transcript fallback. Students mark **Transcript fallback used**. |
-| No internet at all | Students need the paper class text and the printed fallback. Do not supply quotations from memory. |
+| A student can't open the notetaker | The **Class copy** button on the site links the Yale transcript and tells them where chunks 2 and 3 start and end. They check **Transcript used**. |
+| No internet at all | Hand out the printed chunks 2 and 3 and the printed student fallback, if the teacher left them. Do not supply quotations from memory. |
 | "This browser is not saving your work" | Keep the tab open. Copy or download the report before closing it. |
 | **Copy Report** does nothing | Click in the report box, press Ctrl+A, then Ctrl+C. Or use **Download .txt**, or **Print / Save as PDF**, and upload the file in Canvas. |
 | Student changed devices | Work is saved only in the browser where it was typed. They continue on the new device, or on paper. |

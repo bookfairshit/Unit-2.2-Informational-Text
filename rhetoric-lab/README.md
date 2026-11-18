@@ -19,7 +19,7 @@ There is no build step, account, backend, analytics, AI scoring, or external cal
 | File | What it is |
 |---|---|
 | `index.html`, `styles.css`, `app.js` | The website. Relative paths only; opens from GitHub Pages or straight from disk. |
-| `canvas-assignment.html` | Canvas assignment text, with teacher setup notes kept outside the student copy. It has one marked site-URL field. No JavaScript. |
+| `canvas-assignment.html` | Canvas assignment text, with teacher setup notes kept outside the student copy. It has two marked fields: the site URL and the notetaker link. No JavaScript. |
 | `student-fallback.html` | Printable paper version: directions, Toolbox, optional practice and final prompts A–C. It prints on 4 letter pages and has no answer keys. |
 | `substitute-directions.md` | About one page: script, timing, troubleshooting. The same plan, with fill-in blanks, is at `../unit-2-2-sub-plan-nov-19.html`. |
 | `README.md` | This file. |
@@ -36,31 +36,38 @@ The site is public, like the repository. Open the address yourself before class 
 
 ## Text access
 
-- The website does **not** contain chunks 2 and 3. Their exact text and boundaries were not supplied, so nothing labels a transcript paragraph as a class chunk.
-- Students use their **class copy** (Canvas or paper), including Wednesday's annotations.
-- The **Class copy** panel links the whole-speech transcript at the Avalon Project (Yale Law School) as a secondary reference. The link opens in a new tab; nothing is embedded or fetched.
-- **Fallback:** a student without the class copy picks two different transcript passages about America's unfulfilled promises and the need for immediate racial justice. The panel gives paraphrased locators, not quotations. The student labels them "Fallback passage 1" and "Fallback passage 2" and checks **Transcript fallback used**. Reports show the flag.
-- All practice text was written for the lesson and is labeled as not King's words. The site contains no King quotations.
-- If the teacher later supplies the chunks, they can be added to the Class copy panel under the teacher's own labels.
+- **The class text is the *I Have a Dream* interactive notetaker** (a Google Doc). Students were not given paper copies.
+- **Chunk boundaries** come from the teacher's master copy:
+  - **Chunk 2 = ¶7–13**, from "It would be fatal for the nation…" through "…righteousness like a mighty stream."
+  - **Chunk 3 = ¶14–23**, from "I am not unmindful…" through the second "I have a dream today!"
+- **Paragraph numbers** follow the notetaker, which prints [10], [13], [15], [20] and [24].
+- **What the Class copy panel shows:** the boundaries, a paragraph map (opening words only) and source notes for King's references. The notes cover Amos 5:24, the Declaration of Independence, "interposition"/"nullification", "soul force", "For Whites Only" signs and 1963.
+- **The speech text is not reproduced** on this public site. The notetaker link is also left out of the public files; the teacher pastes it into Canvas.
+- **Labeling evidence:** students pick Chunk 2 or Chunk 3, and optionally a paragraph. Picking a paragraph fills in its chunk.
+- **Transcript route:** a student who can't open the notetaker reads the same two chunks in the Avalon Project transcript (Yale Law School), found by their opening and closing words, and checks **Transcript used**. The link opens in a new tab; nothing is embedded or fetched.
+- **Out of scope today:** the notetaker's other parts (Chunk 1, Chunk 4, the Gettysburg Address practice, SOAPSTone and the benchmark questions).
+- **Practice text:** all of it was written for the lesson and is labeled as not King's words.
 
 ## Teacher actions still needed
 
 1. Create the Canvas assignment from `canvas-assignment.html`: enable **Online → Text Entry**, and optionally File Uploads. Replace the marked URL field with the live link, then make it a link.
 2. Print `student-fallback.html` to PDF, upload it to Canvas, and leave paper copies for the guest teacher.
-3. Make sure the class copy of chunks 2 and 3 is reachable in Canvas, or on paper in the room.
-4. Fill in the blanks on the sub plan (room, periods, Darter Huddle schedule, where paper copies are).
+3. Put the notetaker link in the Canvas assignment, at the marked notetaker field. For a no-internet backup, print the notetaker pages with chunks 2 and 3 (PDF pages 5–7) and leave them with the guest teacher.
+4. Fill in the blanks on the sub plan (room, periods, Darter Huddle schedule, where the printed backup is).
 5. Open the live lab and the Avalon link once on a school Chromebook. Neither could be loaded from the build environment.
 6. Set points and the due time yourself. None are assigned here.
 
 ## Verification
 
-`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 83 passed, 0 failed.** It checks:
+`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 92 passed, 0 failed.** It checks:
 
 **Content and boundaries**
 - All sections, instruction, practice and final prompts are present, with no placeholder text.
 - The required terms are taught, and parallelism and rhetorical question are in the Reference.
 - Practice is labeled as not King's words.
 - There are no teacher exemplars or rubric in the site files, and no teacher guide in the repository.
+- The Class copy panel gives the real chunk boundaries, ¶7–¶23 and the source notes. No chunk text and no Google Doc link appear in the public files.
+- Picking a paragraph fills in the right chunk, and changing the chunk clears a paragraph that doesn't belong to it.
 
 **Practice behavior**
 - First responses survive retries, with the submission count, hint use and worked-explanation use recorded.

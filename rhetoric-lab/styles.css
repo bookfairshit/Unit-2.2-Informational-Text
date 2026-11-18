@@ -157,6 +157,8 @@ details[open] summary{margin-bottom:8px}
 .drawer-body dl{margin:0;display:grid;gap:10px}
 .drawer-body dt{font-weight:700}
 .drawer-body dd{margin:0;color:var(--ink-2)}
+.drawer-body .hint{display:flex;flex-direction:column;gap:8px}
+.drawer-body dd ul{gap:2px}
 
 .print-only{display:none}
 @media (prefers-reduced-motion:no-preference){.card,.feedback{animation:rise .18s ease-out}@keyframes rise{from{opacity:.4;transform:translateY(3px)}to{opacity:1;transform:none}}}

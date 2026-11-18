@@ -60,8 +60,25 @@ const TARGETS = {
   submit: ['I can submit one complete report of my own work.', 'Canvas · Text Entry']
 };
 const CONF = {'1': 'Not yet confident', '2': 'A little confident', '3': 'Mostly confident', '4': 'Very confident'};
-const ACCESS = {class: 'Class copy of chunks 2 and 3 (Canvas or paper)', fallback: 'Transcript fallback (no class copy available)'};
-const WHERE = [['', 'Choose…'], ['Chunk 2', 'Chunk 2'], ['Chunk 3', 'Chunk 3'], ['Fallback passage 1', 'Fallback passage 1 (transcript)'], ['Fallback passage 2', 'Fallback passage 2 (transcript)']];
+const ACCESS = {class: 'Notetaker (Google Doc) open to chunks 2 and 3', fallback: 'Yale transcript (could not open the notetaker)'};
+const WHERE = [['', 'Choose…'], ['Chunk 2', 'Chunk 2 (¶7–13)'], ['Chunk 3', 'Chunk 3 (¶14–23)']];
+/* Paragraph numbers follow the class notetaker, which prints [10], [13], [15], [20] and [24]. Opening words only, as locators. */
+const PARAS = [
+  ['7', 'Chunk 2', '“It would be fatal for the nation…”'], ['8', 'Chunk 2', '“But there is something that I must say to my people…”'], ['9', 'Chunk 2', '“The marvelous new militancy…”'],
+  ['10', 'Chunk 2', '“We cannot walk alone.”'], ['11', 'Chunk 2', '“And as we walk…”'], ['12', 'Chunk 2', '“We cannot turn back.”'], ['13', 'Chunk 2', '“There are those who are asking the devotees of civil rights…”'],
+  ['14', 'Chunk 3', '“I am not unmindful…”'], ['15', 'Chunk 3', '“Let us not wallow in the valley of despair…”'], ['16', 'Chunk 3', '“And so even though we face the difficulties of today and tomorrow…”'],
+  ['17', 'Chunk 3', '“I have a dream that one day this nation will rise up…”'], ['18', 'Chunk 3', '“…on the red hills of Georgia…”'], ['19', 'Chunk 3', '“…even the state of Mississippi…”'],
+  ['20', 'Chunk 3', '“…my four little children…”'], ['21', 'Chunk 3', '“I have a dream today!”'], ['22', 'Chunk 3', '“…down in Alabama…”'], ['23', 'Chunk 3', '“I have a dream today!” (the second one, just before Chunk 4)']
+];
+const PARA_CHUNK = Object.fromEntries(PARAS.map(([n, c]) => [n, c]));
+const SOURCE_NOTES = [
+  ['¶13 · “justice rolls down like waters…”', 'King borrows these words from the Hebrew Bible: the prophet Amos (Amos 5:24) calling for justice. Many in his audience knew the passage.'],
+  ['¶17 · “We hold these truths to be self-evident…”', 'King quotes the Declaration of Independence (1776), the nation’s founding statement that all men are created equal.'],
+  ['¶22 · “interposition” and “nullification”', 'Words segregationist leaders, including Alabama’s governor, used to argue that a state could refuse to follow federal civil-rights rulings.'],
+  ['¶8 · “soul force”', 'King’s phrase for the power of nonviolent resistance, as opposed to physical force.'],
+  ['¶13 · “For Whites Only”', 'Signs posted under segregation to bar Black Americans from places such as restaurants, restrooms and waiting rooms.'],
+  ['¶7 · “Nineteen sixty-three”', 'The year of the speech: August 28, 1963, at the Lincoln Memorial during the March on Washington.']
+];
 
 const ITEMS = {
   T1: {sec: 'toolbox', title: 'Simile check', q: 'Which sentence uses a simile?',
@@ -250,9 +267,8 @@ function sectionProgress(sec) {
 }
 function finalPresent(k) { const f = st.final[k]; return k === 'C' ? has(f.judge) : has(f.exp); }
 function chunkCheck() {
-  const f = st.final; const labels = [f.A.where, f.B.where, f.C.s1where, f.C.s2where].filter(Boolean);
-  const ok = f.fallback ? labels.includes('Fallback passage 1') && labels.includes('Fallback passage 2') : labels.includes('Chunk 2') && labels.includes('Chunk 3');
-  return {ok, labels: [...new Set(labels)]};
+  const f = st.final; const labels = [f.A.where, f.B.where, f.C.s1where, f.C.s2where].filter(v => v === 'Chunk 2' || v === 'Chunk 3');
+  return {ok: labels.includes('Chunk 2') && labels.includes('Chunk 3'), labels: [...new Set(labels)].sort()};
 }
 
 /* ---------- navigation ---------- */
@@ -331,7 +347,7 @@ const READ = {
   ],
   imageBridge: () => [
     P('King’s figurative language can make abstract injustice, obligation, and change feel concrete.'),
-    P('In your class text, look for an image or comparison and explain its effect. You do not need to find every kind of figurative language in the same passage.'),
+    P('In chunks 2 and 3 of your notetaker (paragraphs 7–23), look for an image or comparison and explain its effect. Weather and seasons, journeys and places, heights and valleys all appear. You do not need to find every kind of figurative language in the same passage.'),
     h('div', {class: 'btn-row'}, openTextButton())
   ],
   soundIntro: () => [
@@ -340,9 +356,10 @@ const READ = {
     P('The practice sentences in this section were written for this lesson. They are not King’s words.')
   ],
   soundBridge: () => [
-    P('In chunks 2 and 3, consider repeated openings, contrasts, recognizable references, or other purposeful choices.'),
+    P('In chunks 2 and 3, consider repeated openings, contrasts, a question King answers himself, recognizable references, or other purposeful choices.'),
     P('Explain what the language makes more prominent, memorable, credible, urgent, or compelling. A defensible different device is acceptable if the assigned text supports it.'),
-    h('div', {class: 'btn-row'}, openTextButton())
+    P('Choosing a reference? The **Class copy** panel has source notes for the texts and terms King refers to in these chunks, so you don’t have to know them already.'),
+    h('div', {class: 'btn-row'}, openTextButton('Open the source notes'))
   ],
   evIntro: () => [
     h('ul', null, h('li', null, rich('A **central idea** is what the text develops about its topic.')), h('li', null, rich('A **purpose** is what the speaker wants the audience to think, believe, or do.')), h('li', null, rich('**Support** is the information or evidence used to develop the idea.'))),
@@ -350,22 +367,22 @@ const READ = {
     practiceTag(), h('div', {class: 'passage'}, PASSAGE.map(p => h('p', null, p)))
   ],
   evBridge: () => [
-    P('In the assigned reading, identify two specific supports: examples of injustice, a shared national promise, a relevant historical reference, or another concrete detail actually present.'),
+    P('In chunks 2 and 3, identify two specific supports from different places: examples of injustice, a shared national promise, a relevant historical reference, or another concrete detail actually present.'),
     P('Judge how they develop a central idea. Do not treat the number of metaphors as evidence that a claim is true.'),
     h('div', {class: 'btn-row'}, openTextButton(), h('button', {type: 'button', class: 'btn gold', onclick: () => go('final', 0)}, 'Go to Your Independent Analysis'))
   ],
   finalDirections: () => [
-    h('div', {class: 'card note'}, P('Use chunks 2 and 3 of your class copy. Complete A, B, and C in your own words. Include evidence from **both chunks somewhere across the three responses**. Identify evidence with a short quotation or accurate paraphrase and its chunk label. If your copy has paragraph or line numbers, you may add them; do not invent them. Aim for about **2–3 clear sentences per response**. Clear thinking matters more than length.')),
-    P('If you are using the whole-speech fallback because you do not have the class copy, select two different passages about America’s unfulfilled promises and the need for immediate racial justice. Identify each passage by its topic/opening location and mark the fallback checkbox. Do not call those passages chunks 2 and 3.'),
+    h('div', {class: 'card note'}, P('Use chunks 2 and 3 of your notetaker: **Chunk 2 is paragraphs 7–13** and **Chunk 3 is paragraphs 14–23**. Complete A, B, and C in your own words. Include evidence from **both chunks somewhere across the three responses**. Identify evidence with a short quotation or accurate paraphrase and its chunk label. You may add the paragraph number: your notetaker prints some of them ([10], [13], [15], [20]), and the Class copy panel lists the rest. Aim for about **2–3 clear sentences per response**. Clear thinking matters more than length.')),
+    P('If you cannot open your notetaker, open the Yale transcript from the **Class copy** panel and find the same two chunks by their opening words. Check the box below and label your evidence Chunk 2 or Chunk 3 as usual.'),
     fallbackBox(),
-    h('ul', null, h('li', null, 'You may use your class copy, your Wednesday annotations, the Reference drawer, and the optional sentence starters.'), h('li', null, 'Write your own explanations. Copying another student’s analysis is not allowed.'), h('li', null, 'These responses get no automatic feedback or score. Mr. Moody will review your reasoning.')),
+    h('ul', null, h('li', null, 'You may use your notetaker, your Wednesday annotations, the Reference drawer, the source notes, and the optional sentence starters.'), h('li', null, 'Write your own explanations. Copying another student’s analysis is not allowed.'), h('li', null, 'These responses get no automatic feedback or score. Mr. Moody will review your reasoning.')),
     h('div', {class: 'btn-row'}, openTextButton())
   ]
 };
 function fallbackBox() {
   const cb = h('input', {type: 'checkbox', id: 'fallback-cb'}); cb.checked = !!st.final.fallback;
   cb.addEventListener('change', () => { st.final.fallback = cb.checked; saveSoon(); });
-  return h('label', {class: 'choice', for: 'fallback-cb'}, cb, h('span', null, rich('**Transcript fallback used.** I do not have the class copy, so I am using two labeled fallback passages from the transcript.')));
+  return h('label', {class: 'choice', for: 'fallback-cb'}, cb, h('span', null, rich('**Transcript used.** I could not open my notetaker, so I read chunks 2 and 3 in the Yale transcript.')));
 }
 
 /* ---------- step renderers ---------- */
@@ -436,6 +453,22 @@ function whereSelect(idBase, value, onChange) {
   sel.addEventListener('change', () => onChange(sel.value));
   return sel;
 }
+/* Chunk select + optional paragraph select (notetaker numbering). Choosing a paragraph fills in its chunk. */
+function locPair(idBase, obj, wk, lk) {
+  let para = null;
+  const where = whereSelect(idBase + 'where', obj[wk], v => {
+    obj[wk] = v;
+    if (obj[lk] && PARA_CHUNK[obj[lk]] !== v) { obj[lk] = ''; if (para) para.value = ''; }
+    saveSoon(); if (wk === 'where') updateSameWarn();
+  });
+  para = h('select', {id: idBase + 'loc'}, h('option', {value: ''}, 'Not sure / skip'),
+    ['Chunk 2', 'Chunk 3'].map(c => h('optgroup', {label: c + (c === 'Chunk 2' ? ' (¶7–13)' : ' (¶14–23)')}, PARAS.filter(p => p[1] === c).map(([n, , o]) => h('option', {value: n}, '¶' + n + ' ' + o)))));
+  para.value = obj[lk] || '';
+  para.addEventListener('change', () => { obj[lk] = para.value; if (para.value) { obj[wk] = PARA_CHUNK[para.value]; where.value = obj[wk]; } saveSoon(); });
+  return h('div', {class: 'two'},
+    h('div', null, h('label', {class: 'field', for: idBase + 'where'}, 'Which chunk?'), where),
+    h('div', null, h('label', {class: 'field', for: idBase + 'loc'}, h('span', null, 'Paragraph (optional)'), h('span', {class: 'help'}, 'Picking one fills in the chunk.')), para));
+}
 function textField(id, label, help, value, onInput, opts = {}) {
   const el = opts.input ? h('input', {type: 'text', id, autocomplete: 'off'}) : h('textarea', {id, class: opts.short ? 'short' : null, rows: opts.short ? '3' : '6'});
   el.value = value || ''; el.addEventListener('input', () => onInput(el.value));
@@ -458,17 +491,13 @@ function finalStep(k) {
     for (const n of ['1', '2']) {
       card.append(h('div', {class: 'card quiet'}, h('h3', null, 'Support ' + n),
         ...textField('fin-C-s' + n, 'Evidence: a short quotation or an accurate paraphrase', null, f['s' + n], set('s' + n), {short: true}),
-        h('div', {class: 'two'},
-          h('div', null, h('label', {class: 'field', for: 'fin-C-s' + n + 'where'}, 'Where is it from?'), whereSelect('fin-C-s' + n + 'where', f['s' + n + 'where'], set('s' + n + 'where'))),
-          h('div', null, ...textField('fin-C-s' + n + 'loc', 'Paragraph or line (optional)', 'Only if your copy shows one.', f['s' + n + 'loc'], set('s' + n + 'loc'), {input: true})))));
+        locPair('fin-C-s' + n, f, 's' + n + 'where', 's' + n + 'loc')));
     }
     card.append(...textField('fin-C-judge', 'Your judgment', 'Which support is more convincing for the idea, or how do they work together? Why?', f.judge, set('judge')));
     card.append(starterBox('C', 'fin-C-judge'));
   } else {
-    card.append(...textField('fin-' + k + '-ev', 'Evidence: a short quotation or an accurate paraphrase', 'Quote only words that are really in your copy. Paraphrases go without quotation marks.', f.ev, set('ev'), {short: true}),
-      h('div', {class: 'two'},
-        h('div', null, h('label', {class: 'field', for: 'fin-' + k + '-where'}, 'Where is it from?'), whereSelect('fin-' + k + '-where', f.where, set('where'))),
-        h('div', null, ...textField('fin-' + k + '-loc', 'Paragraph or line (optional)', 'Only if your copy shows one.', f.loc, set('loc'), {input: true}))),
+    card.append(...textField('fin-' + k + '-ev', 'Evidence: a short quotation or an accurate paraphrase', 'Quote only words that are really in your notetaker. Paraphrases go without quotation marks.', f.ev, set('ev'), {short: true}),
+      locPair('fin-' + k + '-', f, 'where', 'loc'),
       ...textField('fin-' + k + '-exp', 'Your explanation (about 2–3 clear sentences)', null, f.exp, set('exp')),
       starterBox(k, 'fin-' + k + '-exp'));
     if (k === 'B') card.append(h('p', {class: 'warn-box', id: 'same-warn', hidden: true}, 'Your B evidence matches your A evidence. Choose a different example for B.'));
@@ -554,8 +583,8 @@ function viewSection(sec) {
 
 function viewStart() {
   const access = h('fieldset', null, h('legend', null, 'Step 1 · Open your text'));
-  access.append(P('Open the class copy of the speech from Canvas, or use the paper copy from class. Find the sections labeled **chunks 2 and 3**. Keep your annotations from Wednesday nearby.'));
-  for (const [v, l] of [['class', 'I have my class copy of chunks 2 and 3 open (Canvas or paper).'], ['fallback', 'I do not have the class copy. I will use the transcript fallback.']]) {
+  access.append(P('Open your **I Have a Dream interactive notetaker** (the Google Doc from class, with your Wednesday annotations) in another tab. Scroll to **CHUNK 2** (paragraphs 7–13) and **CHUNK 3** (paragraphs 14–23). Today you only need those two chunks.'));
+  for (const [v, l] of [['class', 'My notetaker is open to chunks 2 and 3.'], ['fallback', 'I can’t open my notetaker. I’ll read chunks 2 and 3 in the Yale transcript instead.']]) {
     const r = h('input', {type: 'radio', name: 'access', id: 'access-' + v, value: v}); r.checked = st.access === v;
     r.addEventListener('change', () => { st.access = v; st.final.fallback = v === 'fallback'; saveSoon(); });
     access.append(h('label', {class: 'choice', for: r.id}, r, h('span', null, l)));
@@ -631,7 +660,7 @@ function statusList() {
   return h('ul', null,
     h('li', null, rich('**Practice:** ' + c.tried + ' of ' + MC_ORDER.length + ' quick checks tried · ' + c.correct + ' correct in practice · ' + c.support + ' completed with support · ' + c.none + ' not attempted · short writing ' + c.wrote + ' of 3.')),
     h('li', null, rich('**Final responses present:** ' + ['A', 'B', 'C'].map(k => k + ' ' + (finalPresent(k) ? 'yes' : 'not yet')).join(' · ') + '.')),
-    h('li', null, rich('**Evidence from both ' + (st.final.fallback ? 'fallback passages' : 'chunks') + ':** ' + (cc.ok ? 'yes' : 'not shown yet') + '.')),
+    h('li', null, rich('**Evidence from both chunks:** ' + (cc.ok ? 'yes' : 'not shown yet') + '.')),
     h('li', null, rich('**Canvas submission:** still required.')));
 }
 
@@ -646,7 +675,7 @@ function counts() {
 const optText = (id, L) => { const o = ITEMS[id].opts.find(x => x[0] === L); return o ? L + '. ' + o[1] : '(none)'; };
 const yn = b => b ? 'Yes' : 'No';
 const orNone = (v, none) => has(v) ? String(v).replace(/\s+$/, '') : none;
-const whereLabel = (w, loc) => (w || 'location not labeled') + (has(loc) ? ', ' + loc.trim() : '');
+const whereLabel = (w, loc) => (w || 'chunk not labeled') + (has(loc) ? ', paragraph ' + String(loc).trim() : '');
 function reportData() {
   const c = counts(), cc = chunkCheck(), f = st.final;
   const practice = REPORT_ORDER.map(id => {
@@ -656,7 +685,7 @@ function reportData() {
       'Submissions: ' + at.length, 'Hint used: ' + yn(s.hint), 'Worked explanation shown: ' + yn(s.worked), 'Continued with support: ' + yn(s.support)].join('\n')];
   });
   const finals = [
-    ['Text used', (f.fallback ? 'Transcript fallback used: Yes (two fallback passages, not chunks 2 and 3)' : 'Transcript fallback used: No (class copy of chunks 2 and 3)')],
+    ['Text used', f.fallback ? 'Transcript used: Yes (read chunks 2 and 3 in the Yale transcript; could not open the notetaker)' : 'Transcript used: No (notetaker, chunks 2 and 3)'],
     [FINAL.A.title, 'Evidence (' + whereLabel(f.A.where, f.A.loc) + '): ' + orNone(f.A.ev, '(none given)') + '\n\nExplanation:\n' + orNone(f.A.exp, '(not written)')],
     [FINAL.B.title, 'Evidence (' + whereLabel(f.B.where, f.B.loc) + '): ' + orNone(f.B.ev, '(none given)') + '\n\nExplanation:\n' + orNone(f.B.exp, '(not written)')],
     [FINAL.C.title, 'Central idea: ' + orNone(f.C.idea, '(not stated)') + '\n\nSupport 1 (' + whereLabel(f.C.s1where, f.C.s1loc) + '): ' + orNone(f.C.s1, '(none given)') + '\nSupport 2 (' + whereLabel(f.C.s2where, f.C.s2loc) + '): ' + orNone(f.C.s2, '(none given)') + '\n\nJudgment:\n' + orNone(f.C.judge, '(not written)')],
@@ -672,7 +701,7 @@ function reportData() {
       ['Practice completion', c.tried + ' of ' + MC_ORDER.length + ' quick checks attempted. ' + c.correct + ' answered correctly in practice (' + c.first + ' on the first try, ' + c.indep + ' corrected independently). ' + c.support + ' completed with displayed support. ' + c.incorrect + ' attempted but not yet corrected. ' + c.none + ' not attempted.'],
       ['Practice writing', c.wrote + ' of 3 short practice responses written. Teacher review needed.'],
       ['Final responses present', ['A', 'B', 'C'].map(k => k + ': ' + (finalPresent(k) ? 'yes' : 'not yet')).join(' · ')],
-      ['Evidence from both ' + (f.fallback ? 'fallback passages' : 'chunks'), (cc.ok ? 'Yes' : 'Not shown yet') + (cc.labels.length ? ' (labels used: ' + cc.labels.join(', ') + ')' : ' (no labels used)')],
+      ['Evidence from both chunks', (cc.ok ? 'Yes' : 'Not shown yet') + (cc.labels.length ? ' (labels used: ' + cc.labels.join(', ') + ')' : ' (no labels used)')],
       ['Canvas submission', 'STILL REQUIRED. Paste this report into the Canvas assignment’s Text Entry box and select Submit. This website cannot submit your work or check whether you submitted it.'],
       ['Note', 'This report is evidence for teacher review. It is not a grade.']]}
   ]};
@@ -695,7 +724,7 @@ function fillWarnings(el) {
   if (!has(temp.name)) w.push('Your name is not entered (Step 1).');
   if (c.none) w.push(c.none + ' practice quick check' + (c.none === 1 ? ' is' : 's are') + ' not attempted. That is reported honestly; you can still submit.');
   for (const k of ['A', 'B', 'C']) if (!finalPresent(k)) w.push('Final response ' + k + ' is not written yet.');
-  if (!cc.ok) w.push(st.final.fallback ? 'Your evidence labels do not yet show two different fallback passages.' : 'Your evidence labels do not yet show both Chunk 2 and Chunk 3.');
+  if (!cc.ok) w.push('Your evidence labels do not yet show both Chunk 2 and Chunk 3.');
   if (has(st.final.A.ev) && st.final.A.ev.trim().toLowerCase() === st.final.B.ev.trim().toLowerCase()) w.push('A and B use the same evidence. Use different evidence across A and B.');
   el.replaceChildren(w.length ? h('div', {class: 'warn-box'}, h('p', null, h('b', null, 'Before you submit, check:')), h('ul', null, w.map(x => h('li', null, x)))) : h('p', {class: 'feedback neutral'}, 'All parts have something written. Your teacher will review the thinking.'));
 }
@@ -739,17 +768,21 @@ window.addEventListener('beforeprint', renderPrint);
 let drawerTab = 'text', drawerOpener = null;
 function drawerBody(tab) {
   if (tab === 'text') return [
-    h('h3', null, 'Use your class copy'),
-    P('Open the class copy of the speech from Canvas, or use the paper copy from class. Find the sections labeled **chunks 2 and 3**. You may use your Wednesday annotations.'),
-    P('This website does not show chunks 2 and 3. Your class copy is the text for the final analysis.'),
-    h('h3', null, 'Whole-speech transcript (reference)'),
-    h('p', null, h('a', {href: AVALON, target: '_blank', rel: 'noopener noreferrer'}, 'Martin Luther King Jr., “I Have a Dream” (August 28, 1963), Avalon Project, Yale Law School'), ' · opens in a new tab and needs internet.'),
-    P('Its paragraphs are not divided like your class copy, so do not call its sections chunks 2 and 3.'),
-    h('h3', null, 'No class copy? The transcript fallback'),
-    P('Only if you do not have your class copy: in the transcript, choose **two different passages** from King’s discussion of America’s unfulfilled promises and the need for immediate racial justice. For example:'),
-    h('ul', null, h('li', null, 'the early section where King describes the nation’s founding promise as a debt that has not been paid;'), h('li', null, 'the section that follows, where he insists the nation cannot wait and the time for change is now;'), h('li', null, 'the section where he lists specific injustices that keep him from being satisfied.')),
-    P('These are fallback choices, not your class chunks. Name each passage by its topic or opening words, label it **Fallback passage 1** or **2**, and check **Transcript fallback used** in Your Analysis.'),
-    P('Reviewing the speech and using the reference tools is allowed. Copying another student’s analysis is not.')
+    h('h3', null, 'Your text: the notetaker'),
+    P('Open your **I Have a Dream interactive notetaker** (the Google Doc from class) in another tab. Use your Wednesday annotations. This website does not show the speech; your notetaker is the text for the final analysis.'),
+    h('div', {class: 'hint'}, P('**Chunk 2 · paragraphs 7–13.** Starts “It would be fatal for the nation to overlook the urgency of the moment.” Ends “…righteousness like a mighty stream.”'),
+      P('**Chunk 3 · paragraphs 14–23.** Starts “I am not unmindful that some of you have come here out of great trials and tribulations.” Ends with the second “I have a dream today!” just before CHUNK 4.'),
+      P('Skip the rest of the notetaker today (Chunk 1, Chunk 4, the Gettysburg Address, SOAPSTone and the questions).')),
+    h('h3', null, 'Paragraph map'),
+    P('Your notetaker prints some numbers: [10], [13], [15], [20]. Every paragraph, by its opening words:'),
+    h('dl', null, ['Chunk 2', 'Chunk 3'].map(c => [h('dt', null, c), h('dd', null, h('ul', null, PARAS.filter(p => p[1] === c).map(([n, , o]) => h('li', null, '¶' + n + ' ' + o))))])),
+    h('h3', null, 'Source notes for these chunks'),
+    P('Context for references King makes, so you don’t need to know them already:'),
+    h('dl', null, SOURCE_NOTES.map(([t, d]) => [h('dt', null, t), h('dd', null, d)])),
+    h('h3', null, 'Can’t open your notetaker?'),
+    h('p', null, 'Open the transcript: ', h('a', {href: AVALON, target: '_blank', rel: 'noopener noreferrer'}, 'Martin Luther King Jr., “I Have a Dream” (August 28, 1963), Avalon Project, Yale Law School'), ' (new tab; needs internet).'),
+    P('Find the same two chunks by the opening and closing words above. The transcript does not number its paragraphs, and small wording differences are possible, so quote exactly what you are reading. Check **Transcript used** in Your Analysis and label your evidence Chunk 2 or Chunk 3 as usual.'),
+    P('Reviewing the speech and using these tools is allowed. Copying another student’s analysis is not.')
   ];
   const grp = (title, rows) => [h('h3', null, title), h('dl', null, rows.map(([t, d]) => [h('dt', null, t), h('dd', null, rich(d))]))];
   return [
@@ -765,7 +798,7 @@ function buildDrawer(focusTitle) {
   const tabs = h('div', {class: 'drawer-tabs', role: 'tablist', 'aria-label': 'Drawer sections'}, [['text', 'Class copy'], ['ref', 'Reference']].map(([k, l]) =>
     h('button', {type: 'button', role: 'tab', id: 'tab-' + k, 'aria-selected': drawerTab === k ? 'true' : 'false', 'aria-controls': 'drawer-body', onclick: () => { drawerTab = k; buildDrawer(false); $('#tab-' + k).focus(); }}, l)));
   const panel = h('div', {class: 'drawer', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'drawer-title'},
-    h('div', {class: 'drawer-head'}, h('h2', {id: 'drawer-title', tabindex: '-1'}, drawerTab === 'text' ? 'Your class copy' : 'Reference'), h('button', {type: 'button', class: 'btn secondary', id: 'drawer-close', onclick: closeDrawer}, 'Close')),
+    h('div', {class: 'drawer-head'}, h('h2', {id: 'drawer-title', tabindex: '-1'}, drawerTab === 'text' ? 'Class copy: your notetaker' : 'Reference'), h('button', {type: 'button', class: 'btn secondary', id: 'drawer-close', onclick: closeDrawer}, 'Close')),
     tabs, h('div', {class: 'drawer-body', id: 'drawer-body', role: 'tabpanel', 'aria-labelledby': 'tab-' + drawerTab}, ...drawerBody(drawerTab)));
   panel.addEventListener('keydown', e => {
     if (e.key === 'Escape') { e.preventDefault(); closeDrawer(); return; }
