@@ -41,14 +41,23 @@ const plain = s => s.replace(/\*\*?/g, '');
 
 /* ---------- lesson content ---------- */
 const SECTIONS = [
-  {id: 'start', n: 'Start Here', short: 'Start Here', mins: 3},
-  {id: 'toolbox', n: '1. The Toolbox', short: '1 · Toolbox', mins: 9},
-  {id: 'image', n: '2. The Image Lab', short: '2 · Image Lab', mins: 8},
-  {id: 'sound', n: '3. The Sound of Persuasion', short: '3 · Sound', mins: 8},
-  {id: 'evidence', n: '4. The Evidence Test', short: '4 · Evidence', mins: 5},
-  {id: 'final', n: '5. Your Independent Analysis', short: '5 · Your Analysis', mins: 12},
-  {id: 'submit', n: 'Save and Submit', short: 'Submit', mins: 2}
+  {id: 'start', n: 'Check In', short: 'Check in', gate: 0, mins: 3, color: 'g0', icon: 'flag', tag: 'Open your text and check in.'},
+  {id: 'toolbox', n: 'The Toolbox', short: 'Toolbox', gate: 1, mins: 9, color: 'g1', icon: 'tools', tag: 'Pick up the tools.'},
+  {id: 'image', n: 'The Image Lab', short: 'Image Lab', gate: 2, mins: 8, color: 'g2', icon: 'eye', tag: 'See what the words picture.'},
+  {id: 'sound', n: 'The Sound of Persuasion', short: 'Sound', gate: 3, mins: 8, color: 'g3', icon: 'wave', tag: 'Hear how words move people.'},
+  {id: 'evidence', n: 'The Evidence Test', short: 'Evidence', gate: 4, mins: 5, color: 'g4', icon: 'scale', tag: 'Weigh what holds an idea up.'},
+  {id: 'final', n: 'Your Analysis', short: 'Analysis', gate: 5, mins: 12, color: 'g5', icon: 'pen', tag: 'Take the tools to King’s words.'},
+  {id: 'submit', n: 'Your Report', short: 'Report', gate: 6, mins: 2, color: 'g6', icon: 'report', tag: 'Build it. Submit it in Canvas.'}
 ];
+const GATES = ['toolbox', 'image', 'sound', 'evidence', 'final'];
+const gateName = s => s.gate === 0 ? 'Check-in' : s.gate === 6 ? 'Your Report' : 'Gate ' + s.gate + ': ' + s.n;
+const GATE_CLEARS = {
+  toolbox: 'Clears when quick checks T1–T4 are done.',
+  image: 'Clears when I1–I3 are done and you write one sentence of your own.',
+  sound: 'Clears when R1–R3 are done and you write one sentence about why an appeal fits.',
+  evidence: 'Clears when E1 is done and you write 1–2 sentences for E2.',
+  final: 'Clears when A, B and C each have evidence, a chunk label and your explanation, with evidence from both Chunk 2 and Chunk 3.'
+};
 const SEC = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
 const TARGETS = {
   start: ['I can explain how King’s language shapes an audience’s feelings and thinking to advance his purpose.', 'Lesson objective · ELA.9.R.2.3 · R.3.1 · R.3.4 · R.2.2'],
@@ -56,7 +65,7 @@ const TARGETS = {
   image: ['I can explain how a comparison shapes meaning and mood.', 'ELA.9.R.3.1'],
   sound: ['I can explain what a rhetorical device does for an audience.', 'ELA.9.R.3.4 · ELA.9.R.2.3'],
   evidence: ['I can judge how well particular support develops an idea.', 'ELA.9.R.2.2'],
-  final: ['I can explain how King’s language shapes his audience’s feelings and thinking to advance his purpose.', 'ELA.9.R.2.3 · R.3.1 · R.3.4 · R.2.2 · reviewed by your teacher'],
+  final: ['I can explain how King’s language shapes his audience’s feelings and thinking to advance his purpose.', 'ELA.9.R.2.3 · R.3.1 · R.3.4 · R.2.2 · graded by Mr. Moody from your report'],
   submit: ['I can submit one complete report of my own work.', 'Canvas · Text Entry']
 };
 const CONF = {'1': 'Not yet confident', '2': 'A little confident', '3': 'Mostly confident', '4': 'Very confident'};
@@ -208,7 +217,7 @@ const blankFinal = () => ({ev: '', where: '', loc: '', exp: ''});
 function blank() {
   return {v: 1, view: 'start', step: {}, access: '', confBefore: '', confAfter: '', items: {}, writes: {},
     final: {A: blankFinal(), B: blankFinal(), C: {idea: '', s1: '', s1where: '', s1loc: '', s2: '', s2where: '', s2loc: '', judge: ''}, fallback: false},
-    ext: {sentence: '', rewrite: '', lost: ''}, self: {}, seen: {}, reportMade: false};
+    ext: {sentence: '', rewrite: '', lost: ''}, self: {}, seen: {}, celebrated: {}, reportMade: false};
 }
 function merge(base, saved) {
   if (!saved || typeof saved !== 'object') return base;
@@ -231,7 +240,7 @@ function setSaveLine(kind) {
   const text = kind === 'ok' ? 'Your work is saved in this browser. It has not been sent to Mr. Moody: submit your report in Canvas.'
     : kind === 'restored' ? 'Welcome back. Your saved work in this browser is restored. Nothing has been sent to Mr. Moody yet.'
     : kind === 'reset' ? 'Your work for this lesson was erased from this browser.'
-    : 'This browser is not saving your work. Keep this tab open, and use Copy or Download on the Save and Submit page before you leave.';
+    : 'This browser is not saving your work. Keep this tab open, and download a backup from the Report page before you leave.';
   el.classList.toggle('warn', kind === 'fail');
   if (el.textContent !== text) el.textContent = text;
 }
@@ -240,7 +249,7 @@ function saveNow() {
   try { window.localStorage.setItem(KEY, JSON.stringify(st)); storageOK = true; setSaveLine('ok'); }
   catch (e) { storageOK = false; setSaveLine('fail'); }
 }
-function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 350); renderPrint(); renderStrip(); }
+function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 350); renderPrint(); renderStrip(); updateGateUI(); }
 
 const itemState = id => st.items[id] || (st.items[id] = {attempts: [], sel: '', hint: false, worked: false, support: false});
 const writeState = id => st.writes[id] || (st.writes[id] = {text: '', saved: false});
@@ -271,6 +280,53 @@ function chunkCheck() {
   return {ok: labels.includes('Chunk 2') && labels.includes('Chunk 3'), labels: [...new Set(labels)].sort()};
 }
 
+/* ---------- gates ---------- */
+const idx = id => SECTIONS.findIndex(s => s.id === id);
+const stepOf = (sec, id) => Math.max(0, STEPS[sec].findIndex(s => s.id === id || s.write === id));
+const sameEvidence = () => has(st.final.A.ev) && st.final.A.ev.trim().toLowerCase() === st.final.B.ev.trim().toLowerCase();
+function gateLeft(id) {
+  const left = [], need = (ok, label, step) => { if (!ok) left.push({label, step}); };
+  if (id === 'start') { need(st.access, 'Choose how you will read the text'); need(st.confBefore, 'Answer the confidence check'); return left; }
+  if (id === 'submit') return left;
+  if (id === 'final') {
+    const f = st.final;
+    need(has(f.A.ev), 'A: evidence', 1); need(f.A.where, 'A: which chunk', 1); need(has(f.A.exp), 'A: your explanation', 1);
+    need(has(f.B.ev), 'B: evidence', 2); need(f.B.where, 'B: which chunk', 2); need(has(f.B.exp), 'B: your explanation', 2); need(!sameEvidence(), 'B: different evidence from A', 2);
+    need(has(f.C.idea), 'C: central idea', 3); need(has(f.C.s1) && f.C.s1where, 'C: support 1 and its chunk', 3); need(has(f.C.s2) && f.C.s2where, 'C: support 2 and its chunk', 3); need(has(f.C.judge), 'C: your judgment', 3);
+    need(chunkCheck().ok, 'Evidence from both Chunk 2 and Chunk 3 across A, B and C', 1);
+    return left;
+  }
+  for (const m of MC_ORDER.filter(x => ITEMS[x].sec === id)) need(isDone(itemStatus(m)), m + ' · ' + ITEMS[m].title, stepOf(id, m));
+  for (const w of Object.keys(WRITES).filter(x => WRITES[x].sec === id)) need(wrote(w), WRITES[w].title, stepOf(id, w));
+  return left;
+}
+const gateTotal = id => id === 'start' ? 2 : id === 'final' ? 12 : MC_ORDER.filter(x => ITEMS[x].sec === id).length + Object.keys(WRITES).filter(x => WRITES[x].sec === id).length;
+const cleared = id => gateLeft(id).length === 0;
+const unlocked = id => id === 'submit' || SECTIONS.slice(0, idx(id)).every(x => cleared(x.id));
+const allClear = () => cleared('start') && GATES.every(cleared);
+function gatesCleared() { if (!cleared('start')) return 0; let n = 0; for (const g of GATES) { if (cleared(g)) n++; else break; } return n; }
+
+const ICONS = {
+  flag: 'M5 21V4M5 4h11l-2.5 4L16 12H5',
+  tools: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z',
+  eye: 'M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+  wave: 'M3 12h1M7 8v8M11 4v16M15 7v10M19 10v4M22 12h-1',
+  scale: 'M12 3v18M7 21h10M4 7h16M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z',
+  pen: 'M4 20l4.5-1L19 8.5 15.5 5 5 15.5zM13.5 7l3.5 3.5',
+  report: 'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
+  lock: 'M6 11h12v10H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3',
+  check: 'M5 12.5l4.5 4.5L19 7',
+  arrow: 'M5 12h14M13 6l6 6-6 6'
+};
+function icon(name, cls) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
+  svg.setAttribute('class', 'ico' + (cls ? ' ' + cls : ''));
+  const path = document.createElementNS(NS, 'path'); path.setAttribute('d', ICONS[name]); svg.append(path);
+  return svg;
+}
+
 /* ---------- navigation ---------- */
 function go(view, step) {
   if (!SEC[view]) return;
@@ -285,26 +341,56 @@ window.addEventListener('hashchange', () => {
   if (SEC[v]) { st.view = v; saveSoon(); render(); focusHead(); }
 });
 
-/* ---------- progress strip ---------- */
-function stripStatus(id) {
-  if (id === 'start') return st.access ? 'Text ready' : 'Begin here';
-  if (id === 'final') return ['A', 'B', 'C'].filter(finalPresent).length + ' of 3 written';
-  if (id === 'submit') return st.reportMade ? 'Report made' : 'Copy · submit';
-  const p = sectionProgress(id); return p.tried + ' of ' + p.n + ' tried';
+/* ---------- gate rail, gate headers, gate-cleared moments ---------- */
+function nodeState(x) {
+  if (x.id === 'submit') return allClear() ? (st.reportMade ? 'cleared' : 'open') : 'locked';
+  if (!unlocked(x.id)) return 'locked';
+  return cleared(x.id) ? 'cleared' : 'open';
 }
 function renderStrip() {
   const ol = $('#strip'); if (!ol) return;
-  ol.replaceChildren(...SECTIONS.map(s => h('li', null, h('a', {href: '#' + s.id, 'aria-current': st.view === s.id ? 'page' : null},
-    h('span', {class: 'n'}, s.short), h('span', {class: 's'}, stripStatus(s.id) + ' · ~' + s.mins + ' min')))));
+  ol.replaceChildren(...SECTIONS.map((x, i) => {
+    const state = nodeState(x), cur = st.view === x.id;
+    const lineDone = i > 0 && nodeState(SECTIONS[i - 1]) === 'cleared';
+    return h('li', {class: 'node is-' + state + (cur ? ' current' : '') + (lineDone ? ' line-done' : '') + ' c-' + x.color},
+      h('a', {href: '#' + x.id, 'aria-current': cur ? 'page' : null, 'aria-label': gateName(x) + ' (' + state + ')'},
+        h('span', {class: 'ring'}, icon(state === 'cleared' ? 'check' : state === 'locked' ? 'lock' : x.icon)),
+        h('span', {class: 'lbl'}, h('b', null, x.gate >= 1 && x.gate <= 5 ? 'Gate ' + x.gate : x.gate === 0 ? 'Start' : 'Finish'), h('span', null, x.short))));
+  }));
+  const gc = $('#gate-count'); if (gc) { const n = gatesCleared(); gc.textContent = n + ' / 5 gates'; gc.classList.toggle('all', n === 5); }
 }
-
-/* ---------- shared pieces ---------- */
 function viewHead(id) {
-  const s = SEC[id], [t, b] = TARGETS[id];
-  return h('div', {class: 'view-head'},
-    h('p', {class: 'kicker'}, id === 'start' ? 'English I · Thursday 11/19' : 'About ' + s.mins + ' minutes'),
-    h('h1', {id: 'view-h', tabindex: '-1'}, s.n),
-    h('div', {class: 'target'}, h('span', {class: 't'}, t), h('span', {class: 'b'}, b)));
+  const x = SEC[id], [t, b] = TARGETS[id];
+  return h('header', {class: 'gate-hero c-' + x.color},
+    h('div', {class: 'gh-text'},
+      h('p', {class: 'gh-kicker'}, (x.gate >= 1 && x.gate <= 5 ? 'Gate ' + x.gate + ' of 5' : x.gate === 6 ? 'After Gate 5' : 'Before Gate 1') + ' · about ' + x.mins + ' min'),
+      h('h1', {id: 'view-h', tabindex: '-1'}, x.n),
+      h('p', {class: 'gh-tag'}, x.tag),
+      h('p', {class: 'gh-target'}, h('span', {class: 't'}, t), h('span', {class: 'b'}, b))),
+    h('div', {class: 'gh-art', 'aria-hidden': 'true'}, x.gate >= 1 && x.gate <= 5 ? h('span', {class: 'gh-num'}, String(x.gate)) : null, icon(x.icon, 'gh-icon')));
+}
+let celebrateDirty = false;
+function clearedBanner(sec) {
+  if (!GATES.includes(sec) || !cleared(sec)) return null;
+  const x = SEC[sec], next = SECTIONS[idx(sec) + 1], fresh = !st.celebrated[sec], last = next.id === 'submit';
+  if (fresh) { st.celebrated[sec] = true; celebrateDirty = true; }
+  return h('div', {class: 'gate-cleared' + (fresh ? ' fresh' : ''), role: 'status'},
+    h('span', {class: 'stamp'}, icon('check'), 'Gate ' + x.gate + ' cleared'),
+    h('p', null, last ? 'All five gates are clear. Your full report is ready to build.' : 'Gate ' + next.gate + ', ' + next.n + ', is open.'),
+    h('button', {type: 'button', class: 'btn gold', onclick: () => go(next.id, 0)}, last ? 'Build my report' : 'Enter Gate ' + next.gate, icon('arrow')));
+}
+function gateProgress(sec) {
+  const total = gateTotal(sec), left = gateLeft(sec).length, done = total - left;
+  return h('div', {class: 'gate-progress'},
+    h('div', {class: 'meter', role: 'img', 'aria-label': done + ' of ' + total + ' tasks done in this gate'}, h('span', {style: 'width:' + Math.round(100 * done / total) + '%'})),
+    h('p', null, h('b', null, done + ' of ' + total + ' tasks done'), left ? ' · ' + left + ' left to clear this gate' : ' · gate cleared',
+      sec === 'final' ? ' · No automatic feedback here: Mr. Moody grades your thinking.' : ' · Stuck? Hints and worked explanations are allowed and recorded.'));
+}
+function updateGateUI() {
+  const sec = st.view; if (!GATES.includes(sec)) return;
+  const prog = $('#gate-progress-slot'); if (prog) prog.replaceChildren(gateProgress(sec));
+  const slot = $('#gate-banner');
+  if (slot) { const state = cleared(sec) ? '1' : '0'; if (slot.dataset.cleared !== state) { slot.dataset.cleared = state; slot.replaceChildren(...[clearedBanner(sec)].filter(Boolean)); } }
 }
 function termCards(list, labelCol) {
   return h('div', {class: 'terms'}, list.map(([name, expl, ex, why]) => h('article', {class: 'term'},
@@ -369,7 +455,7 @@ const READ = {
   evBridge: () => [
     P('In chunks 2 and 3, identify two specific supports from different places: examples of injustice, a shared national promise, a relevant historical reference, or another concrete detail actually present.'),
     P('Judge how they develop a central idea. Do not treat the number of metaphors as evidence that a claim is true.'),
-    h('div', {class: 'btn-row'}, openTextButton(), h('button', {type: 'button', class: 'btn gold', onclick: () => go('final', 0)}, 'Go to Your Independent Analysis'))
+    h('div', {class: 'btn-row'}, openTextButton())
   ],
   finalDirections: () => [
     h('div', {class: 'card note'}, P('Use chunks 2 and 3 of your notetaker: **Chunk 2 is paragraphs 7–13** and **Chunk 3 is paragraphs 14–23**. Complete A, B, and C in your own words. Include evidence from **both chunks somewhere across the three responses**. Identify evidence with a short quotation or accurate paraphrase and its chunk label. You may add the paragraph number: your notetaker prints some of them ([10], [13], [15], [20]), and the Class copy panel lists the rest. Aim for about **2–3 clear sentences per response**. Clear thinking matters more than length.')),
@@ -527,7 +613,7 @@ function checklistStep() {
   return [h('div', {class: 'card'}, h('span', {class: 'phase check'}, 'Check'), h('h2', {id: 'step-h', tabindex: '-1'}, 'Final checklist'),
     P('Check each box only when it is true for your work. The site checks what it can; your teacher judges the thinking.'), list,
     h('div', {class: 'card quiet'}, P('**Done early?** Revise one weak explanation using evidence → meaning → effect → purpose. Then try the optional extension on the next step.')),
-    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go('submit')}, 'Go to Save and Submit')))];
+    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go('submit')}, 'Go to Your Report')))];
 }
 function extensionStep() {
   const e = st.ext;
@@ -538,10 +624,11 @@ function extensionStep() {
     practiceTag(), h('label', {class: 'field', for: 'ext-sentence'}, 'Practice sentence'), sel,
     ...textField('ext-rewrite', 'Literal rewrite', null, e.rewrite, v => { e.rewrite = v; saveSoon(); }, {short: true}),
     ...textField('ext-lost', 'What persuasive effect is lost?', null, e.lost, v => { e.lost = v; saveSoon(); }, {short: true}),
-    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go('submit')}, 'Go to Save and Submit')))];
+    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go('submit')}, 'Go to Your Report')))];
 }
 function readStep(step) {
-  return [h('div', {class: 'card'}, h('span', {class: 'phase read'}, 'Read'), h('h2', {id: 'step-h', tabindex: '-1'}, step.title), ...READ[step.id]())];
+  const bridge = step.title === 'Bridge to King';
+  return [h('div', {class: 'card' + (bridge ? ' bridge' : '')}, h('span', {class: 'phase read'}, bridge ? 'Bridge to King' : 'Read'), h('h2', {id: 'step-h', tabindex: '-1'}, bridge ? 'Now turn to King’s words' : step.title), ...READ[step.id]())];
 }
 function stepDone(sec, step) {
   if (step.t === 'mc') return isDone(itemStatus(step.id)) && (!step.write || wrote(step.write));
@@ -558,31 +645,42 @@ function curStep(sec) { const n = STEPS[sec].length; const i = st.step[sec] | 0;
 function goNextSection() { const i = SECTIONS.findIndex(s => s.id === st.view); if (i < SECTIONS.length - 1) go(SECTIONS[i + 1].id); }
 
 function viewSection(sec) {
+  if (!unlocked(sec)) return viewLocked(sec);
   const steps = STEPS[sec], i = curStep(sec), step = steps[i];
   st.seen[sec + ':' + step.id] = true;
-  const out = [viewHead(sec)];
-  if (sec !== 'final') {
-    const p = sectionProgress(sec);
-    out.push(h('p', {class: 'progress-line'}, h('span', null, 'Practice tried: ', h('b', null, p.tried + ' of ' + p.n)), h('span', null, 'Correct in practice: ', h('b', null, String(p.correct))), h('span', null, 'Completed with support: ', h('b', null, String(p.support))), p.writes.length ? h('span', null, 'Short writing: ', h('b', null, p.wrote + ' of ' + p.writes.length)) : null, h('span', null, 'Practice is not a grade.')));
-  }
-  const dots = h('ol', {class: 'dots', 'aria-label': 'Steps in this section'}, steps.map((s, j) => h('li', null, h('button', {type: 'button', class: stepDone(sec, s) ? 'done' : null, 'aria-current': j === i ? 'step' : null,
-    'aria-label': 'Step ' + (j + 1) + ' of ' + steps.length + ': ' + stepTitle(s) + (stepDone(sec, s) ? ' (done)' : ''), onclick: () => { st.step[sec] = j; saveSoon(); rerender(); }}, String(j + 1)))));
+  const left = gateLeft(sec);
+  const out = [viewHead(sec), h('div', {id: 'gate-progress-slot'}, gateProgress(sec)), h('div', {id: 'gate-banner', 'data-cleared': left.length ? '0' : '1'}, clearedBanner(sec))];
+  const dots = h('ol', {class: 'dots', 'aria-label': 'Steps in this gate'}, steps.map((x, j) => h('li', null, h('button', {type: 'button', class: stepDone(sec, x) ? 'done' : null, 'aria-current': j === i ? 'step' : null,
+    'aria-label': 'Step ' + (j + 1) + ' of ' + steps.length + ': ' + stepTitle(x) + (stepDone(sec, x) ? ' (done)' : ''), onclick: () => { st.step[sec] = j; saveSoon(); rerender(); }}, String(j + 1)))));
   const body = step.t === 'read' ? readStep(step) : step.t === 'mc' ? mcStep(step.id, step.write) : step.t === 'write' ? [h('div', {class: 'passage'}, PASSAGE.map(p => h('p', null, p))), writeCard(step.id)]
     : step.t === 'final' ? finalStep(step.id) : step.t === 'checklist' ? checklistStep() : extensionStep();
-  const isLast = i === steps.length - 1;
-  const nextSec = SECTIONS[SECTIONS.findIndex(s => s.id === sec) + 1];
+  const isLast = i === steps.length - 1, nextSec = SECTIONS[idx(sec) + 1];
+  const finish = left.length
+    ? h('button', {type: 'button', class: 'btn', onclick: () => { st.step[sec] = left[0].step || 0; saveSoon(); rerender(); }}, 'Finish this gate: ' + left.length + ' left')
+    : h('button', {type: 'button', class: 'btn gold', onclick: goNextSection}, nextSec.id === 'submit' ? 'Build my report' : 'Enter Gate ' + nextSec.gate, icon('arrow'));
   const nav = h('div', {class: 'step-nav'},
     h('button', {type: 'button', class: 'btn secondary', disabled: i === 0, onclick: () => { st.step[sec] = i - 1; saveSoon(); rerender(); }}, '← Back'),
-    isLast ? h('button', {type: 'button', class: 'btn', onclick: goNextSection}, 'Next section: ' + nextSec.n + ' →')
-      : h('button', {type: 'button', class: 'btn', onclick: () => { st.step[sec] = i + 1; saveSoon(); rerender(); }}, 'Next: ' + stepTitle(steps[i + 1]) + ' →'));
+    isLast ? finish : h('button', {type: 'button', class: 'btn', onclick: () => { st.step[sec] = i + 1; saveSoon(); rerender(); }}, 'Next: ' + stepTitle(steps[i + 1]) + ' →'));
   out.push(h('section', {class: 'stepper', 'aria-label': 'Step ' + (i + 1) + ' of ' + steps.length},
     h('div', {class: 'step-top'}, h('span', null, 'Step ' + (i + 1) + ' of ' + steps.length), dots), ...body, nav));
   if (sec === 'final' && step.id === 'B') setTimeout(updateSameWarn, 0);
   return out;
 }
+function viewLocked(sec) {
+  const x = SEC[sec];
+  const blocker = SECTIONS.slice(0, idx(sec)).find(y => !cleared(y.id));
+  const left = gateLeft(blocker.id);
+  return [h('section', {class: 'locked-view c-' + x.color},
+    h('span', {class: 'lock-badge'}, icon('lock')),
+    h('p', {class: 'gh-kicker'}, 'Gate ' + x.gate + ' · ' + x.n),
+    h('h1', {id: 'view-h', tabindex: '-1'}, 'This gate is still locked'),
+    P('Gates open in order. Clear **' + gateName(blocker) + '** first. Left to do there:'),
+    h('ul', {class: 'left-list'}, left.map(l => h('li', null, l.label))),
+    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go(blocker.id, left[0] && typeof left[0].step === 'number' ? left[0].step : undefined)}, 'Go to ' + gateName(blocker), icon('arrow'))))];
+}
 
 function viewStart() {
-  const access = h('fieldset', null, h('legend', null, 'Step 1 · Open your text'));
+  const access = h('fieldset', null, h('legend', null, '1 · Open your text'));
   access.append(P('Open your **I Have a Dream interactive notetaker** (the Google Doc from class, with your Wednesday annotations) in another tab. Scroll to **CHUNK 2** (paragraphs 7–13) and **CHUNK 3** (paragraphs 14–23). Today you only need those two chunks.'));
   for (const [v, l] of [['class', 'My notetaker is open to chunks 2 and 3.'], ['fallback', 'I can’t open my notetaker. I’ll read chunks 2 and 3 in the Yale transcript instead.']]) {
     const r = h('input', {type: 'radio', name: 'access', id: 'access-' + v, value: v}); r.checked = st.access === v;
@@ -590,21 +688,37 @@ function viewStart() {
     access.append(h('label', {class: 'choice', for: r.id}, r, h('span', null, l)));
   }
   access.append(h('div', {class: 'btn-row'}, openTextButton('Help finding the text')));
-  const conf = h('fieldset', null, h('legend', null, 'Step 2 · Not graded: right now, how confident are you explaining how King’s language works, not just naming it?'));
+  const conf = h('fieldset', null, h('legend', null, '2 · Quick confidence check (not graded): how confident are you explaining how King’s language works, not just naming it?'));
   for (const [v, l] of Object.entries(CONF)) {
     const r = h('input', {type: 'radio', name: 'conf-before', id: 'conf-before-' + v, value: v}); r.checked = st.confBefore === v;
     r.addEventListener('change', () => { st.confBefore = v; saveSoon(); });
     conf.append(h('label', {class: 'choice', for: r.id}, r, h('span', null, l)));
   }
-  return [viewHead('start'),
-    h('div', {class: 'card dark'}, P('Yesterday, your group passed the baton. Today, you take the thinking yourself. You will learn a few tools, test how they work, and explain how King uses language. This is independent work. Your final submission is a short analysis report—not a score screenshot.')),
-    h('div', {class: 'card'}, access), h('div', {class: 'card'}, conf),
-    h('div', {class: 'card'}, h('h2', null, 'How the lab works'),
-      h('ul', {class: 'pattern', 'aria-label': 'Pattern'}, h('li', null, 'Read'), h('li', null, 'Try'), h('li', null, 'Explain'), h('li', null, 'Check')),
-      h('ul', null, SECTIONS.slice(1).map(s => h('li', null, s.n + ' · about ' + s.mins + ' min'))),
-      P('Practice helps you learn; it is not a grade. Read the feedback and revise. Your **final analysis** is what Mr. Moody reviews.'),
-      P('Short on time? Use **Go to Final Analysis** at the top anytime. Save at least 12 minutes for it. Unfinished practice is reported honestly and does not stop you from submitting.'),
-      P('Your work is saved in this browser when available. Nothing is sent to Mr. Moody until you paste your report into Canvas and submit it.')),
+  const msg = h('p', {class: 'warn-box', id: 'checkin-msg', role: 'alert', tabindex: '-1', hidden: true});
+  const enter = h('button', {type: 'button', class: 'btn gold big', id: 'checkin-btn', onclick: () => {
+    const l = gateLeft('start');
+    if (l.length) { msg.textContent = 'Before Gate 1: ' + l.map(x => x.label.toLowerCase()).join(' and ') + '.'; msg.hidden = false; msg.focus(); return; }
+    go('toolbox', 0);
+  }}, cleared('start') ? 'Enter Gate 1: The Toolbox' : 'Check in and open Gate 1', icon('arrow'));
+  return [
+    h('header', {class: 'hero-start'},
+      h('div', {class: 'hs-text'},
+        h('p', {class: 'gh-kicker'}, 'English I · Thursday 11/19 · about 47 minutes'),
+        h('h1', {id: 'view-h', tabindex: '-1'}, 'The Rhetoric Lab'),
+        h('p', {class: 'hs-sub'}, 'How King’s words work'),
+        P('Yesterday, your group passed the baton. Today, you take the thinking yourself. You will learn a few tools, test how they work, and explain how King uses language. This is independent work. Your final submission is a short analysis report—not a score screenshot.', 'hs-lead')),
+      h('ol', {class: 'hs-gates', 'aria-hidden': 'true'}, GATES.map(g => h('li', {class: 'c-' + SEC[g].color}, icon(SEC[g].icon), h('b', null, String(SEC[g].gate)))), h('li', {class: 'c-g6 end'}, icon('report')))),
+    h('section', {class: 'how', 'aria-labelledby': 'how-h'}, h('h2', {id: 'how-h'}, 'How you finish today'),
+      h('ol', {class: 'how-steps'},
+        h('li', null, h('span', {class: 'how-n'}, '1'), h('div', null, h('h3', null, 'Clear all five gates'), P('Each gate opens the next. A gate clears when every task in it is done. Stuck? Hints and worked explanations always get you through, and they are recorded. Save about 12 minutes for Gate 5.'))),
+        h('li', null, h('span', {class: 'how-n'}, '2'), h('div', null, h('h3', null, 'Build your full report'), P('When all five gates are clear, the lab builds your complete report: your practice record and your analysis of King’s words.'))),
+        h('li', null, h('span', {class: 'how-n'}, '3'), h('div', null, h('h3', null, 'Submit it in Canvas for a grade'), P('Paste the report into the Canvas assignment. **Mr. Moody grades your report.** Nothing is sent until you submit it.'))))),
+    h('section', {class: 'gate-list', 'aria-labelledby': 'gl-h'}, h('h2', {id: 'gl-h'}, 'The five gates'),
+      h('ol', null, GATES.map(g => { const x = SEC[g], state = cleared(g) && unlocked(g) ? 'Cleared' : unlocked(g) ? 'Open' : 'Locked';
+        return h('li', {class: 'gl-item c-' + x.color + ' is-' + state.toLowerCase()}, h('span', {class: 'gl-icon'}, icon(x.icon)),
+          h('div', {class: 'gl-body'}, h('p', {class: 'gl-k'}, 'Gate ' + x.gate + ' · about ' + x.mins + ' min'), h('h3', null, x.n), h('p', null, GATE_CLEARS[g])),
+          h('span', {class: 'gl-state'}, state)); }))),
+    h('section', {class: 'card checkin', 'aria-labelledby': 'ci-h'}, h('span', {class: 'phase'}, 'Check in'), h('h2', {id: 'ci-h'}, 'Check in to open Gate 1'), access, conf, msg, h('div', {class: 'btn-row'}, enter)),
     h('div', {class: 'card quiet'}, h('h2', null, 'Quick reconnect'),
       P('**PIE:** authors persuade, inform, or entertain, and often combine them. **Appeals:** ethos (credibility), logos (reasoning), pathos (feelings).'),
       P('King’s purpose is specific: to persuade a national audience to fulfill the promise of racial equality and advance civil rights. “To persuade” or “to inspire” alone is incomplete.'),
@@ -614,54 +728,76 @@ function viewStart() {
           h('dt', null, 'ELA.9.R.2.3'), h('dd', null, 'Analyze how an author establishes and achieves purpose(s) through rhetorical appeals and/or figurative language.'),
           h('dt', null, 'ELA.9.R.3.1'), h('dd', null, 'Explain how figurative language creates mood in text(s).'),
           h('dt', null, 'ELA.9.R.3.4'), h('dd', null, 'Explain an author’s use of rhetoric in a text.'),
-          h('dt', null, 'ELA.9.R.2.2'), h('dd', null, 'Evaluate the support an author uses to develop the central idea(s) throughout a text.')))),
-    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go('toolbox', 0)}, 'Begin: 1. The Toolbox →'))];
+          h('dt', null, 'ELA.9.R.2.2'), h('dd', null, 'Evaluate the support an author uses to develop the central idea(s) throughout a text.'))))];
 }
 
+function resetCard() {
+  const resetBox = h('div', {class: 'card quiet', id: 'reset-confirm', hidden: true, role: 'group', 'aria-labelledby': 'reset-h'},
+    h('h3', {id: 'reset-h', tabindex: '-1'}, 'Erase your work on this device?'),
+    P('This erases every answer for this lesson that is saved in this browser. It does not change Canvas or anything else. Submit or download your report first if you still need it.'),
+    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn danger', id: 'reset-yes', onclick: doReset}, 'Yes, erase my work'), h('button', {type: 'button', class: 'btn secondary', id: 'reset-no', onclick: () => { resetBox.hidden = true; $('#reset-open').focus(); }}, 'Cancel')));
+  return h('div', {class: 'card quiet'}, h('h2', null, 'Shared device?'), P('After you submit in Canvas, you can erase your work from this browser so the next student starts fresh.'),
+    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn danger', id: 'reset-open', onclick: () => { resetBox.hidden = false; $('#reset-h').focus(); }}, 'Erase my work on this device…')), resetBox);
+}
+function gateChecklist() {
+  return h('ol', {class: 'gate-check'}, [SEC.start, ...GATES.map(g => SEC[g])].map(x => {
+    const left = gateLeft(x.id), ok = !left.length && unlocked(x.id), open = unlocked(x.id);
+    return h('li', {class: 'gc is-' + (ok ? 'ok' : open ? 'open' : 'locked') + ' c-' + x.color},
+      h('span', {class: 'gc-icon'}, icon(ok ? 'check' : open ? x.icon : 'lock')),
+      h('div', null, h('b', null, gateName(x)), h('span', {class: 'gc-s'}, ok ? 'Cleared' : open ? left.length + ' left: ' + left.map(l => l.label).join('; ') : 'Locked until the gate before it is cleared')),
+      !ok && open ? h('button', {type: 'button', class: 'btn secondary small', onclick: () => go(x.id, typeof left[0].step === 'number' ? left[0].step : undefined)}, 'Go') : null);
+  }));
+}
 function viewSubmit() {
+  const head = viewHead('submit');
+  const msg = h('p', {class: 'status-msg', id: 'report-msg', role: 'status', tabindex: '-1'});
+  if (!allClear()) {
+    return [head,
+      h('section', {class: 'card locked-report'}, h('span', {class: 'lock-badge'}, icon('lock')), h('h2', null, 'Your full report unlocks when all five gates are clear'),
+        P('Gates cleared: **' + gatesCleared() + ' of 5**. Here is where you stand:'), gateChecklist()),
+      h('section', {class: 'card quiet'}, h('h2', null, 'Out of time?'),
+        P('Your work stays saved in this browser, so you can come back and finish. If class is ending or this device is not saving, download a **progress backup**. It is marked INCOMPLETE and is not your full report. Ask Mr. Moody what to do with it.'),
+        h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn secondary', id: 'backup-btn', onclick: downloadBackup}, 'Download progress backup')), msg),
+      resetCard()];
+  }
+  const fresh = !st.celebrated.all; if (fresh) { st.celebrated.all = true; celebrateDirty = true; }
   const name = h('input', {type: 'text', id: 'rep-name', autocomplete: 'off'}); name.value = temp.name;
   name.addEventListener('input', () => { temp.name = name.value; renderPrint(); });
   const period = h('input', {type: 'text', id: 'rep-period', autocomplete: 'off'}); period.value = temp.period;
   period.addEventListener('input', () => { temp.period = period.value; renderPrint(); });
-  const conf = h('fieldset', null, h('legend', null, 'Not graded: now, how confident are you explaining how King’s language works?'));
+  const conf = h('fieldset', null, h('legend', null, 'Quick confidence check (not graded): now, how confident are you explaining how King’s language works?'));
   for (const [v, l] of Object.entries(CONF)) {
     const r = h('input', {type: 'radio', name: 'conf-after', id: 'conf-after-' + v, value: v}); r.checked = st.confAfter === v;
     r.addEventListener('change', () => { st.confAfter = v; saveSoon(); });
     conf.append(h('label', {class: 'choice', for: r.id}, r, h('span', null, l)));
   }
   const box = h('textarea', {id: 'report-box', class: 'report-box', readonly: true, rows: '16', 'aria-label': 'Your report text'}); box.value = temp.reportText;
-  const msg = h('p', {class: 'status-msg', id: 'report-msg', role: 'status', tabindex: '-1'});
-  const warnings = h('div', {id: 'report-warn'});
-  const resultArea = h('div', {id: 'report-area', hidden: !temp.reportText}, warnings, h('label', {class: 'field', for: 'report-box'}, 'Your report', h('span', {class: 'help'}, 'If Copy does not work: click in the box, press Ctrl+A, then Ctrl+C.')), box,
+  const resultArea = h('div', {id: 'report-area', hidden: !temp.reportText}, h('p', {class: 'feedback neutral'}, 'Every gate is clear. Your report holds everything Mr. Moody needs to grade it.'),
+    h('label', {class: 'field', for: 'report-box'}, 'Your full report', h('span', {class: 'help'}, 'If Copy does not work: click in the box, press Ctrl+A, then Ctrl+C.')), box,
     h('div', {class: 'btn-row'},
       h('button', {type: 'button', class: 'btn gold', id: 'copy-btn', onclick: copyReport}, 'Copy Report'),
       h('button', {type: 'button', class: 'btn secondary', id: 'download-btn', onclick: downloadReport}, 'Download .txt'),
-      h('button', {type: 'button', class: 'btn secondary', id: 'print-btn', onclick: printReport}, 'Print / Save as PDF')), msg);
-  if (temp.reportText) fillWarnings(warnings);
-  const resetBox = h('div', {class: 'card quiet', id: 'reset-confirm', hidden: true, role: 'group', 'aria-labelledby': 'reset-h'},
-    h('h3', {id: 'reset-h', tabindex: '-1'}, 'Erase your work on this device?'),
-    P('This erases every answer for this lesson that is saved in this browser. It does not change Canvas or anything else. Submit or download your report first if you still need it.'),
-    h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn danger', id: 'reset-yes', onclick: doReset}, 'Yes, erase my work'), h('button', {type: 'button', class: 'btn secondary', id: 'reset-no', onclick: () => { resetBox.hidden = true; $('#reset-open').focus(); }}, 'Cancel')));
-  return [viewHead('submit'),
+      h('button', {type: 'button', class: 'btn secondary', id: 'print-btn', onclick: printReport}, 'Print / Save as PDF')));
+  return [head,
+    h('div', {class: 'gate-cleared big' + (fresh ? ' fresh' : ''), role: 'status'}, h('span', {class: 'stamp'}, icon('check'), 'All five gates cleared'), h('p', null, 'Build your full report, then submit it in Canvas for your grade.')),
     h('div', {class: 'card note'}, P('Your work is saved in this browser when available. It has not been sent to Mr. Moody. Submit the report in Canvas.'), storageOK ? null : P('**Saving is blocked in this browser.** Your work is still on this page. Copy or download your report before you close the tab.')),
-    h('div', {class: 'card'}, h('h2', null, 'Step 1 · Your name and class period'), P('Type these here each time you make a report. They are not saved in the browser.', 'record'),
+    h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 1'), h('h2', null, 'Your name, class period and one last check'), P('Type these each time you build a report. They are not saved in the browser.', 'record'),
       h('div', {class: 'two'}, h('div', null, h('label', {class: 'field', for: 'rep-name'}, 'Name'), name), h('div', null, h('label', {class: 'field', for: 'rep-period'}, 'Class period'), period)), conf),
-    h('div', {class: 'card'}, h('h2', null, 'Step 2 · Generate your report'), P('The report includes your practice record, your final responses, and your completion status. You can make it even if some parts are unfinished.'),
-      h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn', id: 'generate-btn', onclick: generateReport}, temp.reportText ? 'Update Report' : 'Generate Report')), resultArea),
-    h('div', {class: 'card dark'}, h('h2', null, 'Step 3 · Submit in Canvas'),
+    h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 2'), h('h2', null, 'Build your full report'), P('It includes your practice record from every gate and your analysis A, B and C.'),
+      h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn big', id: 'generate-btn', onclick: generateReport}, temp.reportText ? 'Update my full report' : 'Generate my full report')), msg, resultArea),
+    h('div', {class: 'card dark'}, h('span', {class: 'phase'}, 'Step 3'), h('h2', null, 'Submit in Canvas'),
       h('ol', null, h('li', null, rich('Select **Copy Report**.')), h('li', null, rich('In the Canvas assignment, paste it into the **Text Entry** box (Ctrl+V).')), h('li', null, rich('Select **Submit Assignment**.'))),
-      P('If copying fails, use **Download .txt** or **Print / Save as PDF** and upload the file in Canvas. A completion screen here is not a Canvas submission: this website cannot submit your work or check that you did.')),
+      P('If copying fails, use **Download .txt** or **Print / Save as PDF** and upload the file in Canvas. This website cannot submit your work or check that you did; your grade comes from the report you submit.')),
     h('div', {class: 'card'}, h('h2', null, 'Status'), statusList()),
-    h('div', {class: 'card quiet'}, h('h2', null, 'Shared device?'), P('After you submit in Canvas, you can erase your work from this browser so the next student starts fresh.'),
-      h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn danger', id: 'reset-open', onclick: () => { resetBox.hidden = false; $('#reset-h').focus(); }}, 'Erase my work on this device…')), resetBox)];
+    resetCard()];
 }
 function statusList() {
-  const c = counts(); const cc = chunkCheck();
+  const c = counts();
   return h('ul', null,
-    h('li', null, rich('**Practice:** ' + c.tried + ' of ' + MC_ORDER.length + ' quick checks tried · ' + c.correct + ' correct in practice · ' + c.support + ' completed with support · ' + c.none + ' not attempted · short writing ' + c.wrote + ' of 3.')),
-    h('li', null, rich('**Final responses present:** ' + ['A', 'B', 'C'].map(k => k + ' ' + (finalPresent(k) ? 'yes' : 'not yet')).join(' · ') + '.')),
-    h('li', null, rich('**Evidence from both chunks:** ' + (cc.ok ? 'yes' : 'not shown yet') + '.')),
-    h('li', null, rich('**Canvas submission:** still required.')));
+    h('li', null, rich('**Gates:** ' + gatesCleared() + ' of 5 cleared.')),
+    h('li', null, rich('**Practice record:** ' + c.first + ' correct on the first try · ' + c.indep + ' corrected independently · ' + c.support + ' completed with support.')),
+    h('li', null, rich('**Your analysis:** A, B and C written, with evidence from both chunks.')),
+    h('li', null, rich('**Canvas submission:** still required. Mr. Moody grades the report you submit.')));
 }
 
 /* ---------- report ---------- */
@@ -676,13 +812,15 @@ const optText = (id, L) => { const o = ITEMS[id].opts.find(x => x[0] === L); ret
 const yn = b => b ? 'Yes' : 'No';
 const orNone = (v, none) => has(v) ? String(v).replace(/\s+$/, '') : none;
 const whereLabel = (w, loc) => (w || 'chunk not labeled') + (has(loc) ? ', paragraph ' + String(loc).trim() : '');
-function reportData() {
-  const c = counts(), cc = chunkCheck(), f = st.final;
+function gateSummary() { return [SEC.start, ...GATES.map(g => SEC[g])].map(x => (x.gate === 0 ? 'Check-in' : 'Gate ' + x.gate) + ' ' + (cleared(x.id) && unlocked(x.id) ? 'cleared' : 'not cleared')).join(' · '); }
+const reportMode = () => allClear() ? 'full' : 'backup';
+function reportData(mode) {
+  const full = mode === 'full', c = counts(), cc = chunkCheck(), f = st.final;
   const practice = REPORT_ORDER.map(id => {
     if (WRITES[id]) return [WRITES[id].title + ' (short practice writing)', 'Teacher review needed.\n' + orNone(st.writes[id] && st.writes[id].text, '(not written)')];
-    const s = st.items[id] || {attempts: []}, at = s.attempts || [];
+    const x = st.items[id] || {attempts: []}, at = x.attempts || [];
     return [id + ' · ' + ITEMS[id].title, ['Result: ' + STATUS_LABEL[itemStatus(id)], 'First response: ' + (at.length ? optText(id, at[0]) : '(none)'), 'Latest response: ' + (at.length ? optText(id, at[at.length - 1]) : '(none)'),
-      'Submissions: ' + at.length, 'Hint used: ' + yn(s.hint), 'Worked explanation shown: ' + yn(s.worked), 'Continued with support: ' + yn(s.support)].join('\n')];
+      'Submissions: ' + at.length, 'Hint used: ' + yn(x.hint), 'Worked explanation shown: ' + yn(x.worked), 'Continued with support: ' + yn(x.support)].join('\n')];
   });
   const finals = [
     ['Text used', f.fallback ? 'Transcript used: Yes (read chunks 2 and 3 in the Yale transcript; could not open the notetaker)' : 'Transcript used: No (notetaker, chunks 2 and 3)'],
@@ -692,51 +830,57 @@ function reportData() {
     ['Optional extension', has(st.ext.rewrite) || has(st.ext.lost) ? 'Practice sentence: ' + orNone(st.ext.sentence, '(not chosen)') + '\nLiteral rewrite: ' + orNone(st.ext.rewrite, '(none)') + '\nWhat is lost: ' + orNone(st.ext.lost, '(none)') : '(not attempted; optional)'],
     ['Student checklist (student self-check)', CHECKS.map(([k, t]) => (st.self[k] ? '[x] ' : '[ ] ') + t).join('\n')]
   ];
-  return {sections: [
-    {h: '1. About this report', compact: true, rows: [['Name', orNone(temp.name, '(not entered)')], ['Class period', orNone(temp.period, '(not entered)')], ['Report generated', new Date().toLocaleString()],
-      ['Text access chosen at start', ACCESS[st.access] || '(not chosen)'], ['Confidence before', CONF[st.confBefore] || '(not answered)'], ['Confidence after', CONF[st.confAfter] || '(not answered)']]},
+  return {full, sections: [
+    {h: '1. About this report', compact: true, rows: [['Report status', full ? 'COMPLETE · all five gates cleared' : 'PROGRESS BACKUP · INCOMPLETE · not the full report'], ['Gates', gateSummary()],
+      ['Name', orNone(temp.name, '(not entered)')], ['Class period', orNone(temp.period, '(not entered)')], ['Report generated', new Date().toLocaleString()],
+      ['Text access chosen at check-in', ACCESS[st.access] || '(not chosen)'], ['Confidence before', CONF[st.confBefore] || '(not answered)'], ['Confidence after', CONF[st.confAfter] || '(not answered)']]},
     {h: '2. Practice record', rows: practice},
-    {h: '3. Final responses (teacher review needed)', rows: finals},
+    {h: '3. Final responses (graded by your teacher)', rows: finals},
     {h: '4. Completion status', compact: true, rows: [
+      ['Gates cleared', gatesCleared() + ' of 5'],
       ['Practice completion', c.tried + ' of ' + MC_ORDER.length + ' quick checks attempted. ' + c.correct + ' answered correctly in practice (' + c.first + ' on the first try, ' + c.indep + ' corrected independently). ' + c.support + ' completed with displayed support. ' + c.incorrect + ' attempted but not yet corrected. ' + c.none + ' not attempted.'],
       ['Practice writing', c.wrote + ' of 3 short practice responses written. Teacher review needed.'],
       ['Final responses present', ['A', 'B', 'C'].map(k => k + ': ' + (finalPresent(k) ? 'yes' : 'not yet')).join(' · ')],
       ['Evidence from both chunks', (cc.ok ? 'Yes' : 'Not shown yet') + (cc.labels.length ? ' (labels used: ' + cc.labels.join(', ') + ')' : ' (no labels used)')],
-      ['Canvas submission', 'STILL REQUIRED. Paste this report into the Canvas assignment’s Text Entry box and select Submit. This website cannot submit your work or check whether you submitted it.'],
-      ['Note', 'This report is evidence for teacher review. It is not a grade.']]}
+      ['Canvas submission', full ? 'STILL REQUIRED. Paste this report into the Canvas assignment’s Text Entry box and select Submit. This website cannot submit your work or check whether you submitted it.' : 'This progress backup is not the full report. Clear the remaining gates to build it, or ask Mr. Moody what to do.'],
+      ['Note', full ? 'This is my full report for the Canvas assignment. Mr. Moody grades it; the website does not score it.' : 'Progress backup only.']]}
   ]};
 }
-function reportText() {
-  const d = reportData(), L = [TITLE, '='.repeat(TITLE.length)];
-  for (const s of d.sections) {
-    L.push('', s.h.toUpperCase());
-    for (const [label, text] of s.rows) { if (s.compact) L.push(label + ': ' + text); else L.push('', label, text); }
+function reportText(mode) {
+  const d = reportData(mode || reportMode()), title = d.full ? TITLE : TITLE + ' · PROGRESS BACKUP (INCOMPLETE)', L = [title, '='.repeat(title.length)];
+  for (const x of d.sections) {
+    L.push('', x.h.toUpperCase());
+    for (const [label, text] of x.rows) { if (x.compact) L.push(label + ': ' + text); else L.push('', label, text); }
   }
   return L.join('\n') + '\n';
 }
 function renderPrint() {
   const root = $('#print-report'); if (!root) return;
-  const d = reportData();
-  root.replaceChildren(h('h1', null, TITLE), ...d.sections.map(s => h('section', null, h('h2', null, s.h), s.rows.map(([label, text]) => h('div', {class: 'pr-item'}, h('div', {class: 'pr-label'}, label), h('div', {class: 'pr-text'}, text))))));
+  const d = reportData(reportMode());
+  root.replaceChildren(h('h1', null, d.full ? TITLE : TITLE + ' · PROGRESS BACKUP (INCOMPLETE)'), ...d.sections.map(x => h('section', null, h('h2', null, x.h), x.rows.map(([label, text]) => h('div', {class: 'pr-item'}, h('div', {class: 'pr-label'}, label), h('div', {class: 'pr-text'}, text))))));
 }
-function fillWarnings(el) {
-  const w = [], c = counts(), cc = chunkCheck();
-  if (!has(temp.name)) w.push('Your name is not entered (Step 1).');
-  if (c.none) w.push(c.none + ' practice quick check' + (c.none === 1 ? ' is' : 's are') + ' not attempted. That is reported honestly; you can still submit.');
-  for (const k of ['A', 'B', 'C']) if (!finalPresent(k)) w.push('Final response ' + k + ' is not written yet.');
-  if (!cc.ok) w.push('Your evidence labels do not yet show both Chunk 2 and Chunk 3.');
-  if (has(st.final.A.ev) && st.final.A.ev.trim().toLowerCase() === st.final.B.ev.trim().toLowerCase()) w.push('A and B use the same evidence. Use different evidence across A and B.');
-  el.replaceChildren(w.length ? h('div', {class: 'warn-box'}, h('p', null, h('b', null, 'Before you submit, check:')), h('ul', null, w.map(x => h('li', null, x)))) : h('p', {class: 'feedback neutral'}, 'All parts have something written. Your teacher will review the thinking.'));
+function saveFile(text, name) {
+  try {
+    const blob = new Blob([text.replace(/\n/g, '\r\n')], {type: 'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob); const a = h('a', {href: url, download: name});
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000); return true;
+  } catch (e) { return false; }
 }
 function generateReport() {
-  temp.reportText = reportText(); st.reportMade = true; saveSoon();
+  if (!allClear()) return;
+  const msg = $('#report-msg'), miss = [];
+  if (!has(temp.name)) miss.push(['rep-name', 'your name']);
+  if (!has(temp.period)) miss.push(['rep-period', 'your class period']);
+  if (!st.confAfter) miss.push(['conf-after-1', 'the confidence check']);
+  if (miss.length) { msg.textContent = 'Before your report can be built, add ' + miss.map(m => m[1]).join(', ') + '.'; document.getElementById(miss[0][0]).focus(); return; }
+  temp.reportText = reportText('full'); st.reportMade = true; saveSoon();
   const area = $('#report-area'), box = $('#report-box');
-  box.value = temp.reportText; area.hidden = false; fillWarnings($('#report-warn'));
-  $('#generate-btn').textContent = 'Update Report';
-  const msg = $('#report-msg'); msg.textContent = 'Report ready. Next: Copy Report, then paste it into Canvas.'; msg.focus();
+  box.value = temp.reportText; area.hidden = false;
+  $('#generate-btn').textContent = 'Update my full report';
+  msg.textContent = 'Your full report is ready. Next: Copy Report, then paste it into Canvas.'; msg.focus();
 }
 async function copyReport() {
-  temp.reportText = reportText(); const box = $('#report-box'); box.value = temp.reportText; st.reportMade = true; saveSoon();
+  temp.reportText = reportText('full'); const box = $('#report-box'); box.value = temp.reportText; st.reportMade = true; saveSoon();
   const msg = $('#report-msg'); let ok = false;
   try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(temp.reportText); ok = true; } } catch (e) { ok = false; }
   if (!ok) { try { box.focus(); box.select(); ok = document.execCommand('copy'); } catch (e) { ok = false; } }
@@ -744,14 +888,14 @@ async function copyReport() {
   else { msg.textContent = 'Copying is blocked here. The report is selected in the box: press Ctrl+C to copy it, or use Download .txt.'; box.focus(); box.select(); }
 }
 function downloadReport() {
-  temp.reportText = reportText(); $('#report-box').value = temp.reportText; st.reportMade = true; saveSoon();
+  temp.reportText = reportText('full'); $('#report-box').value = temp.reportText; st.reportMade = true; saveSoon();
   const msg = $('#report-msg');
-  try {
-    const blob = new Blob([temp.reportText.replace(/\n/g, '\r\n')], {type: 'text/plain;charset=utf-8'});
-    const url = URL.createObjectURL(blob); const a = h('a', {href: url, download: 'Rhetoric-Lab-Report-11-19.txt'});
-    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
-    msg.textContent = 'Download started: Rhetoric-Lab-Report-11-19.txt. Upload it in Canvas if you cannot paste the report.';
-  } catch (e) { msg.textContent = 'Download is blocked here. Copy the report text from the box instead.'; }
+  msg.textContent = saveFile(temp.reportText, 'Rhetoric-Lab-Report-11-19.txt') ? 'Download started: Rhetoric-Lab-Report-11-19.txt. Upload it in Canvas if you cannot paste the report.' : 'Download is blocked here. Copy the report text from the box instead.';
+  msg.focus();
+}
+function downloadBackup() {
+  const msg = $('#report-msg');
+  msg.textContent = saveFile(reportText('backup'), 'Rhetoric-Lab-PROGRESS-BACKUP-11-19.txt') ? 'Progress backup downloaded. It is marked INCOMPLETE; it is not your full report.' : 'Download is blocked here.';
   msg.focus();
 }
 function printReport() { renderPrint(); try { window.print(); } catch (e) { $('#report-msg').textContent = 'Printing is blocked here. Copy or download the report instead.'; } }
@@ -822,12 +966,13 @@ function closeDrawer() {
 /* ---------- render + boot ---------- */
 function render() {
   renderStrip();
-  const main = $('#main');
-  const view = st.view;
+  const main = $('#main'), view = st.view;
+  main.className = 'c-' + SEC[view].color;
   main.replaceChildren(...(view === 'start' ? viewStart() : view === 'submit' ? viewSubmit() : viewSection(view)));
   document.title = SEC[view].n + ' · The Rhetoric Lab';
   renderPrint();
   if (pendingFocus) { const id = pendingFocus; pendingFocus = null; const el = document.getElementById(id); if (el) el.focus(); }
+  if (celebrateDirty) { celebrateDirty = false; saveSoon(); }
 }
 function boot() {
   storageOK = testStorage();

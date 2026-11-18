@@ -2,15 +2,24 @@
 
 English I · Apopka High School · Thursday, November 19, 2026 · independent substitute-day lesson, 40–50 minutes.
 
-This is a self-paced static website. Students work through these sections:
+This is a self-paced static website built as a check-in plus **five gates that open in order**:
 
-1. **Start Here.** Open the class text and give an ungraded confidence rating.
-2. **The Toolbox.** Simile, metaphor, hyperbole, personification, allusion, anaphora, antithesis, and ethos/logos/pathos, with quick checks T1–T4.
-3. **The Image Lab.** Items I1–I3.
-4. **The Sound of Persuasion.** Items R1–R3.
-5. **The Evidence Test.** Items E1–E2.
-6. **Your Independent Analysis.** Final responses A, B and C on the class copy of chunks 2 and 3.
-7. **Save and Submit.** Students generate one report and paste it into Canvas Text Entry.
+1. **The Toolbox:** simile, metaphor, hyperbole, personification, allusion, anaphora, antithesis, and ethos/logos/pathos. Students clear quick checks T1–T4.
+2. **The Image Lab:** I1–I3, plus one sentence.
+3. **The Sound of Persuasion:** R1–R3, plus one sentence.
+4. **The Evidence Test:** E1, plus E2.
+5. **Your Analysis:** final responses A, B and C on chunks 2 and 3 of the class notetaker.
+
+The **full report** unlocks only when all five gates are clear. Students paste it into Canvas Text Entry as their graded submission. The first screen says this.
+
+Every gate can be cleared. After two misses, the worked explanation and **Continue with support** count, and the report records that support. A student who runs out of time can download a progress backup, clearly marked INCOMPLETE.
+
+**Design:**
+- Each gate has its own color and icon.
+- A gate map across the top shows cleared, open and locked gates, and the header counts gates cleared.
+- Each gate opens with a large header; a progress meter tracks the gate's tasks, and a stamp marks each cleared gate.
+- Locked gates show exactly what is left.
+- Motion respects reduced-motion settings. There are no timers, lives or leaderboards.
 
 There is no build step, account, backend, analytics, AI scoring, or external call. Drafts save in the browser's `localStorage` when it is available.
 
@@ -59,7 +68,7 @@ The site is public, like the repository. Open the address yourself before class 
 
 ## Verification
 
-`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 92 passed, 0 failed.** It checks:
+`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 102 passed, 0 failed.** It checks:
 
 **Content and boundaries**
 - All sections, instruction, practice and final prompts are present, with no placeholder text.
@@ -68,6 +77,12 @@ The site is public, like the repository. Open the address yourself before class 
 - There are no teacher exemplars or rubric in the site files, and no teacher guide in the repository.
 - The Class copy panel gives the real chunk boundaries, ¶7–¶23 and the source notes. No chunk text and no Google Doc link appear in the public files.
 - Picking a paragraph fills in the right chunk, and changing the chunk clears a paragraph that doesn't belong to it.
+
+**Gates**
+- Check-in is required before Gate 1. Each gate stays locked until the one before it is cleared, and the locked screen says what is left.
+- The last step of a gate says what is left instead of moving on. Clearing a gate shows the stamp, and the header count updates. Gate 5 clears as the last part is written.
+- The report stays locked until all five gates clear. The progress backup is marked INCOMPLETE. The full report needs a name, period and confidence check, and is marked COMPLETE.
+- Reset relocks every gate.
 
 **Practice behavior**
 - First responses survive retries, with the submission count, hint use and worked-explanation use recorded.
@@ -79,6 +94,7 @@ The site is public, like the repository. Open the address yourself before class 
 - With storage blocked, the lab still runs, shows a "not saving" message (never a false "saved"), and can export.
 - Copy Report works. When the clipboard fails, it falls back to selecting the text for a manual copy.
 - Download .txt keeps every section, label, paragraph break and support flag.
+- There is no horizontal scroll at 360 px in any step, with every gate open.
 - The print view shows the full report, not clipped boxes.
 - Reset requires confirmation and clears only this lesson's key.
 - The name and period are not stored in the browser.
