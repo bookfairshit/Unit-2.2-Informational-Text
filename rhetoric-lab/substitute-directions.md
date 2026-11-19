@@ -41,7 +41,8 @@
 | "My gate won't open" | The locked screen lists exactly what is left. Every task can be finished: after two tries, the worked explanation and **Continue with support** count. |
 | "This browser is not saving your work" | Keep the tab open. Copy or download the report before closing it. |
 | **Copy Report** does nothing | Click in the report box, press Ctrl+A, then Ctrl+C. Or use **Download .txt**, or **Print / Save as PDF**, and upload the file in Canvas. |
-| Student changed devices | Work is saved only in the browser where it was typed. They continue on the new device, or on paper. |
+| Student changed devices | On the old device: Report page → **Save my work to a file**. On the new device: **Load my work from a file**, on the Check In or Report page. If the old device is dead, they continue on the new one, or on paper. |
+| A student struggles to read the text on screen | Point them to the **Listen** buttons. The Chromebook reads the instructions and questions aloud; headphones help. |
 | Shared device | After submitting in Canvas, the student can use **Erase my work on this device** on the Submit page. |
 | A student asks for answers | Practice gives its own feedback. For A, B, and C: "Write your own thinking; Mr. Moody will review it." |
 | A student is upset by the content | Let them work quietly and leave a note for the teacher. |

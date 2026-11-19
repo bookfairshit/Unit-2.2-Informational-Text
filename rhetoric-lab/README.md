@@ -14,6 +14,13 @@ The **report** can be built, printed and submitted at any time. It is marked COM
 
 Every gate can be cleared. After two misses, the worked explanation and **Continue with support** count, and the report records that support. Gate 5 clears once A, B and C are written; chunk labels, the both-chunks rule and "different evidence for A and B" are reminders, not locks.
 
+**Student supports:**
+- **Listen buttons** read instructions, questions, choices, feedback and the Reference panel aloud with the Chromebook's built-in voice. They need no internet and skip button labels.
+- **Why the other choices don't work** appears after every correct answer. It uses the same misconception feedback as a wrong answer.
+- **A three-part self-check under A, B and C** follows the analysis chain. It is unscored, and the boxes are listed in the report.
+- **Copy Report** sends the report to Canvas with headings and bold labels, with plain text as a backup. Student text is escaped.
+- **Switching devices:** students can save their work to a file and load it on another Chromebook. The file never includes the name. Loaded files are checked: unknown answers and views are dropped, and the student confirms before anything is replaced.
+
 **Design:**
 - Each gate has its own color and icon.
 - A gate map across the top shows cleared, open and locked gates, and the header counts gates cleared.
@@ -68,7 +75,7 @@ The site is public, like the repository. Open the address yourself before class 
 
 ## Verification
 
-`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 107 passed, 0 failed.** It checks:
+`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 120 passed, 0 failed.** It checks:
 
 **Content and boundaries**
 - All sections, instruction, practice and final prompts are present, with no placeholder text.
@@ -99,6 +106,12 @@ The site is public, like the repository. Open the address yourself before class 
 - The print view shows the full report, not clipped boxes.
 - Reset requires confirmation and clears only this lesson's key.
 - The name and period are not stored in the browser.
+
+**Student supports**
+- Listen reads the question and choices, not the buttons, in short pieces, and it also reads the Reference panel.
+- After a correct answer, the other choices' explanations appear. The self-check appears in the report.
+- The formatted copy has headings and bold labels, and student text in it is escaped.
+- Save to a file exports only this lesson, without the name. Loading refuses non-lab files, asks before replacing work, and cleans tampered files.
 
 **Access and layout**
 - The Reference drawer works from the keyboard: focus moves in, Esc closes it and focus returns.

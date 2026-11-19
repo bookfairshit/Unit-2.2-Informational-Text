@@ -177,6 +177,11 @@ const FINAL = {
     note: 'You may return to evidence you used in A or B, but here you judge its value as support. Do not just repeat a device label.',
     starter: 'King develops the idea that ___. The detail about ___ supports it by ___, while the detail about ___ adds ___. [One is stronger / Together they are convincing] because ___.'}
 };
+const CHAIN = {
+  A: ['I explained what the image or comparison means.', 'I named a specific mood and why the words create it.', 'I connected it to a specific change King wants his audience to support.'],
+  B: ['I named the device and what it emphasizes.', 'I named the appeal it supports.', 'I explained why that appeal fits King’s audience and purpose.'],
+  C: ['I stated one central idea.', 'I explained what each support adds.', 'I judged which support is stronger, or how they work together, and why.']
+};
 const CHECKS = [
   ['abc', 'I completed A, B, and C.'],
   ['chunks', 'I included identifiable evidence from both chunks, or marked and identified my two fallback passages.'],
@@ -217,7 +222,7 @@ const blankFinal = () => ({ev: '', where: '', loc: '', exp: ''});
 function blank() {
   return {v: 1, view: 'start', step: {}, access: '', confBefore: '', confAfter: '', items: {}, writes: {},
     final: {A: blankFinal(), B: blankFinal(), C: {idea: '', s1: '', s1where: '', s1loc: '', s2: '', s2where: '', s2loc: '', judge: ''}, fallback: false},
-    ext: {sentence: '', rewrite: '', lost: ''}, self: {}, seen: {}, celebrated: {}, reportMade: false};
+    ext: {sentence: '', rewrite: '', lost: ''}, self: {}, seen: {}, celebrated: {}, chain: {}, reportMade: false};
 }
 function merge(base, saved) {
   if (!saved || typeof saved !== 'object') return base;
@@ -240,7 +245,7 @@ function setSaveLine(kind) {
   const text = kind === 'ok' ? 'Your work is saved in this browser. It has not been sent to Mr. Moody: submit your report in Canvas.'
     : kind === 'restored' ? 'Welcome back. Your saved work in this browser is restored. Nothing has been sent to Mr. Moody yet.'
     : kind === 'reset' ? 'Your work for this lesson was erased from this browser.'
-    : 'This browser is not saving your work. Keep this tab open, and build and download your report on the Report page before you leave.';
+    : 'This browser is not saving your work. Keep this tab open, and build your report, or use Save my work to a file on the Report page, before you leave.';
   el.classList.toggle('warn', kind === 'fail');
   if (el.textContent !== text) el.textContent = text;
 }
@@ -326,7 +331,10 @@ const ICONS = {
   report: 'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
   lock: 'M6 11h12v10H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3',
   check: 'M5 12.5l4.5 4.5L19 7',
-  arrow: 'M5 12h14M13 6l6 6-6 6'
+  arrow: 'M5 12h14M13 6l6 6-6 6',
+  speaker: 'M4 9.5v5h3.5L12 18V6L7.5 9.5zM15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11',
+  stop: 'M7 7h10v10H7z',
+  file: 'M7 3h7l5 5v13H7zM14 3v5h5M12 11v6M9 14l3 3 3-3'
 };
 function icon(name, cls) {
   const NS = 'http://www.w3.org/2000/svg';
@@ -335,6 +343,127 @@ function icon(name, cls) {
   svg.setAttribute('class', 'ico' + (cls ? ' ' + cls : ''));
   const path = document.createElementNS(NS, 'path'); path.setAttribute('d', ICONS[name]); svg.append(path);
   return svg;
+}
+
+/* ---------- read aloud (browser speech; no network) ---------- */
+const canSpeak = 'speechSynthesis' in window && typeof window.SpeechSynthesisUtterance === 'function';
+let speakingBtn = null;
+function setListenState(b, on) {
+  if (!b || !b.isConnected) return;
+  b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  b.querySelector('span').textContent = on ? 'Stop' : 'Listen';
+  b.replaceChild(icon(on ? 'stop' : 'speaker'), b.querySelector('svg'));
+}
+function stopSpeaking() {
+  if (!canSpeak) return;
+  try { window.speechSynthesis.cancel(); } catch (e) { /* nothing to stop */ }
+  if (speakingBtn) { setListenState(speakingBtn, false); speakingBtn = null; }
+}
+function speechText(nodes) {
+  const holder = h('div', {class: 'speak-holder', 'aria-hidden': 'true'});
+  for (const n of nodes.filter(Boolean)) {
+    const c = n.cloneNode(true);
+    c.querySelectorAll('button, input, select, textarea, svg, .listen, .record, .no-read').forEach(x => x.remove());
+    holder.append(c);
+  }
+  document.body.append(holder);
+  const t = holder.innerText; holder.remove();
+  return t.replace(/¶\s*/g, 'paragraph ').replace(/→/g, ', then ').replace(/·/g, ', ').replace(/_{2,}/g, ' blank ').replace(/[“”]/g, '"')
+    .replace(/\s*\n+\s*/g, '. ').replace(/([.!?:])\s*\.\s/g, '$1 ').replace(/\s+/g, ' ').trim();
+}
+function speak(text, btn) {
+  stopSpeaking();
+  if (!text) return;
+  const parts = text.match(/[^.!?]+[.!?]+["')]*\s*|[^.!?]+$/g) || [text], chunks = [];
+  let cur = '';
+  for (const part of parts) { if (cur && (cur + part).length > 220) { chunks.push(cur); cur = ''; } cur += part; }
+  if (cur.trim()) chunks.push(cur);
+  speakingBtn = btn; setListenState(btn, true);
+  const done = () => { if (speakingBtn === btn) { setListenState(btn, false); speakingBtn = null; } };
+  chunks.forEach((c, i) => {
+    const u = new window.SpeechSynthesisUtterance(c.trim()); u.lang = 'en-US'; u.rate = 0.95;
+    if (i === chunks.length - 1) u.onend = done;
+    u.onerror = done;
+    window.speechSynthesis.speak(u);
+  });
+}
+/* targets: a function returning the element(s) to read */
+function listenButton(targets, label) {
+  if (!canSpeak) return null;
+  const b = h('button', {type: 'button', class: 'listen', 'aria-pressed': 'false', 'aria-label': label || 'Listen to this section'}, icon('speaker'), h('span', null, 'Listen'));
+  b.addEventListener('click', () => {
+    if (speakingBtn === b) { stopSpeaking(); return; }
+    const t = targets(b); speak(speechText(Array.isArray(t) ? t : [t]), b);
+  });
+  return b;
+}
+const listenCard = () => listenButton(b => b.closest('.card, .hero-start, .how, .locked-view'));
+
+/* ---------- moving work between devices ---------- */
+const EXPORT_APP = 'rhetoric-lab-2026-11-19';
+function sanitize(raw) {
+  const x = merge(blank(), raw && typeof raw === 'object' ? JSON.parse(JSON.stringify(raw)) : {});
+  const str = v => typeof v === 'string' ? v.slice(0, 20000) : '';
+  const bools = o => Object.fromEntries(Object.entries(o && typeof o === 'object' ? o : {}).filter(([, v]) => typeof v === 'boolean'));
+  x.view = SEC[x.view] ? x.view : 'start';
+  x.step = Object.fromEntries(Object.entries(x.step || {}).filter(([k, v]) => STEPS[k] && Number.isInteger(v)));
+  x.access = ['class', 'fallback'].includes(x.access) ? x.access : '';
+  x.confBefore = CONF[x.confBefore] ? x.confBefore : ''; x.confAfter = CONF[x.confAfter] ? x.confAfter : '';
+  const items = {};
+  for (const id of MC_ORDER) {
+    const it = x.items && x.items[id]; if (!it || typeof it !== 'object') continue;
+    const okL = L => ITEMS[id].opts.some(o => o[0] === L);
+    items[id] = {attempts: Array.isArray(it.attempts) ? it.attempts.filter(okL).slice(0, 50) : [], sel: okL(it.sel) ? it.sel : '', hint: !!it.hint, worked: !!it.worked, support: !!it.support};
+  }
+  x.items = items;
+  const writes = {};
+  for (const w of Object.keys(WRITES)) { const v = x.writes && x.writes[w]; if (v && typeof v === 'object') writes[w] = {text: str(v.text), saved: !!v.saved}; }
+  x.writes = writes;
+  const where = v => WHERE.some(w => w[0] === v) ? v : '', loc = v => PARA_CHUNK[v] ? v : '';
+  for (const k of ['A', 'B']) { const f = x.final[k]; x.final[k] = {ev: str(f.ev), where: where(f.where), loc: loc(f.loc), exp: str(f.exp)}; }
+  const c = x.final.C;
+  x.final.C = {idea: str(c.idea), s1: str(c.s1), s1where: where(c.s1where), s1loc: loc(c.s1loc), s2: str(c.s2), s2where: where(c.s2where), s2loc: loc(c.s2loc), judge: str(c.judge)};
+  x.final.fallback = !!x.final.fallback;
+  x.ext = {sentence: EXT_SENTENCES.includes(x.ext.sentence) ? x.ext.sentence : '', rewrite: str(x.ext.rewrite), lost: str(x.ext.lost)};
+  x.self = bools(x.self); x.seen = bools(x.seen); x.celebrated = bools(x.celebrated); x.chain = bools(x.chain);
+  x.reportMade = !!x.reportMade; x.v = 1;
+  return x;
+}
+function exportWork() {
+  const msg = $('#move-msg');
+  const ok = saveFile(JSON.stringify({app: EXPORT_APP, v: 1, savedAt: new Date().toISOString(), state: st}), 'Rhetoric-Lab-my-work-11-19.json', 'application/json');
+  msg.textContent = ok ? 'Saved: Rhetoric-Lab-my-work-11-19.json. On the new device, open the lab and choose Load my work from a file.' : 'Saving a file is blocked here. Ask your teacher for help.';
+  msg.focus();
+}
+function moveWorkCard() {
+  let pending = null;
+  const msg = h('p', {class: 'status-msg', id: 'move-msg', role: 'status', tabindex: '-1'});
+  const file = h('input', {type: 'file', id: 'import-file', accept: '.json,application/json', class: 'visually-hidden', tabindex: '-1', 'aria-hidden': 'true'});
+  const confirmBox = h('div', {class: 'card quiet', id: 'import-confirm', hidden: true, role: 'group', 'aria-labelledby': 'import-h'},
+    h('h3', {id: 'import-h', tabindex: '-1'}, 'Replace the work on this device?'),
+    P('Loading the file replaces any work already saved for this lesson on this device.'),
+    h('div', {class: 'btn-row'},
+      h('button', {type: 'button', class: 'btn gold', id: 'import-yes', onclick: () => {
+        st = sanitize(pending.state); pending = null; saveNow();
+        if (location.hash !== '#' + st.view) history.replaceState(null, '', '#' + st.view);
+        render(); focusHead();
+        const line = $('#save-line'); if (line) line.textContent = 'Your work from the file is loaded on this device.';
+      }}, 'Yes, load my work'),
+      h('button', {type: 'button', class: 'btn secondary', id: 'import-no', onclick: () => { pending = null; confirmBox.hidden = true; msg.textContent = 'Nothing was changed.'; msg.focus(); }}, 'Cancel')));
+  file.addEventListener('change', async () => {
+    const f = file.files && file.files[0]; if (!f) return;
+    let data = null;
+    try { data = JSON.parse(await f.text()); } catch (e) { data = null; }
+    file.value = '';
+    if (!data || data.app !== EXPORT_APP || data.v !== 1 || !data.state || typeof data.state !== 'object') { msg.textContent = 'That file is not a Rhetoric Lab work file. Choose the file you saved with Save my work to a file.'; msg.focus(); return; }
+    pending = data; msg.textContent = ''; confirmBox.hidden = false; $('#import-h').focus();
+  });
+  return h('div', {class: 'card quiet move-work'}, h('h2', null, 'Switching devices?'),
+    P('Your work is saved only on this device. Save it to a file, then load that file on the new device. Your name is not included in the file.'),
+    h('div', {class: 'btn-row'},
+      h('button', {type: 'button', class: 'btn secondary', id: 'export-btn', onclick: exportWork}, icon('file'), 'Save my work to a file'),
+      h('button', {type: 'button', class: 'btn secondary', id: 'import-btn', onclick: () => file.click()}, 'Load my work from a file'), file),
+    msg, confirmBox);
 }
 
 /* ---------- navigation ---------- */
@@ -486,7 +615,7 @@ function fallbackBox() {
 function mcStep(id, writeId) {
   const it = ITEMS[id], s = itemState(id), status = itemStatus(id), done = isDone(status);
   const wrongCount = s.attempts.filter(a => a !== it.key).length;
-  const card = h('div', {class: 'card'}, h('span', {class: 'phase try'}, 'Try'), h('h2', {id: 'step-h', tabindex: '-1'}, id + ' · ' + it.title), practiceTag());
+  const card = h('div', {class: 'card'}, h('span', {class: 'phase try'}, 'Try'), listenCard(), h('h2', {id: 'step-h', tabindex: '-1'}, id + ' · ' + it.title), practiceTag());
   if (it.context) card.append(h('div', {class: 'hint'}, it.context));
   if (it.passage) card.append(h('div', {class: 'passage'}, PASSAGE.map(p => h('p', null, p))));
   if (it.text) card.append(h('div', {class: 'passage'}, it.text.map(p => h('p', null, p))));
@@ -514,6 +643,8 @@ function mcStep(id, writeId) {
   }
   card.append(fb);
   if (s.worked) card.append(h('div', {class: 'feedback support', id: 'worked-' + id, tabindex: '-1'}, h('span', {class: 'verdict'}, 'Worked explanation'), P(it.worked)));
+  if (done) card.append(h('details', {class: 'why-wrong', id: 'why-' + id}, h('summary', null, 'Why the other choices don’t work'),
+    h('ul', null, it.opts.filter(([L]) => L !== it.key).map(([L, t]) => h('li', null, h('b', null, L + '. '), t, h('span', {class: 'why'}, rich(it.wrong[L])))))));
   if (!done && wrongCount >= 2) {
     const sup = h('div', {class: 'btn-row'});
     if (!s.worked) sup.append(h('button', {type: 'button', class: 'btn secondary', onclick: () => { s.worked = true; saveSoon(); rerender('worked-' + id); }}, 'See a worked explanation'));
@@ -537,7 +668,7 @@ function writeCard(id, follow) {
   const msg = h('p', {class: 'feedback neutral', id: 'wmsg-' + id, role: 'status', tabindex: '-1'});
   if (s.saved && has(s.text)) msg.textContent = 'Saved for your teacher to review.';
   ta.addEventListener('input', () => { s.text = ta.value; if (s.saved) { s.saved = false; msg.textContent = ''; } saveSoon(); });
-  return h('div', {class: 'card'}, h('span', {class: 'phase explain'}, 'Explain'),
+  return h('div', {class: 'card'}, h('span', {class: 'phase explain'}, 'Explain'), listenCard(),
     h(follow ? 'h3' : 'h2', {id: follow ? null : 'step-h', tabindex: follow ? null : '-1'}, w.title),
     h('label', {class: 'field', for: 'w-' + id}, h('span', null, rich(w.prompt)), h('span', {class: 'help'}, 'Your teacher reads this. It is not scored by the website.')), ta,
     h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn secondary', onclick: () => {
@@ -581,8 +712,8 @@ function starterBox(k, target) {
 function finalStep(k) {
   const F = FINAL[k], f = st.final[k];
   const set = (field) => (v) => { f[field] = v; saveSoon(); if (k === 'B' || k === 'A') updateSameWarn(); };
-  const card = h('div', {class: 'card'}, h('span', {class: 'phase explain'}, 'Explain · your own words'), h('h2', {id: 'step-h', tabindex: '-1'}, F.title), P(F.prompt));
-  if (F.note) card.append(P(F.note, 'record'));
+  const title = h('h2', {id: 'step-h', tabindex: '-1'}, F.title), prompt = P(F.prompt), note = F.note ? P(F.note, 'note-line') : null;
+  const card = h('div', {class: 'card'}, h('span', {class: 'phase explain'}, 'Explain · your own words'), listenButton(() => [title, prompt, note], 'Listen to the prompt'), title, prompt, note);
   if (k === 'C') {
     card.append(...textField('fin-C-idea', 'Central idea', 'One idea these portions of the speech develop.', f.idea, set('idea'), {input: true}));
     for (const n of ['1', '2']) {
@@ -599,6 +730,9 @@ function finalStep(k) {
       starterBox(k, 'fin-' + k + '-exp'));
     if (k === 'B') card.append(h('p', {class: 'warn-box', id: 'same-warn', hidden: true}, 'Your B evidence matches your A evidence. Choose a different example for B.'));
   }
+  card.append(h('fieldset', {class: 'selfcheck'}, h('legend', null, 'Check your thinking · for you, not scored'),
+    CHAIN[k].map((t, i) => { const cid = 'chain-' + k + i; const cb = h('input', {type: 'checkbox', id: cid}); cb.checked = !!st.chain[k + i];
+      cb.addEventListener('change', () => { st.chain[k + i] = cb.checked; saveSoon(); }); return h('label', {class: 'choice', for: cid}, cb, h('span', null, t)); })));
   card.append(h('p', {class: 'record'}, 'No automatic feedback here. Mr. Moody will review your reasoning.'));
   return [card];
 }
@@ -621,7 +755,7 @@ function checklistStep() {
     cb.addEventListener('change', () => { st.self[k] = cb.checked; saveSoon(); });
     list.append(h('li', null, h('label', {class: 'choice', for: 'self-' + k}, cb, h('span', null, text, auto[k] ? h('span', {class: 'auto ' + auto[k][0]}, auto[k][1]) : null))));
   }
-  return [h('div', {class: 'card'}, h('span', {class: 'phase check'}, 'Check'), h('h2', {id: 'step-h', tabindex: '-1'}, 'Final checklist'),
+  return [h('div', {class: 'card'}, h('span', {class: 'phase check'}, 'Check'), listenCard(), h('h2', {id: 'step-h', tabindex: '-1'}, 'Final checklist'),
     P('Check each box only when it is true for your work. The site checks what it can; your teacher judges the thinking.'), list,
     h('div', {class: 'card quiet'}, P('**Done early?** Revise one weak explanation using evidence → meaning → effect → purpose. Then try the optional extension on the next step.')),
     h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn gold', onclick: () => go('submit')}, 'Go to Your Report')))];
@@ -630,7 +764,7 @@ function extensionStep() {
   const e = st.ext;
   const sel = h('select', {id: 'ext-sentence'}); sel.append(h('option', {value: ''}, 'Choose a practice sentence…')); for (const s of EXT_SENTENCES) sel.append(h('option', {value: s}, s)); sel.value = e.sentence || '';
   sel.addEventListener('change', () => { e.sentence = sel.value; saveSoon(); });
-  return [h('div', {class: 'card'}, h('span', {class: 'phase explain'}, 'Optional'), h('h2', {id: 'step-h', tabindex: '-1'}, 'Optional extension'),
+  return [h('div', {class: 'card'}, h('span', {class: 'phase explain'}, 'Optional'), listenCard(), h('h2', {id: 'step-h', tabindex: '-1'}, 'Optional extension'),
     P('Only if you have time after A, B and C. Rewrite one practice sentence literally (no figurative language or device), then explain what persuasive effect is lost.'),
     practiceTag(), h('label', {class: 'field', for: 'ext-sentence'}, 'Practice sentence'), sel,
     ...textField('ext-rewrite', 'Literal rewrite', null, e.rewrite, v => { e.rewrite = v; saveSoon(); }, {short: true}),
@@ -639,7 +773,7 @@ function extensionStep() {
 }
 function readStep(step) {
   const bridge = step.title === 'Bridge to King';
-  return [h('div', {class: 'card' + (bridge ? ' bridge' : '')}, h('span', {class: 'phase read'}, bridge ? 'Bridge to King' : 'Read'), h('h2', {id: 'step-h', tabindex: '-1'}, bridge ? 'Now turn to King’s words' : step.title), ...READ[step.id]())];
+  return [h('div', {class: 'card' + (bridge ? ' bridge' : '')}, h('span', {class: 'phase read'}, bridge ? 'Bridge to King' : 'Read'), listenCard(), h('h2', {id: 'step-h', tabindex: '-1'}, bridge ? 'Now turn to King’s words' : step.title), ...READ[step.id]())];
 }
 function stepDone(sec, step) {
   if (step.t === 'mc') return isDone(itemStatus(step.id)) && (!step.write || wrote(step.write));
@@ -681,7 +815,7 @@ function viewLocked(sec) {
   const x = SEC[sec];
   const blocker = SECTIONS.slice(0, idx(sec)).find(y => !cleared(y.id));
   const left = gateLeft(blocker.id);
-  return [h('section', {class: 'locked-view c-' + x.color},
+  return [h('section', {class: 'locked-view c-' + x.color}, listenCard(),
     h('span', {class: 'lock-badge'}, icon('lock')),
     h('p', {class: 'gh-kicker'}, 'Gate ' + x.gate + ' · ' + x.n),
     h('h1', {id: 'view-h', tabindex: '-1'}, 'This gate is still locked'),
@@ -712,14 +846,14 @@ function viewStart() {
     go('toolbox', 0);
   }}, cleared('start') ? 'Enter Gate 1: The Toolbox' : 'Check in and open Gate 1', icon('arrow'));
   return [
-    h('header', {class: 'hero-start'},
+    h('header', {class: 'hero-start'}, listenButton(b => b.closest('.hero-start').querySelector('.hs-text'), 'Listen to the introduction'),
       h('div', {class: 'hs-text'},
         h('p', {class: 'gh-kicker'}, 'English I · Thursday 11/19 · about 47 minutes'),
         h('h1', {id: 'view-h', tabindex: '-1'}, 'The Rhetoric Lab'),
         h('p', {class: 'hs-sub'}, 'How King’s words work'),
         P('Yesterday, your group passed the baton. Today, you take the thinking yourself. You will learn a few tools, test how they work, and explain how King uses language. This is independent work. Your final submission is a short analysis report—not a score screenshot.', 'hs-lead')),
       h('ol', {class: 'hs-gates', 'aria-hidden': 'true'}, GATES.map(g => h('li', {class: 'c-' + SEC[g].color}, icon(SEC[g].icon), h('b', null, String(SEC[g].gate)))), h('li', {class: 'c-g6 end'}, icon('report')))),
-    h('section', {class: 'how', 'aria-labelledby': 'how-h'}, h('h2', {id: 'how-h'}, 'How you finish today'),
+    h('section', {class: 'how', 'aria-labelledby': 'how-h'}, listenCard(), h('h2', {id: 'how-h'}, 'How you finish today'),
       h('ol', {class: 'how-steps'},
         h('li', null, h('span', {class: 'how-n'}, '1'), h('div', null, h('h3', null, 'Clear all five gates'), P('Each gate opens the next. A gate clears when every task in it is done. Stuck? Hints and worked explanations always get you through, and they are recorded. Save about 12 minutes for Gate 5.'))),
         h('li', null, h('span', {class: 'how-n'}, '2'), h('div', null, h('h3', null, 'Build your report'), P('Build, print or submit your report at any time. It shows which gates you have cleared. A complete report has all five gates, including your analysis of King’s words.'))),
@@ -729,7 +863,8 @@ function viewStart() {
         return h('li', {class: 'gl-item c-' + x.color + ' is-' + state.toLowerCase()}, h('span', {class: 'gl-icon'}, icon(x.icon)),
           h('div', {class: 'gl-body'}, h('p', {class: 'gl-k'}, 'Gate ' + x.gate + ' · about ' + x.mins + ' min'), h('h3', null, x.n), h('p', null, GATE_CLEARS[g])),
           h('span', {class: 'gl-state'}, state)); }))),
-    h('section', {class: 'card checkin', 'aria-labelledby': 'ci-h'}, h('span', {class: 'phase'}, 'Check in'), h('h2', {id: 'ci-h'}, 'Check in to open Gate 1'), access, conf, msg, h('div', {class: 'btn-row'}, enter)),
+    h('section', {class: 'card checkin', 'aria-labelledby': 'ci-h'}, h('span', {class: 'phase'}, 'Check in'), listenCard(), h('h2', {id: 'ci-h'}, 'Check in to open Gate 1'), access, conf, msg, h('div', {class: 'btn-row'}, enter)),
+    moveWorkCard(),
     h('div', {class: 'card quiet'}, h('h2', null, 'Quick reconnect'),
       P('**PIE:** authors persuade, inform, or entertain, and often combine them. **Appeals:** ethos (credibility), logos (reasoning), pathos (feelings).'),
       P('King’s purpose is specific: to persuade a national audience to fulfill the promise of racial equality and advance civil rights. “To persuade” or “to inspire” alone is incomplete.'),
@@ -767,7 +902,7 @@ function viewSubmit() {
     const fresh = !st.celebrated.all; if (fresh) { st.celebrated.all = true; celebrateDirty = true; }
     top = h('div', {class: 'gate-cleared big' + (fresh ? ' fresh' : ''), role: 'status'}, h('span', {class: 'stamp'}, icon('check'), 'All five gates cleared'), h('p', null, 'Build your complete report, then submit it in Canvas for your grade.'));
   } else {
-    top = h('section', {class: 'card progress-report'}, h('span', {class: 'phase'}, 'Your report so far'), h('h2', null, n + ' of 5 gates cleared'),
+    top = h('section', {class: 'card progress-report'}, h('span', {class: 'phase'}, 'Your report so far'), listenCard(), h('h2', null, n + ' of 5 gates cleared'),
       P('You can build, print and submit your report at any time. It shows exactly which gates you have cleared, so nothing you have done is lost. A complete report has all five gates.'),
       gateChecklist());
   }
@@ -797,10 +932,11 @@ function viewSubmit() {
     h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 2'), h('h2', null, done ? 'Build your complete report' : 'Build your report'),
       P(done ? 'It includes your practice record from every gate and your analysis A, B and C.' : 'It includes everything you have done so far and lists the gates you have not cleared yet. You can come back, keep going, and build it again.'),
       h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn big', id: 'generate-btn', onclick: generateReport}, temp.reportText ? 'Update my report' : 'Generate my report')), msg, resultArea),
-    h('div', {class: 'card dark'}, h('span', {class: 'phase'}, 'Step 3'), h('h2', null, 'Submit in Canvas'),
+    h('div', {class: 'card dark'}, h('span', {class: 'phase'}, 'Step 3'), listenCard(), h('h2', null, 'Submit in Canvas'),
       h('ol', null, h('li', null, rich('Select **Copy Report**.')), h('li', null, rich('In the Canvas assignment, paste it into the **Text Entry** box (Ctrl+V).')), h('li', null, rich('Select **Submit Assignment**.'))),
       P('If copying fails, use **Download .txt** or **Print / Save as PDF** and upload the file in Canvas. This website cannot submit your work or check that you did. Clear as many gates as you can; if time runs out, submit the report you have. It shows how far you got.')),
     h('div', {class: 'card'}, h('h2', null, 'Status'), statusList()),
+    moveWorkCard(),
     resetCard()];
 }
 function statusList() {
@@ -833,11 +969,12 @@ function reportData() {
     return [id + ' · ' + ITEMS[id].title, ['Result: ' + STATUS_LABEL[itemStatus(id)], 'First response: ' + (at.length ? optText(id, at[0]) : '(none)'), 'Latest response: ' + (at.length ? optText(id, at[at.length - 1]) : '(none)'),
       'Submissions: ' + at.length, 'Hint used: ' + yn(x.hint), 'Worked explanation shown: ' + yn(x.worked), 'Continued with support: ' + yn(x.support)].join('\n')];
   });
+  const chainLines = k => '\n\nStudent self-check:\n' + CHAIN[k].map((t, i) => (st.chain[k + i] ? '[x] ' : '[ ] ') + t).join('\n');
   const finals = [
     ['Text used', f.fallback ? 'Transcript used: Yes (read chunks 2 and 3 in the Yale transcript; could not open the notetaker)' : 'Transcript used: No (notetaker, chunks 2 and 3)'],
-    [FINAL.A.title, 'Evidence (' + whereLabel(f.A.where, f.A.loc) + '): ' + orNone(f.A.ev, '(none given)') + '\n\nExplanation:\n' + orNone(f.A.exp, '(not written)')],
-    [FINAL.B.title, 'Evidence (' + whereLabel(f.B.where, f.B.loc) + '): ' + orNone(f.B.ev, '(none given)') + '\n\nExplanation:\n' + orNone(f.B.exp, '(not written)')],
-    [FINAL.C.title, 'Central idea: ' + orNone(f.C.idea, '(not stated)') + '\n\nSupport 1 (' + whereLabel(f.C.s1where, f.C.s1loc) + '): ' + orNone(f.C.s1, '(none given)') + '\nSupport 2 (' + whereLabel(f.C.s2where, f.C.s2loc) + '): ' + orNone(f.C.s2, '(none given)') + '\n\nJudgment:\n' + orNone(f.C.judge, '(not written)')],
+    [FINAL.A.title, 'Evidence (' + whereLabel(f.A.where, f.A.loc) + '): ' + orNone(f.A.ev, '(none given)') + '\n\nExplanation:\n' + orNone(f.A.exp, '(not written)') + chainLines('A')],
+    [FINAL.B.title, 'Evidence (' + whereLabel(f.B.where, f.B.loc) + '): ' + orNone(f.B.ev, '(none given)') + '\n\nExplanation:\n' + orNone(f.B.exp, '(not written)') + chainLines('B')],
+    [FINAL.C.title, 'Central idea: ' + orNone(f.C.idea, '(not stated)') + '\n\nSupport 1 (' + whereLabel(f.C.s1where, f.C.s1loc) + '): ' + orNone(f.C.s1, '(none given)') + '\nSupport 2 (' + whereLabel(f.C.s2where, f.C.s2loc) + '): ' + orNone(f.C.s2, '(none given)') + '\n\nJudgment:\n' + orNone(f.C.judge, '(not written)') + chainLines('C')],
     ['Optional extension', has(st.ext.rewrite) || has(st.ext.lost) ? 'Practice sentence: ' + orNone(st.ext.sentence, '(not chosen)') + '\nLiteral rewrite: ' + orNone(st.ext.rewrite, '(none)') + '\nWhat is lost: ' + orNone(st.ext.lost, '(none)') : '(not attempted; optional)'],
     ['Student checklist (student self-check)', CHECKS.map(([k, t]) => (st.self[k] ? '[x] ' : '[ ] ') + t).join('\n')]
   ];
@@ -870,9 +1007,16 @@ function renderPrint() {
   const d = reportData();
   root.replaceChildren(h('h1', null, TITLE), ...d.sections.map(x => h('section', null, h('h2', null, x.h), x.rows.map(([label, text]) => h('div', {class: 'pr-item'}, h('div', {class: 'pr-label'}, label), h('div', {class: 'pr-text'}, text))))));
 }
-function saveFile(text, name) {
+const esc = t => String(t).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+function reportHTML() {
+  const d = reportData(), br = t => esc(t).replace(/\n/g, '<br>');
+  return '<h2>' + esc(TITLE) + '</h2>' + d.sections.map(x => '<h3>' + esc(x.h) + '</h3>' + (x.compact
+    ? '<p>' + x.rows.map(([l, t]) => '<strong>' + esc(l) + ':</strong> ' + br(t)).join('<br>') + '</p>'
+    : x.rows.map(([l, t]) => '<p><strong>' + esc(l) + '</strong><br>' + br(t) + '</p>').join(''))).join('');
+}
+function saveFile(text, name, type) {
   try {
-    const blob = new Blob([text.replace(/\n/g, '\r\n')], {type: 'text/plain;charset=utf-8'});
+    const blob = new Blob([type ? text : text.replace(/\n/g, '\r\n')], {type: type || 'text/plain;charset=utf-8'});
     const url = URL.createObjectURL(blob); const a = h('a', {href: url, download: name});
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000); return true;
   } catch (e) { return false; }
@@ -897,10 +1041,16 @@ function generateReport() {
 }
 async function copyReport() {
   temp.reportText = reportText(); const box = $('#report-box'); box.value = temp.reportText; st.reportMade = true; saveSoon();
-  const msg = $('#report-msg'); let ok = false;
-  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(temp.reportText); ok = true; } } catch (e) { ok = false; }
+  const msg = $('#report-msg'); let ok = false, rich = false;
+  try {
+    if (navigator.clipboard && window.isSecureContext && typeof navigator.clipboard.write === 'function' && typeof window.ClipboardItem === 'function') {
+      await navigator.clipboard.write([new window.ClipboardItem({'text/html': new Blob([reportHTML()], {type: 'text/html'}), 'text/plain': new Blob([temp.reportText], {type: 'text/plain'})})]);
+      ok = rich = true;
+    }
+  } catch (e) { ok = false; }
+  if (!ok) { try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(temp.reportText); ok = true; } } catch (e) { ok = false; } }
   if (!ok) { try { box.focus(); box.select(); ok = document.execCommand('copy'); } catch (e) { ok = false; } }
-  if (ok) { msg.textContent = 'Copied. Now paste it into the Canvas Text Entry box (Ctrl+V) and select Submit.'; msg.focus(); }
+  if (ok) { msg.textContent = (rich ? 'Copied with headings and bold labels. ' : 'Copied. ') + 'Now paste it into the Canvas Text Entry box (Ctrl+V) and select Submit.'; msg.focus(); }
   else { msg.textContent = 'Copying is blocked here. The report is selected in the box: press Ctrl+C to copy it, or use Download .txt.'; box.focus(); box.select(); }
 }
 function downloadReport() {
@@ -949,11 +1099,12 @@ function drawerBody(tab) {
 }
 function openDrawer(tab, opener) { drawerTab = tab; drawerOpener = opener || document.activeElement; buildDrawer(true); }
 function buildDrawer(focusTitle) {
+  stopSpeaking();
   const root = $('#drawer-root');
   const tabs = h('div', {class: 'drawer-tabs', role: 'tablist', 'aria-label': 'Drawer sections'}, [['text', 'Class copy'], ['ref', 'Reference']].map(([k, l]) =>
     h('button', {type: 'button', role: 'tab', id: 'tab-' + k, 'aria-selected': drawerTab === k ? 'true' : 'false', 'aria-controls': 'drawer-body', onclick: () => { drawerTab = k; buildDrawer(false); $('#tab-' + k).focus(); }}, l)));
   const panel = h('div', {class: 'drawer', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'drawer-title'},
-    h('div', {class: 'drawer-head'}, h('h2', {id: 'drawer-title', tabindex: '-1'}, drawerTab === 'text' ? 'Class copy: your notetaker' : 'Reference'), h('button', {type: 'button', class: 'btn secondary', id: 'drawer-close', onclick: closeDrawer}, 'Close')),
+    h('div', {class: 'drawer-head'}, h('h2', {id: 'drawer-title', tabindex: '-1'}, drawerTab === 'text' ? 'Class copy: your notetaker' : 'Reference'), h('div', {class: 'btn-row'}, listenButton(() => $('#drawer-body'), 'Listen to this panel'), h('button', {type: 'button', class: 'btn secondary', id: 'drawer-close', onclick: closeDrawer}, 'Close'))),
     tabs, h('div', {class: 'drawer-body', id: 'drawer-body', role: 'tabpanel', 'aria-labelledby': 'tab-' + drawerTab}, ...drawerBody(drawerTab)));
   panel.addEventListener('keydown', e => {
     if (e.key === 'Escape') { e.preventDefault(); closeDrawer(); return; }
@@ -969,6 +1120,7 @@ function buildDrawer(focusTitle) {
   if (focusTitle) $('#drawer-title').focus();
 }
 function closeDrawer() {
+  stopSpeaking();
   $('#drawer-root').replaceChildren();
   for (const sel of ['header', 'nav', 'main', '#save-line']) { const el = $(sel); if (el) el.inert = false; }
   if (drawerOpener && document.contains(drawerOpener)) drawerOpener.focus();
@@ -976,6 +1128,7 @@ function closeDrawer() {
 
 /* ---------- render + boot ---------- */
 function render() {
+  stopSpeaking();
   renderStrip();
   const main = $('#main'), view = st.view;
   main.className = 'c-' + SEC[view].color;
@@ -988,7 +1141,7 @@ function render() {
 function boot() {
   storageOK = testStorage();
   const saved = storageOK ? loadSaved() : null;
-  st = merge(blank(), saved);
+  st = sanitize(saved);
   const hv = location.hash.slice(1);
   if (SEC[hv]) st.view = hv; else if (!SEC[st.view]) st.view = 'start';
   if (location.hash.slice(1) !== st.view) history.replaceState(null, '', '#' + st.view);
@@ -999,7 +1152,7 @@ function boot() {
   $('#open-ref').addEventListener('click', e => openDrawer('ref', e.currentTarget));
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && saveTimer) saveNow(); });
   window.addEventListener('pagehide', () => { if (saveTimer) saveNow(); });
-  window.RhetoricLab = {reportText, state: () => JSON.parse(JSON.stringify(st)), KEY};
+  window.RhetoricLab = {reportText, reportHTML, state: () => JSON.parse(JSON.stringify(st)), KEY};
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
