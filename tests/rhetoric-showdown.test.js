@@ -60,22 +60,32 @@ const server = http.createServer((req, res) => {
   check('Rules show WRITE FIRST → BUZZ SECOND', /WRITE FIRST:/.test(welcome) && /BUZZ SECOND:/.test(welcome));
   check('Rules show wrong / no answer / early buzz = points lost', /WRONG, NO ANSWER, or BUZZING EARLY = LOSE the tile’s points/.test(welcome) && /IF YOU BUZZ, YOU MUST ANSWER/.test(welcome));
   check('Opening controls: Start Game, How Scoring Works, Teacher Settings', ['Start Game', 'How Scoring Works', 'Teacher Settings'].every(t => welcome.includes(t)));
+  check('Rules include PASS THE BOARD and the seat number explains', /PASS THE BOARD:/.test(welcome) && /seat number on screen explains/i.test(welcome) && (await page.locator('.rules li').count()) === 8);
+  check('Rules slide (8 rules) fits 1280×720 without scrolling', await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight && document.documentElement.scrollWidth <= innerWidth));
 
   group('Setup: 4 to 8 teams');
   await page.click('#start-btn');
-  check('Team count choices run 2–8, default 4', (await page.locator('.count-row button').allInnerTexts()).join(',') === '2,3,4,5,6,7,8' && (await page.locator('.team-row').count()) === 4);
+  check('Team count choices run 2–8, default 4', (await page.locator('[aria-label="Number of teams"] button').allInnerTexts()).join(',') === '2,3,4,5,6,7,8' && (await page.locator('.team-row').count()) === 4);
+  check('Seats per team: 2–6, default 4, with a number-off tip', (await page.locator('[aria-label="Seats per team"] button').allInnerTexts()).join(',') === '2,3,4,5,6' && (await page.locator('[aria-label="4 seats"]').getAttribute('aria-pressed')) === 'true' && /Number off inside each team/.test(await page.locator('main').innerText()));
   await btn('8', {exact: true});
-  check('Choosing 8 shows 8 team rows and the shared-buzzer tip', (await page.locator('.team-row').count()) === 8 && await page.locator('.tip').isVisible());
+  check('Choosing 8 shows 8 team rows and the shared-buzzer tip', (await page.locator('.team-row').count()) === 8 && await page.locator('.tip', {hasText: 'More than 4 teams'}).isVisible());
   await page.fill('#period', 'Period 3'); await page.fill('#tname-A', 'Ethos Eagles');
   await page.click('#setup-start');
   check('Board shows 30 tiles and 8 team cards', (await page.locator('.tile').count()) === 30 && (await page.locator('.team-card').count()) === 8);
   check('Choosing team is marked, with the period label', /Ethos Eagles/.test(await page.locator('.team-card.choosing').innerText()) && /Period 3/.test(await page.locator('#bar').innerText()));
+  const s0 = await state(), dd0 = s0.doubles.map(id => D.clues.find(c => c.id === id));
+  check('Two hidden Double Down tiles, 600+ clues in different categories, not shown on the board', dd0.length === 2 && dd0.every(c => c && c.value >= 600) && dd0[0].category !== dd0[1].category && !/double/i.test(await page.locator('.board').innerText()));
+  check('Board footer names the next writer seat', /Seat 1 writes next/.test(await page.locator('.chooser').innerText()));
+  // Pin the Double Down tiles to clues these tests reach on purpose.
+  await page.evaluate(() => { const s = JSON.parse(localStorage.getItem('rhetoric-showdown:v1')); s.doubles = ['MLK-1000', 'LAB-800']; localStorage.setItem('rhetoric-showdown:v1', JSON.stringify(s)); });
+  await page.reload();
 
   group('No answer leaks before Reveal');
   await page.click('#tile-DEVICES-800');
   let html = await page.content();
   check('Clue screen shows the prompt only', /extended financial metaphor/.test(html) && !/failed to deliver that promise/.test(html) && !/Unfulfilled promise of equality/.test(html) && !/Require the figurative meaning/.test(html));
   check('Prompt label shows the source type (verbatim excerpt)', /MLK VERBATIM EXCERPT/.test(await page.locator('.clue-meta').innerText()));
+  check('Clue shows the writer seat (pass the board)', /Seat 1 writes/.test(await page.locator('#writer').innerText()));
   check('Scoring needs Open Buzzing first (only early-buzz recording before)', (await page.locator('#first-A').count()) === 0 && (await page.locator('#ok-A').count()) === 0);
   await page.keyboard.press('Escape');
   check('Esc asks before leaving an open clue', /Leave this clue\?/.test(await page.locator('.dialog').innerText()));
@@ -99,7 +109,7 @@ const server = http.createServer((req, res) => {
   await page.click('#first-B'); await page.click('#ok-B');
   sc = await scores();
   check('Team B steals correctly → +600', sc.B === 600 && sc.A === -600);
-  check('Once solved, no more buzzing on this clue', (await page.locator('.tchip.pick').count()) === 0);
+  check('Once solved, no more buzzing on this clue; no Prove-it bonus on a 600 clue', (await page.locator('.tchip.pick').count()) === 0 && (await page.locator('[id^="prove-"]').count()) === 0);
   await page.keyboard.press('r');
   check('R reveals the key, explanation and a collapsed teacher panel', /Logos; the numerical evidence/.test(await page.locator('#answer').innerText()) && !(await page.locator('.teacher-panel').evaluate(d => d.open)));
   await page.click('#close-clue');
@@ -109,11 +119,29 @@ const server = http.createServer((req, res) => {
   group('All Boards Up (every team answers)');
   await page.click('#tile-APPEALS-200'); await page.keyboard.press('a');
   check('A switches to All Boards Up with a ✓/✗ pair for every team', (await page.locator('[id^="ok-"]').count()) === 8 && (await page.locator('[id^="no-"]').count()) === 8);
+  check('Writer seat moves to Seat 2 on the next clue', /Seat 2 writes/.test(await page.locator('#writer').innerText()));
+  await page.keyboard.press('s'); await page.waitForTimeout(700);
+  let sp = (await state()).current.speaker;
+  check('S picks a random speaker seat (1–4) and shows it', sp >= 1 && sp <= 4 && (await page.locator('#speaker-num').innerText()) === String(sp));
+  let repeats = 0;
+  for (let i = 0; i < 12; i++) { await page.click('#speaker-btn'); const n = (await state()).current.speaker; if (n === sp) repeats++; sp = n; }
+  check('Rolling again never repeats the same seat twice in a row', repeats === 0);
+  await page.keyboard.press('b');
+  check('B starts the 3-2-1 countdown full screen', (await page.locator('.countdown').innerText()) === '3');
+  await page.waitForTimeout(950);
+  check('Countdown steps to 2', (await page.locator('.countdown').innerText()) === '2');
+  await page.waitForTimeout(3200);
+  check('Countdown ends: BOARDS UP. No rewriting.', (await page.locator('.countdown').count()) === 0 && /BOARDS UP\. No rewriting/.test(await page.locator('.banner').innerText()) && (await page.locator('#boards-up').count()) === 0);
   for (const t of ['A', 'C', 'E']) await page.click('#ok-' + t);
   for (const t of ['B', 'D']) await page.click('#no-' + t);
   sc = await scores();
   check('Correct boards +200; wrong boards 0 by default', sc.A === -400 && sc.C === 200 && sc.E === 200 && sc.B === 600 && sc.D === 0);
   check('Each team can be scored only once', (await page.locator('#ok-A').count()) === 0 && (await page.locator('#ok-F').count()) === 1);
+  check('Prove it +100 is offered to each correct team on a 200 clue', (await page.locator('[id^="prove-"]').count()) === 3 && (await page.locator('#prove-B').count()) === 0);
+  await page.click('#prove-E');
+  check('Prove it adds +100 once', (await scores()).E === 300 && (await page.locator('#prove-E').count()) === 0 && /Proved it/.test(await page.locator('.tchip', {hasText: 'Team E'}).innerText()));
+  await page.keyboard.press('Control+z');
+  check('Undo removes the Prove-it bonus', (await scores()).E === 200 && (await page.locator('#prove-E').count()) === 1);
   await page.click('#close-clue');
 
   group('Early buzz and timer');
@@ -145,6 +173,24 @@ const server = http.createServer((req, res) => {
   await page.focus('#start-btn').catch(() => {});
   await page.keyboard.press('Tab');
   check('Controls are reachable by keyboard with a visible focus style', await page.evaluate(() => { const a = document.activeElement; return a && a.tagName === 'BUTTON' && getComputedStyle(a).outlineStyle !== 'none'; }));
+
+  group('Double Down');
+  await page.click('#tile-LAB-800');
+  check('A Double Down tile shows the splash and the choosing team, not the clue', /DOUBLE DOWN!/.test(await page.locator('main').innerText()) && /Team D plays this one alone/.test(await page.locator('h1').innerText()) && (await page.locator('#clue-prompt').count()) === 0);
+  await page.fill('#dd-wager', '1500'); await page.click('#dd-lock');
+  check('Wager above max(score, 1,000) is refused', /from 0 to 1,000/.test(await page.locator('#dd-err').innerText()) && (await page.locator('#clue-prompt').count()) === 0);
+  await page.fill('#dd-wager', '500'); await page.click('#dd-lock');
+  check('Locked wager shows the clue; only that team is judged, no buzzers', (await page.locator('#clue-prompt').count()) === 1 && /DOUBLE DOWN/.test(await page.locator('.banner').innerText()) && (await page.locator('#ok-D').count()) === 1 && (await page.locator('#ok-A').count()) === 0 && (await page.locator('#open-buzz').count()) === 0);
+  await page.keyboard.press('o'); await page.keyboard.press('1');
+  check('O and 1–8 do nothing on a Double Down', (await state()).current.mode === 'dd' && (await page.locator('.tchip.pick').count()) === 0);
+  await page.click('#no-D');
+  check('Wrong Double Down subtracts the wager', (await scores()).D === -500 && /−500 on the Double Down/.test(await page.locator('.banner').innerText()));
+  await page.keyboard.press('Control+z');
+  check('Undo restores judging', (await scores()).D === 0 && (await page.locator('#ok-D').count()) === 1);
+  await page.click('#ok-D');
+  check('Correct Double Down adds the wager (no Prove-it on Double Down)', (await scores()).D === 500 && (await page.locator('[id^="prove-"]').count()) === 0);
+  await page.click('#close-clue');
+  check('Double Down tile closes like any other', await page.locator('#tile-LAB-800').isDisabled());
 
   group('Projector layouts (spec test 10)');
   const problems = [];
@@ -179,6 +225,7 @@ const server = http.createServer((req, res) => {
   check('Final: correct +wager, incorrect −wager', sc2.B === sc.B + 500 && sc2.C === sc.C - Math.max(0, sc.C));
   await page.click('#show-results');
   check('Results rank teams and offer the exit ticket', (await page.locator('.rank-row').count()) === 8 && /1st/.test(await page.locator('.rank-row').first().innerText()));
+  check('Results announce a new high score for today', /New high score for today/.test(await page.locator('.highscore').innerText()));
   await page.click('#exit-btn');
   check('Exit ticket shows full screen', /Name one rhetorical strategy/.test(await page.locator('.dialog.full').innerText()));
   await page.keyboard.press('Escape');
@@ -189,12 +236,21 @@ const server = http.createServer((req, res) => {
   await btn('Yes, reset scores and board');
   const r1 = await state();
   check('Reset clears scores and board, keeps team names', r1.history.length === 0 && r1.teams[0].name === 'Ethos Eagles' && (await page.locator('.tile:disabled').count()) === 0);
+  check('The finished game is kept as today’s high score (Period 3)', /Today’s high score: [\d,]+ \(Period 3\)/.test(await page.locator('.chooser').innerText()));
+  check('Reset places new Double Down tiles', r1.doubles.length === 2 && r1.gameId !== s0.gameId);
   await page.click('#tile-PURPOSE-200'); await page.click('#open-buzz'); await page.click('#first-A'); await page.click('#ok-A'); await page.click('#close-clue');
   await page.click('#settings-btn'); await page.click('#new-period');
   await btn('Yes, new class period');
   check('New class period goes to setup with nothing carried over', (await state()).history.length === 0 && (await state()).teams.length === 0 && /Teams for this period/.test(await page.locator('main').innerText()));
-  await btn('5', {exact: true}); await page.click('#setup-start');
+  await btn('5', {exact: true}); await page.click('[aria-label="3 seats"]'); await page.click('#setup-start');
   check('Next period starts clean with its own teams (5)', (await page.locator('.team-card').count()) === 5 && Object.values(await scores()).every(v => v === 0) && (await page.locator('.tile:disabled').count()) === 0);
+  check('Seats per team saved (3); high score from the earlier period still shows', (await state()).settings.seats === 3 && /Period 3/.test(await page.locator('.highscore').innerText()));
+  await page.click('#tile-LAB-200'); await page.keyboard.press('a'); await page.keyboard.press('b');
+  await page.keyboard.press('Escape');
+  check('Esc skips the countdown without leaving the clue', (await page.locator('.countdown').count()) === 0 && (await page.locator('.dialog').count()) === 0 && /BOARDS UP\. No rewriting/.test(await page.locator('.banner').innerText()));
+  await page.click('#back-btn'); await btn('Put it back (unused)');
+  await page.click('#settings-btn'); await page.click('#clear-records');
+  check('Settings → Clear today’s high scores', (await page.locator('.highscore').count()) === 0);
   check('No console errors and no external requests (spec test 12)', errors.length === 0 && external.length === 0, errors.concat(external).join(' | '));
   await browser.close(); server.close();
 

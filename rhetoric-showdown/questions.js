@@ -200,8 +200,9 @@ window.SHOWDOWN_DATA = {
   rules: [
     ['Read & discuss:', 'Your entire team considers the clue. Every voice matters.'],
     ['WRITE FIRST:', 'Agree on your answer and put it on the team’s whiteboard.'],
+    ['PASS THE BOARD:', 'A different teammate writes every clue. The screen shows whose seat is up. Every hand holds the marker.'],
     ['BUZZ SECOND:', 'Press your team’s buzzer ONLY when the answer is written and your team is ready to defend it.'],
-    ['FIRST BUZZ = FIRST ANSWER:', 'Mr. Moody calls the team that buzzed first. Hold up your board; your speaker explains if asked. **No rewriting after the buzzer.**'],
+    ['FIRST BUZZ = FIRST ANSWER:', 'Mr. Moody calls the team that buzzed first. Hold up your board; **the seat number on screen explains.** No rewriting after the buzzer.'],
     ['RIGHT = EARN the tile’s points. WRONG, NO ANSWER, or BUZZING EARLY = LOSE the tile’s points.', 'No free guesses.'],
     ['OTHER TEAMS MAY STEAL', 'after the teacher reopens buzzing. A team gets one attempt per clue. Wrong steals also lose the tile’s points.'],
     ['NO LAPTOPS. NO SHOUTING ANSWERS.', 'Wait for the teacher to open buzzing. Respect the call; have fun.']
