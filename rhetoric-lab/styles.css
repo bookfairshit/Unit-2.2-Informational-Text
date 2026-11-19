@@ -251,7 +251,7 @@ details[open] summary{margin-bottom:8px}
 .locked-view .gh-kicker{color:var(--c-k)}
 .lock-badge{display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:var(--tint);color:var(--ink-2);font-size:32px}
 .left-list{font-size:17px}
-.locked-report{border-top:8px solid var(--g6)}
+.progress-report{border-top:8px solid var(--g6)}
 .gate-check{list-style:none;padding:0;gap:8px}
 .gc{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:#FFFEFB;border:2px solid var(--rule)}
 .gc-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--tint);color:var(--ink-2);font-size:18px}

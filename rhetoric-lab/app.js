@@ -240,7 +240,7 @@ function setSaveLine(kind) {
   const text = kind === 'ok' ? 'Your work is saved in this browser. It has not been sent to Mr. Moody: submit your report in Canvas.'
     : kind === 'restored' ? 'Welcome back. Your saved work in this browser is restored. Nothing has been sent to Mr. Moody yet.'
     : kind === 'reset' ? 'Your work for this lesson was erased from this browser.'
-    : 'This browser is not saving your work. Keep this tab open, and download a backup from the Report page before you leave.';
+    : 'This browser is not saving your work. Keep this tab open, and build and download your report on the Report page before you leave.';
   el.classList.toggle('warn', kind === 'fail');
   if (el.textContent !== text) el.textContent = text;
 }
@@ -290,20 +290,30 @@ function gateLeft(id) {
   if (id === 'submit') return left;
   if (id === 'final') {
     const f = st.final;
-    need(has(f.A.ev), 'A: evidence', 1); need(f.A.where, 'A: which chunk', 1); need(has(f.A.exp), 'A: your explanation', 1);
-    need(has(f.B.ev), 'B: evidence', 2); need(f.B.where, 'B: which chunk', 2); need(has(f.B.exp), 'B: your explanation', 2); need(!sameEvidence(), 'B: different evidence from A', 2);
-    need(has(f.C.idea), 'C: central idea', 3); need(has(f.C.s1) && f.C.s1where, 'C: support 1 and its chunk', 3); need(has(f.C.s2) && f.C.s2where, 'C: support 2 and its chunk', 3); need(has(f.C.judge), 'C: your judgment', 3);
-    need(chunkCheck().ok, 'Evidence from both Chunk 2 and Chunk 3 across A, B and C', 1);
+    need(has(f.A.ev), 'A: evidence', 1); need(has(f.A.exp), 'A: your explanation', 1);
+    need(has(f.B.ev), 'B: evidence', 2); need(has(f.B.exp), 'B: your explanation', 2);
+    need(has(f.C.idea), 'C: central idea', 3); need(has(f.C.s1), 'C: support 1', 3); need(has(f.C.s2), 'C: support 2', 3); need(has(f.C.judge), 'C: your judgment', 3);
     return left;
   }
   for (const m of MC_ORDER.filter(x => ITEMS[x].sec === id)) need(isDone(itemStatus(m)), m + ' · ' + ITEMS[m].title, stepOf(id, m));
   for (const w of Object.keys(WRITES).filter(x => WRITES[x].sec === id)) need(wrote(w), WRITES[w].title, stepOf(id, w));
   return left;
 }
-const gateTotal = id => id === 'start' ? 2 : id === 'final' ? 12 : MC_ORDER.filter(x => ITEMS[x].sec === id).length + Object.keys(WRITES).filter(x => WRITES[x].sec === id).length;
+const gateTotal = id => id === 'start' ? 2 : id === 'final' ? 8 : MC_ORDER.filter(x => ITEMS[x].sec === id).length + Object.keys(WRITES).filter(x => WRITES[x].sec === id).length;
 const cleared = id => gateLeft(id).length === 0;
 const unlocked = id => id === 'submit' || SECTIONS.slice(0, idx(id)).every(x => cleared(x.id));
 const allClear = () => cleared('start') && GATES.every(cleared);
+/* Gate 5 reminders: shown, never blocking */
+function finalReminders() {
+  const f = st.final, r = [];
+  if (has(f.A.ev) && !f.A.where) r.push('A: choose which chunk your evidence is from.');
+  if (has(f.B.ev) && !f.B.where) r.push('B: choose which chunk your evidence is from.');
+  if (has(f.C.s1) && !f.C.s1where) r.push('C: choose which chunk support 1 is from.');
+  if (has(f.C.s2) && !f.C.s2where) r.push('C: choose which chunk support 2 is from.');
+  if ([f.A.where, f.B.where, f.C.s1where, f.C.s2where].filter(Boolean).length >= 2 && !chunkCheck().ok) r.push('Use evidence from both Chunk 2 and Chunk 3 somewhere across A, B and C.');
+  if (sameEvidence()) r.push('A and B use the same evidence. Choose a different example for B.');
+  return r;
+}
 function gatesCleared() { if (!cleared('start')) return 0; let n = 0; for (const g of GATES) { if (cleared(g)) n++; else break; } return n; }
 
 const ICONS = {
@@ -343,7 +353,7 @@ window.addEventListener('hashchange', () => {
 
 /* ---------- gate rail, gate headers, gate-cleared moments ---------- */
 function nodeState(x) {
-  if (x.id === 'submit') return allClear() ? (st.reportMade ? 'cleared' : 'open') : 'locked';
+  if (x.id === 'submit') return allClear() ? 'cleared' : 'open';
   if (!unlocked(x.id)) return 'locked';
   return cleared(x.id) ? 'cleared' : 'open';
 }
@@ -376,15 +386,16 @@ function clearedBanner(sec) {
   if (fresh) { st.celebrated[sec] = true; celebrateDirty = true; }
   return h('div', {class: 'gate-cleared' + (fresh ? ' fresh' : ''), role: 'status'},
     h('span', {class: 'stamp'}, icon('check'), 'Gate ' + x.gate + ' cleared'),
-    h('p', null, last ? 'All five gates are clear. Your full report is ready to build.' : 'Gate ' + next.gate + ', ' + next.n + ', is open.'),
+    h('p', null, last ? 'All five gates are clear. Your complete report is ready to build.' : 'Gate ' + next.gate + ', ' + next.n + ', is open.'),
     h('button', {type: 'button', class: 'btn gold', onclick: () => go(next.id, 0)}, last ? 'Build my report' : 'Enter Gate ' + next.gate, icon('arrow')));
 }
 function gateProgress(sec) {
-  const total = gateTotal(sec), left = gateLeft(sec).length, done = total - left;
+  const total = gateTotal(sec), needed = gateLeft(sec), done = total - needed.length, rem = sec === 'final' ? finalReminders() : [];
   return h('div', {class: 'gate-progress'},
     h('div', {class: 'meter', role: 'img', 'aria-label': done + ' of ' + total + ' tasks done in this gate'}, h('span', {style: 'width:' + Math.round(100 * done / total) + '%'})),
-    h('p', null, h('b', null, done + ' of ' + total + ' tasks done'), left ? ' · ' + left + ' left to clear this gate' : ' · gate cleared',
-      sec === 'final' ? ' · No automatic feedback here: Mr. Moody grades your thinking.' : ' · Stuck? Hints and worked explanations are allowed and recorded.'));
+    h('p', null, h('b', null, done + ' of ' + total + ' tasks done'), needed.length ? ' · still needed: ' + needed.map(l => l.label).join('; ') : ' · gate cleared'),
+    h('p', {class: 'record'}, sec === 'final' ? 'No automatic feedback here: Mr. Moody grades your thinking.' : 'Stuck? Hints and worked explanations are allowed and recorded.'),
+    rem.length ? h('div', {class: 'warn-box'}, h('b', null, 'Check before you submit'), ' (these do not lock the gate):', h('ul', null, rem.map(x => h('li', null, x)))) : null);
 }
 function updateGateUI() {
   const sec = st.view; if (!GATES.includes(sec)) return;
@@ -711,7 +722,7 @@ function viewStart() {
     h('section', {class: 'how', 'aria-labelledby': 'how-h'}, h('h2', {id: 'how-h'}, 'How you finish today'),
       h('ol', {class: 'how-steps'},
         h('li', null, h('span', {class: 'how-n'}, '1'), h('div', null, h('h3', null, 'Clear all five gates'), P('Each gate opens the next. A gate clears when every task in it is done. Stuck? Hints and worked explanations always get you through, and they are recorded. Save about 12 minutes for Gate 5.'))),
-        h('li', null, h('span', {class: 'how-n'}, '2'), h('div', null, h('h3', null, 'Build your full report'), P('When all five gates are clear, the lab builds your complete report: your practice record and your analysis of King’s words.'))),
+        h('li', null, h('span', {class: 'how-n'}, '2'), h('div', null, h('h3', null, 'Build your report'), P('Build, print or submit your report at any time. It shows which gates you have cleared. A complete report has all five gates, including your analysis of King’s words.'))),
         h('li', null, h('span', {class: 'how-n'}, '3'), h('div', null, h('h3', null, 'Submit it in Canvas for a grade'), P('Paste the report into the Canvas assignment. **Mr. Moody grades your report.** Nothing is sent until you submit it.'))))),
     h('section', {class: 'gate-list', 'aria-labelledby': 'gl-h'}, h('h2', {id: 'gl-h'}, 'The five gates'),
       h('ol', null, GATES.map(g => { const x = SEC[g], state = cleared(g) && unlocked(g) ? 'Cleared' : unlocked(g) ? 'Open' : 'Locked';
@@ -749,18 +760,17 @@ function gateChecklist() {
   }));
 }
 function viewSubmit() {
-  const head = viewHead('submit');
+  const head = viewHead('submit'), done = allClear(), n = gatesCleared();
   const msg = h('p', {class: 'status-msg', id: 'report-msg', role: 'status', tabindex: '-1'});
-  if (!allClear()) {
-    return [head,
-      h('section', {class: 'card locked-report'}, h('span', {class: 'lock-badge'}, icon('lock')), h('h2', null, 'Your full report unlocks when all five gates are clear'),
-        P('Gates cleared: **' + gatesCleared() + ' of 5**. Here is where you stand:'), gateChecklist()),
-      h('section', {class: 'card quiet'}, h('h2', null, 'Out of time?'),
-        P('Your work stays saved in this browser, so you can come back and finish. If class is ending or this device is not saving, download a **progress backup**. It is marked INCOMPLETE and is not your full report. Ask Mr. Moody what to do with it.'),
-        h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn secondary', id: 'backup-btn', onclick: downloadBackup}, 'Download progress backup')), msg),
-      resetCard()];
+  let top;
+  if (done) {
+    const fresh = !st.celebrated.all; if (fresh) { st.celebrated.all = true; celebrateDirty = true; }
+    top = h('div', {class: 'gate-cleared big' + (fresh ? ' fresh' : ''), role: 'status'}, h('span', {class: 'stamp'}, icon('check'), 'All five gates cleared'), h('p', null, 'Build your complete report, then submit it in Canvas for your grade.'));
+  } else {
+    top = h('section', {class: 'card progress-report'}, h('span', {class: 'phase'}, 'Your report so far'), h('h2', null, n + ' of 5 gates cleared'),
+      P('You can build, print and submit your report at any time. It shows exactly which gates you have cleared, so nothing you have done is lost. A complete report has all five gates.'),
+      gateChecklist());
   }
-  const fresh = !st.celebrated.all; if (fresh) { st.celebrated.all = true; celebrateDirty = true; }
   const name = h('input', {type: 'text', id: 'rep-name', autocomplete: 'off'}); name.value = temp.name;
   name.addEventListener('input', () => { temp.name = name.value; renderPrint(); });
   const period = h('input', {type: 'text', id: 'rep-period', autocomplete: 'off'}); period.value = temp.period;
@@ -772,22 +782,24 @@ function viewSubmit() {
     conf.append(h('label', {class: 'choice', for: r.id}, r, h('span', null, l)));
   }
   const box = h('textarea', {id: 'report-box', class: 'report-box', readonly: true, rows: '16', 'aria-label': 'Your report text'}); box.value = temp.reportText;
-  const resultArea = h('div', {id: 'report-area', hidden: !temp.reportText}, h('p', {class: 'feedback neutral'}, 'Every gate is clear. Your report holds everything Mr. Moody needs to grade it.'),
-    h('label', {class: 'field', for: 'report-box'}, 'Your full report', h('span', {class: 'help'}, 'If Copy does not work: click in the box, press Ctrl+A, then Ctrl+C.')), box,
+  const warnings = h('div', {id: 'report-warn'});
+  const resultArea = h('div', {id: 'report-area', hidden: !temp.reportText}, warnings,
+    h('label', {class: 'field', for: 'report-box'}, 'Your report', h('span', {class: 'help'}, 'If Copy does not work: click in the box, press Ctrl+A, then Ctrl+C.')), box,
     h('div', {class: 'btn-row'},
       h('button', {type: 'button', class: 'btn gold', id: 'copy-btn', onclick: copyReport}, 'Copy Report'),
       h('button', {type: 'button', class: 'btn secondary', id: 'download-btn', onclick: downloadReport}, 'Download .txt'),
       h('button', {type: 'button', class: 'btn secondary', id: 'print-btn', onclick: printReport}, 'Print / Save as PDF')));
-  return [head,
-    h('div', {class: 'gate-cleared big' + (fresh ? ' fresh' : ''), role: 'status'}, h('span', {class: 'stamp'}, icon('check'), 'All five gates cleared'), h('p', null, 'Build your full report, then submit it in Canvas for your grade.')),
+  if (temp.reportText) reportWarnings(warnings);
+  return [head, top,
     h('div', {class: 'card note'}, P('Your work is saved in this browser when available. It has not been sent to Mr. Moody. Submit the report in Canvas.'), storageOK ? null : P('**Saving is blocked in this browser.** Your work is still on this page. Copy or download your report before you close the tab.')),
-    h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 1'), h('h2', null, 'Your name, class period and one last check'), P('Type these each time you build a report. They are not saved in the browser.', 'record'),
+    h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 1'), h('h2', null, 'Your name and class period'), P('Type these each time you build a report. They are not saved in the browser.', 'record'),
       h('div', {class: 'two'}, h('div', null, h('label', {class: 'field', for: 'rep-name'}, 'Name'), name), h('div', null, h('label', {class: 'field', for: 'rep-period'}, 'Class period'), period)), conf),
-    h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 2'), h('h2', null, 'Build your full report'), P('It includes your practice record from every gate and your analysis A, B and C.'),
-      h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn big', id: 'generate-btn', onclick: generateReport}, temp.reportText ? 'Update my full report' : 'Generate my full report')), msg, resultArea),
+    h('div', {class: 'card'}, h('span', {class: 'phase'}, 'Step 2'), h('h2', null, done ? 'Build your complete report' : 'Build your report'),
+      P(done ? 'It includes your practice record from every gate and your analysis A, B and C.' : 'It includes everything you have done so far and lists the gates you have not cleared yet. You can come back, keep going, and build it again.'),
+      h('div', {class: 'btn-row'}, h('button', {type: 'button', class: 'btn big', id: 'generate-btn', onclick: generateReport}, temp.reportText ? 'Update my report' : 'Generate my report')), msg, resultArea),
     h('div', {class: 'card dark'}, h('span', {class: 'phase'}, 'Step 3'), h('h2', null, 'Submit in Canvas'),
       h('ol', null, h('li', null, rich('Select **Copy Report**.')), h('li', null, rich('In the Canvas assignment, paste it into the **Text Entry** box (Ctrl+V).')), h('li', null, rich('Select **Submit Assignment**.'))),
-      P('If copying fails, use **Download .txt** or **Print / Save as PDF** and upload the file in Canvas. This website cannot submit your work or check that you did; your grade comes from the report you submit.')),
+      P('If copying fails, use **Download .txt** or **Print / Save as PDF** and upload the file in Canvas. This website cannot submit your work or check that you did. Clear as many gates as you can; if time runs out, submit the report you have. It shows how far you got.')),
     h('div', {class: 'card'}, h('h2', null, 'Status'), statusList()),
     resetCard()];
 }
@@ -796,7 +808,7 @@ function statusList() {
   return h('ul', null,
     h('li', null, rich('**Gates:** ' + gatesCleared() + ' of 5 cleared.')),
     h('li', null, rich('**Practice record:** ' + c.first + ' correct on the first try · ' + c.indep + ' corrected independently · ' + c.support + ' completed with support.')),
-    h('li', null, rich('**Your analysis:** A, B and C written, with evidence from both chunks.')),
+    h('li', null, rich('**Your analysis:** ' + ['A', 'B', 'C'].map(k => k + ' ' + (finalPresent(k) ? 'written' : 'not yet')).join(' · ') + '; evidence from both chunks: ' + (chunkCheck().ok ? 'yes' : 'not yet') + '.')),
     h('li', null, rich('**Canvas submission:** still required. Mr. Moody grades the report you submit.')));
 }
 
@@ -813,9 +825,8 @@ const yn = b => b ? 'Yes' : 'No';
 const orNone = (v, none) => has(v) ? String(v).replace(/\s+$/, '') : none;
 const whereLabel = (w, loc) => (w || 'chunk not labeled') + (has(loc) ? ', paragraph ' + String(loc).trim() : '');
 function gateSummary() { return [SEC.start, ...GATES.map(g => SEC[g])].map(x => (x.gate === 0 ? 'Check-in' : 'Gate ' + x.gate) + ' ' + (cleared(x.id) && unlocked(x.id) ? 'cleared' : 'not cleared')).join(' · '); }
-const reportMode = () => allClear() ? 'full' : 'backup';
-function reportData(mode) {
-  const full = mode === 'full', c = counts(), cc = chunkCheck(), f = st.final;
+function reportData() {
+  const full = allClear(), c = counts(), cc = chunkCheck(), f = st.final;
   const practice = REPORT_ORDER.map(id => {
     if (WRITES[id]) return [WRITES[id].title + ' (short practice writing)', 'Teacher review needed.\n' + orNone(st.writes[id] && st.writes[id].text, '(not written)')];
     const x = st.items[id] || {attempts: []}, at = x.attempts || [];
@@ -831,7 +842,7 @@ function reportData(mode) {
     ['Student checklist (student self-check)', CHECKS.map(([k, t]) => (st.self[k] ? '[x] ' : '[ ] ') + t).join('\n')]
   ];
   return {full, sections: [
-    {h: '1. About this report', compact: true, rows: [['Report status', full ? 'COMPLETE · all five gates cleared' : 'PROGRESS BACKUP · INCOMPLETE · not the full report'], ['Gates', gateSummary()],
+    {h: '1. About this report', compact: true, rows: [['Report status', full ? 'COMPLETE · all five gates cleared' : 'IN PROGRESS · ' + gatesCleared() + ' of 5 gates cleared'], ['Gates', gateSummary()],
       ['Name', orNone(temp.name, '(not entered)')], ['Class period', orNone(temp.period, '(not entered)')], ['Report generated', new Date().toLocaleString()],
       ['Text access chosen at check-in', ACCESS[st.access] || '(not chosen)'], ['Confidence before', CONF[st.confBefore] || '(not answered)'], ['Confidence after', CONF[st.confAfter] || '(not answered)']]},
     {h: '2. Practice record', rows: practice},
@@ -842,12 +853,12 @@ function reportData(mode) {
       ['Practice writing', c.wrote + ' of 3 short practice responses written. Teacher review needed.'],
       ['Final responses present', ['A', 'B', 'C'].map(k => k + ': ' + (finalPresent(k) ? 'yes' : 'not yet')).join(' · ')],
       ['Evidence from both chunks', (cc.ok ? 'Yes' : 'Not shown yet') + (cc.labels.length ? ' (labels used: ' + cc.labels.join(', ') + ')' : ' (no labels used)')],
-      ['Canvas submission', full ? 'STILL REQUIRED. Paste this report into the Canvas assignment’s Text Entry box and select Submit. This website cannot submit your work or check whether you submitted it.' : 'This progress backup is not the full report. Clear the remaining gates to build it, or ask Mr. Moody what to do.'],
-      ['Note', full ? 'This is my full report for the Canvas assignment. Mr. Moody grades it; the website does not score it.' : 'Progress backup only.']]}
+      ['Canvas submission', 'STILL REQUIRED. Paste this report into the Canvas assignment’s Text Entry box and select Submit. This website cannot submit your work or check whether you submitted it.'],
+      ['Note', 'Mr. Moody grades this report; the website does not score it.' + (full ? '' : ' Gates not cleared yet are listed under Gates.')]]}
   ]};
 }
-function reportText(mode) {
-  const d = reportData(mode || reportMode()), title = d.full ? TITLE : TITLE + ' · PROGRESS BACKUP (INCOMPLETE)', L = [title, '='.repeat(title.length)];
+function reportText() {
+  const d = reportData(), L = [TITLE, '='.repeat(TITLE.length)];
   for (const x of d.sections) {
     L.push('', x.h.toUpperCase());
     for (const [label, text] of x.rows) { if (x.compact) L.push(label + ': ' + text); else L.push('', label, text); }
@@ -856,8 +867,8 @@ function reportText(mode) {
 }
 function renderPrint() {
   const root = $('#print-report'); if (!root) return;
-  const d = reportData(reportMode());
-  root.replaceChildren(h('h1', null, d.full ? TITLE : TITLE + ' · PROGRESS BACKUP (INCOMPLETE)'), ...d.sections.map(x => h('section', null, h('h2', null, x.h), x.rows.map(([label, text]) => h('div', {class: 'pr-item'}, h('div', {class: 'pr-label'}, label), h('div', {class: 'pr-text'}, text))))));
+  const d = reportData();
+  root.replaceChildren(h('h1', null, TITLE), ...d.sections.map(x => h('section', null, h('h2', null, x.h), x.rows.map(([label, text]) => h('div', {class: 'pr-item'}, h('div', {class: 'pr-label'}, label), h('div', {class: 'pr-text'}, text))))));
 }
 function saveFile(text, name) {
   try {
@@ -866,21 +877,26 @@ function saveFile(text, name) {
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000); return true;
   } catch (e) { return false; }
 }
+function reportWarnings(el) {
+  const w = [];
+  for (const g of GATES) { const left = gateLeft(g); if (left.length) w.push(gateName(SEC[g]) + ' is not cleared yet (' + left.length + ' left).'); }
+  for (const r of finalReminders()) w.push(r);
+  el.replaceChildren(w.length ? h('div', {class: 'warn-box'}, h('p', null, h('b', null, 'Your report is ready. Still open:')), h('ul', null, w.map(x => h('li', null, x))), h('p', null, 'You can keep working and build it again, or submit what you have.'))
+    : h('p', {class: 'feedback neutral'}, 'Every gate is clear. Your report holds everything Mr. Moody needs to grade it.'));
+}
 function generateReport() {
-  if (!allClear()) return;
   const msg = $('#report-msg'), miss = [];
   if (!has(temp.name)) miss.push(['rep-name', 'your name']);
   if (!has(temp.period)) miss.push(['rep-period', 'your class period']);
-  if (!st.confAfter) miss.push(['conf-after-1', 'the confidence check']);
-  if (miss.length) { msg.textContent = 'Before your report can be built, add ' + miss.map(m => m[1]).join(', ') + '.'; document.getElementById(miss[0][0]).focus(); return; }
-  temp.reportText = reportText('full'); st.reportMade = true; saveSoon();
+  if (miss.length) { msg.textContent = 'Before your report can be built, add ' + miss.map(m => m[1]).join(' and ') + '.'; document.getElementById(miss[0][0]).focus(); return; }
+  temp.reportText = reportText(); st.reportMade = true; saveSoon();
   const area = $('#report-area'), box = $('#report-box');
-  box.value = temp.reportText; area.hidden = false;
-  $('#generate-btn').textContent = 'Update my full report';
-  msg.textContent = 'Your full report is ready. Next: Copy Report, then paste it into Canvas.'; msg.focus();
+  box.value = temp.reportText; area.hidden = false; reportWarnings($('#report-warn'));
+  $('#generate-btn').textContent = 'Update my report';
+  msg.textContent = 'Your report is ready. Next: Copy Report, then paste it into Canvas.'; msg.focus();
 }
 async function copyReport() {
-  temp.reportText = reportText('full'); const box = $('#report-box'); box.value = temp.reportText; st.reportMade = true; saveSoon();
+  temp.reportText = reportText(); const box = $('#report-box'); box.value = temp.reportText; st.reportMade = true; saveSoon();
   const msg = $('#report-msg'); let ok = false;
   try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(temp.reportText); ok = true; } } catch (e) { ok = false; }
   if (!ok) { try { box.focus(); box.select(); ok = document.execCommand('copy'); } catch (e) { ok = false; } }
@@ -888,14 +904,9 @@ async function copyReport() {
   else { msg.textContent = 'Copying is blocked here. The report is selected in the box: press Ctrl+C to copy it, or use Download .txt.'; box.focus(); box.select(); }
 }
 function downloadReport() {
-  temp.reportText = reportText('full'); $('#report-box').value = temp.reportText; st.reportMade = true; saveSoon();
+  temp.reportText = reportText(); $('#report-box').value = temp.reportText; st.reportMade = true; saveSoon();
   const msg = $('#report-msg');
   msg.textContent = saveFile(temp.reportText, 'Rhetoric-Lab-Report-11-19.txt') ? 'Download started: Rhetoric-Lab-Report-11-19.txt. Upload it in Canvas if you cannot paste the report.' : 'Download is blocked here. Copy the report text from the box instead.';
-  msg.focus();
-}
-function downloadBackup() {
-  const msg = $('#report-msg');
-  msg.textContent = saveFile(reportText('backup'), 'Rhetoric-Lab-PROGRESS-BACKUP-11-19.txt') ? 'Progress backup downloaded. It is marked INCOMPLETE; it is not your full report.' : 'Download is blocked here.';
   msg.focus();
 }
 function printReport() { renderPrint(); try { window.print(); } catch (e) { $('#report-msg').textContent = 'Printing is blocked here. Copy or download the report instead.'; } }

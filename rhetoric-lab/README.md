@@ -10,9 +10,9 @@ This is a self-paced static website built as a check-in plus **five gates that o
 4. **The Evidence Test:** E1, plus E2.
 5. **Your Analysis:** final responses A, B and C on chunks 2 and 3 of the class notetaker.
 
-The **full report** unlocks only when all five gates are clear. Students paste it into Canvas Text Entry as their graded submission. The first screen says this.
+The **report** can be built, printed and submitted at any time. It is marked COMPLETE when all five gates are clear, or IN PROGRESS with the number of gates cleared. Students paste it into Canvas Text Entry as their graded submission. The first screen says this.
 
-Every gate can be cleared. After two misses, the worked explanation and **Continue with support** count, and the report records that support. A student who runs out of time can download a progress backup, clearly marked INCOMPLETE.
+Every gate can be cleared. After two misses, the worked explanation and **Continue with support** count, and the report records that support. Gate 5 clears once A, B and C are written; chunk labels, the both-chunks rule and "different evidence for A and B" are reminders, not locks.
 
 **Design:**
 - Each gate has its own color and icon.
@@ -68,7 +68,7 @@ The site is public, like the repository. Open the address yourself before class 
 
 ## Verification
 
-`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 102 passed, 0 failed.** It checks:
+`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 107 passed, 0 failed.** It checks:
 
 **Content and boundaries**
 - All sections, instruction, practice and final prompts are present, with no placeholder text.
@@ -81,7 +81,8 @@ The site is public, like the repository. Open the address yourself before class 
 **Gates**
 - Check-in is required before Gate 1. Each gate stays locked until the one before it is cleared, and the locked screen says what is left.
 - The last step of a gate says what is left instead of moving on. Clearing a gate shows the stamp, and the header count updates. Gate 5 clears as the last part is written.
-- The report stays locked until all five gates clear. The progress backup is marked INCOMPLETE. The full report needs a name, period and confidence check, and is marked COMPLETE.
+- A report can be built and printed from the start, marked IN PROGRESS with the number of gates cleared. With all five gates, it is marked COMPLETE. Name and period are required either way.
+- Gate 5 clears even when every label is Chunk 3, with the both-chunks rule shown as a reminder; the reminder clears once both chunks are used.
 - Reset relocks every gate.
 
 **Practice behavior**

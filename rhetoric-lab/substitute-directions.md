@@ -1,6 +1,6 @@
 # Substitute Directions · English I · Thursday, November 19, 2026
 
-**Lesson:** 11/19 — The Rhetoric Lab: How King's Words Work. Students work **independently** on a website linked in Canvas. The lab has **five gates**: each opens the next, and the full report (their graded submission) unlocks only when all five are clear. You do not need to teach rhetoric. The website teaches; you help with access and navigation.
+**Lesson:** 11/19 — The Rhetoric Lab: How King's Words Work. Students work **independently** on a website linked in Canvas. The lab has **five gates**: each opens the next. Students can build their report (their graded submission) at any time; it shows how many gates they cleared. A late student can still build and print one. You do not need to teach rhetoric. The website teaches; you help with access and navigation.
 
 **Text:** students read chunks 2 and 3 of their *I Have a Dream* notetaker (a Google Doc). There are no paper copies of the speech unless the teacher printed a backup.
 
@@ -8,7 +8,7 @@
 
 ## Opening script (read aloud)
 
-> "Open today's Rhetoric Lab assignment in Canvas and follow the website directions. Work independently. Keep your speech copy open: your I Have a Dream notetaker, chunks 2 and 3. There are five gates; your full report unlocks when all five are clear. You will submit that report to Canvas before the end of class. The website does not submit it for you."
+> "Open today's Rhetoric Lab assignment in Canvas and follow the website directions. Work independently. Keep your speech copy open: your I Have a Dream notetaker, chunks 2 and 3. There are five gates. Clear as many as you can; your report shows how far you got. You will submit that report to Canvas before the end of class. The website does not submit it for you."
 
 ## While students work
 
@@ -27,7 +27,7 @@
 
 **At the Gate 5 reminder, say:** "If you are not in Gate 5 yet, use Show a hint and the worked explanations to clear your gates faster. Save about 12 minutes for Gate 5."
 
-**Last two minutes, say:** "Build your full report and submit it in Canvas. A completion screen on the website is not a Canvas submission. Not finished? Download a progress backup from the Report page; your work also stays saved on this device."
+**Last two minutes, say:** "Build your full report and submit it in Canvas. A completion screen on the website is not a Canvas submission. Not finished? Build and submit the report you have; it shows how far you got. Your work also stays saved on this device."
 
 **Fast finishers:** revise one weak explanation using evidence → meaning → effect → purpose, then try the optional literal-rewrite extension at the end of Your Analysis. Do not start an unrelated activity before they submit.
 
