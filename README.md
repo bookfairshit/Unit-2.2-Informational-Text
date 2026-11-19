@@ -29,6 +29,8 @@ English I CLT pacing calendar and planning dashboard for Unit 2.2 (Nov 10 – De
 | `unit-2-2-sub-plan-nov-19.html` | Printable guest-teacher plan for Thu Nov 19: The Rhetoric Lab (script, timing for 40/47/50-minute classes, troubleshooting), with blanks for the teacher to fill in (room, periods, Darter Huddle schedule, where paper copies are, emergency procedures). Replaces the earlier Blueprint Checkpoint plan. |
 | `rhetoric-lab/` | **The Rhetoric Lab: How King's Words Work** (Thu Nov 19, sub day). A self-paced website students open from Canvas, built as five gates that open in order: Toolbox, Image Lab, Sound of Persuasion and Evidence Test practice with feedback and honest attempt records, then an independent analysis (A language → mood → purpose, B rhetoric → appeal → audience, C support → judgment) of the class copy of chunks 2 and 3. Students can build the report at any time (COMPLETE or IN PROGRESS, with gates cleared) and paste it into Canvas Text Entry for a grade. Also contains `canvas-assignment.html` (assignment text plus teacher setup notes), `student-fallback.html` (4 printable pages, no keys), `substitute-directions.md`, and its own README with setup steps and verification results. Live: `https://bookfairshit.github.io/Unit-2.2-Informational-Text/rhetoric-lab/`. The teacher guide (keys, rubric) is deliberately kept out of this public repository. |
 | `tests/dashboard.test.js` | Automated checks for the quality tests in brief §10. |
+| `rhetoric-showdown/` | **Rhetoric Showdown** (Fri Nov 20). A teacher-run, projector-only review game with Jeopardy-style mechanics: 30 clues in six categories (The Big Three, Spot the Device, Purpose, King's Dream, FDR, Rhetoric Lab), a Final Round with wagers, and 2–8 teams. Physical buzzers with write-first rules, or All Boards Up so every team answers. Steals, undo, saving across refreshes, and a printable teacher key. Live: `https://bookfairshit.github.io/Unit-2.2-Informational-Text/rhetoric-showdown/` |
+| `tests/rhetoric-showdown.test.js` | Acceptance checks for Rhetoric Showdown. |
 | `tests/rhetoric-lab.test.js` | Automated acceptance checks for the Rhetoric Lab (build brief §12). |
 
 Keep the HTML files and the `lumio/` folder together so the links between them work.
@@ -79,6 +81,7 @@ Requires Node and the `playwright` package with a Chromium build.
 ```
 node tests/dashboard.test.js
 node tests/rhetoric-lab.test.js
+node tests/rhetoric-showdown.test.js
 ```
 
 Covers: weekdays for Nov 11/12/13, month and week rollover, keyboard-operable dialogs (focus in, Tab containment, Esc, focus return, unsaved-edit guard), no fake links, URL validation and HTML escaping, Thanksgiving excluded from instruction, CRM end Dec 19 and last student day Dec 18, editable end date, edits surviving filters and reloads, the local-only notice, JSON export → reset → import → export round trip, CSV, confirmed-only ICS with line folding, untruncated print output, and no horizontal scroll at phone width.
