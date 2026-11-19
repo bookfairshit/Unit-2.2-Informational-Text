@@ -37,6 +37,7 @@ There is no build step, account, backend, analytics, AI scoring, or external cal
 | `index.html`, `styles.css`, `app.js` | The website. Relative paths only; opens from GitHub Pages or straight from disk. |
 | `canvas-assignment.html` | Canvas assignment text, with teacher setup notes kept outside the student copy. It has two marked fields: the site URL and the notetaker link. No JavaScript. |
 | `student-fallback.html` | Printable paper version: directions, Toolbox, optional practice and final prompts A–C. It prints on 4 letter pages and has no answer keys. |
+| `student-fallback.pdf` | The same fallback as a 4-page PDF, ready to attach to the Canvas assignment. |
 | `substitute-directions.md` | About one page: script, timing, troubleshooting. The same plan, with fill-in blanks, is at `../unit-2-2-sub-plan-nov-19.html`. |
 | `README.md` | This file. |
 
@@ -75,7 +76,7 @@ The site is public, like the repository. Open the address yourself before class 
 
 ## Verification
 
-`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 120 passed, 0 failed.** It checks:
+`node tests/rhetoric-lab.test.js` runs in headless Chromium, with the page loaded from disk. **Result: 121 passed, 0 failed.** It checks:
 
 **Content and boundaries**
 - All sections, instruction, practice and final prompts are present, with no placeholder text.

@@ -11,7 +11,7 @@ body{margin:0;background:#FAF6EC;color:#1F1B16;font:17px/1.55 system-ui,-apple-s
 h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.2;margin:0}
 .teacher{background:#FDF1E4;border:2px dashed #9A4A12;border-radius:8px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
 .teacher h2{color:#7A3A0B;font-size:21px}
-.teacher ol,.teacher ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.teacher ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
 .teacher code{background:#fff;border:1px solid #E2C9A8;border-radius:4px;padding:1px 5px;font-size:15px;overflow-wrap:anywhere}
 .copy-label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#554D42}
 .student{background:#fff;border:1px solid #DCD2BE;border-radius:8px;padding:20px 24px}
@@ -25,34 +25,44 @@ h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;l
 <section class="teacher" aria-labelledby="setup">
   <h2 id="setup">Teacher setup · do not paste this box into Canvas</h2>
   <ol>
-    <li><b>Title:</b> <code>11/19 — The Rhetoric Lab: How King's Words Work</code></li>
-    <li><b>Submission type:</b> enable <b>Online → Text Entry</b>. Optionally also enable <b>File Uploads</b> so students can upload the .txt or PDF backup, or photos of spiral work. HTML cannot set these for you.</li>
-    <li><b>Site URL:</b> in the student copy below, replace the highlighted <code>[TEACHER: PASTE THE RHETORIC LAB LINK HERE]</code> with the real link, then select it and use Canvas’s link tool so it becomes a working link. After this repository is published with GitHub Pages, the lab is expected at <code>https://bookfairshit.github.io/Unit-2.2-Informational-Text/rhetoric-lab/</code>. Open that address yourself before Thursday to confirm it loads.</li>
-    <li><b>Fallback:</b> print <code>student-fallback.html</code> (Print → Save as PDF), upload the PDF to Canvas Files, and link it where the student copy says <i>posted student fallback</i>. Leave paper copies with the guest teacher too.</li>
-    <li><b>Class text:</b> students use their <i>I Have a Dream</i> interactive notetaker (Google Doc). Replace <code>[TEACHER: LINK THE NOTETAKER HERE]</code> in the student copy with your notetaker link, or with directions to each student’s own copy. Your link is deliberately not in this file because this repository and its website are public. The website gives only chunk locations (Chunk 2 = ¶7–13, Chunk 3 = ¶14–23), opening words and source notes. It does not contain the speech.</li>
-    <li><b>No-internet backup:</b> print the notetaker pages with chunks 2 and 3 (pages 5–7 of the PDF) and leave them with the printed fallback for the guest teacher.</li>
-    <li><b>Points and due time:</b> set your own. This page does not assign any. The student copy tells students the full report is graded; a suggested 16-point rubric for A–C is in your teacher guide. The website builds the full report only after all five gates are cleared. Students can build, print and submit their report at any time: it says COMPLETE when all five gates are clear, or IN PROGRESS with the number of gates cleared, so late or slow students still submit what they have.</li>
-    <li><b>How to paste:</b> select the student copy below, from its title down to the last line, copy it, and paste it into the Canvas Rich Content Editor. Or open this file in a text editor and copy only the HTML between the <code>STUDENT COPY START</code> and <code>STUDENT COPY END</code> comments into Canvas’s HTML editor. No JavaScript is needed in Canvas; the lab runs on its own site.</li>
+    <li><b>Create the assignment.</b> Title: <code>11/19 — The Rhetoric Lab: How King's Words Work</code></li>
+    <li><b>Submission type:</b> <b>Online</b>, with <b>Text Entry</b> and <b>File Uploads</b> both checked (uploads cover the .txt or PDF backup and photos of spiral work). HTML cannot set these for you.</li>
+    <li><b>Points and due date:</b> set your own; this page assigns none. A suggested 16-point rubric for A–C is in your teacher guide.</li>
+    <li><b>Paste the student copy.</b> In the Canvas editor, open the HTML view (the <code>&lt;/&gt;</code> button), then paste the HTML between the <code>STUDENT COPY START</code> and <code>STUDENT COPY END</code> comments in this file. Or select the rendered student copy below and paste it into the normal editor.</li>
+    <li><b>Notetaker link:</b> replace <code>[TEACHER: LINK THE NOTETAKER HERE]</code> with a link to your <i>I Have a Dream</i> notetaker. It is left out of this file because the repository and website are public.</li>
+    <li><b>Fallback:</b> upload <code>student-fallback.pdf</code> (4 pages, no answer keys) to the assignment or Canvas Files, then select the words <i>Printable Fallback</i> in the student copy and link them to that file. Leave paper copies with the guest teacher too.</li>
+    <li><b>Check it:</b> save, publish, open <b>Student View</b>, and click the lab link once.</li>
   </ol>
+  <p>The lab is live at <code>https://bookfairshit.github.io/Unit-2.2-Informational-Text/rhetoric-lab/</code>. Students can build, print and submit their report at any time; it says COMPLETE when all five gates are clear, or IN PROGRESS with the number of gates cleared.</p>
 </section>
 
 <p class="copy-label">Student copy · paste into Canvas</p>
 <section class="student" aria-labelledby="student-title">
 <!-- STUDENT COPY START -->
-<h2 id="student-title" style="margin:0 0 10px">11/19 — The Rhetoric Lab: How King's Words Work</h2>
-<p style="margin:0 0 10px">Today you will work independently through The Rhetoric Lab. You will practice explaining figurative language, rhetorical devices, appeals, and support, then analyze King's speech in your own words.</p>
-<p style="margin:0 0 10px"><strong>The lab has five gates.</strong> Each gate opens the next. You can build your report at any time, and it shows which gates you have cleared. Clear all five for a complete report, and <strong>that report is your graded submission</strong> for this assignment.</p>
-<p style="margin:0 0 10px"><strong>Rhetoric Lab website:</strong> <span style="background:#FFF3B0;padding:2px 6px;border:1px dashed #9A7A00">[TEACHER: PASTE THE RHETORIC LAB LINK HERE]</span></p>
-<p style="margin:0 0 10px"><strong>Your text, the I Have a Dream notetaker:</strong> <span style="background:#FFF3B0;padding:2px 6px;border:1px dashed #9A7A00">[TEACHER: LINK THE NOTETAKER HERE]</span> · Chunk 2 is paragraphs 7–13; Chunk 3 is paragraphs 14–23.</p>
-<ol style="margin:0 0 10px">
-  <li>Open the linked Rhetoric Lab website.</li>
-  <li>Keep your notetaker open to chunks 2 and 3 in another tab. You may use your annotations and the site's reference tools.</li>
-  <li>Check in, then clear <strong>Gates 1–4</strong>: short instruction and practice. Read the feedback and revise when needed. Hints and worked explanations are allowed and recorded.</li>
-  <li>Clear <strong>Gate 5</strong>: final responses A, B, and C in your own words, with evidence from both chunks. If you cannot open your notetaker, use the Yale transcript linked in the site's Class copy panel and check <strong>Transcript used</strong>.</li>
-  <li>On the Report page, select <strong>Generate my full report</strong>, then <strong>Copy Report</strong>. Paste the report into this Canvas assignment's Text Entry box and submit. If copying fails, download the text file or use Print → Save as PDF and submit through the enabled file-upload option.</li>
+<h2 id="student-title">11/19 — The Rhetoric Lab: How King's Words Work</h2>
+<p>Today you will work on your own in <strong>The Rhetoric Lab</strong>, a website that teaches how King's language works and then asks you to explain it in your own words, using chunks 2 and 3 of "I Have a Dream."</p>
+<h3>Open these two tabs</h3>
+<ul>
+<li><strong>The Rhetoric Lab:</strong> <a href="https://bookfairshit.github.io/Unit-2.2-Informational-Text/rhetoric-lab/" target="_blank" rel="noopener">Open The Rhetoric Lab</a></li>
+<li><strong>Your text:</strong> your <em>I Have a Dream</em> interactive notetaker (the copy you annotated Wednesday) <span style="background:#FFF3B0;padding:2px 6px;border:1px dashed #9A7A00">[TEACHER: LINK THE NOTETAKER HERE]</span>. Chunk 2 is paragraphs 7–13. Chunk 3 is paragraphs 14–23.</li>
+</ul>
+<h3>What to do</h3>
+<ol>
+<li><strong>Check in</strong> on the lab's first page.</li>
+<li><strong>Clear the five gates in order:</strong> 1 The Toolbox · 2 The Image Lab · 3 The Sound of Persuasion · 4 The Evidence Test · 5 Your Analysis. Stuck? <strong>Show a hint</strong> and the worked explanations are allowed. Press <strong>Listen</strong> to hear any section read aloud.</li>
+<li><strong>Gate 5 is your own writing:</strong> responses A, B and C, with evidence from both chunks. Save about 12 minutes for it.</li>
+<li>Go to <strong>Your Report</strong>. Type your name and class period, select <strong>Generate my report</strong>, then <strong>Copy Report</strong>.</li>
+<li>Come back to this assignment, paste the report into the <strong>Text Entry</strong> box (Ctrl+V), and select <strong>Submit Assignment</strong>.</li>
 </ol>
-<p style="margin:0 0 10px">Your final work should explain <strong>how the words work</strong>, not just name a device or appeal. Completing the website does not automatically submit anything to Canvas.</p>
-<p style="margin:0">If the website will not open, use the posted student fallback and your notetaker. Complete A, B, and C in your spiral under the same lesson title, then submit legible photos if possible. If you cannot upload, keep the dated work ready for Mr. Moody to collect.</p>
+<p style="background:#FBF3DE;border-left:4px solid #C9A13B;padding:8px 12px"><strong>Your report is your graded submission.</strong> It shows your practice and your analysis, and Mr. Moody grades your explanations in A, B and C. A complete report has all five gates cleared. If time runs out, submit the report you have: it shows how far you got. Finishing the website does <strong>not</strong> submit anything; only submitting here does.</p>
+<h3>If something goes wrong</h3>
+<ul>
+<li><strong>Copy Report doesn't work:</strong> use <strong>Download .txt</strong> or <strong>Print / Save as PDF</strong> in the lab, then upload the file here.</li>
+<li><strong>Switching Chromebooks:</strong> on the old one, select <strong>Save my work to a file</strong>. On the new one, select <strong>Load my work from a file</strong>.</li>
+<li><strong>Can't open your notetaker:</strong> the lab's <strong>Class copy</strong> button links the Yale transcript and shows where chunks 2 and 3 start and end.</li>
+<li><strong>The website won't open:</strong> use the <strong>Printable Fallback</strong> attached to this assignment. Complete A, B and C in your spiral under today's title and upload clear photos. If you can't upload, keep the dated page ready for Mr. Moody.</li>
+</ul>
+<p>Work independently. You may use your notetaker, your annotations and the lab's Reference. Copying another student's analysis is not allowed.</p>
 <!-- STUDENT COPY END -->
 </section>
 </main>
